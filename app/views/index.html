@@ -27,49 +27,30 @@
 
       <!-- Change the page title here -->
       <h1>
-        NHS.UK prototype kit
-        <span class="nhsuk-caption-xl nhsuk-caption--bottom">Version {{version}}</span>
+        NHS login identity checking and matching service
       </h1>
 
       <!-- Add your content here -->
       <!-- Styles and components can be found at https://beta.nhs.uk/service-manual/styles-components-patterns -->
 
       <p class="nhsuk-lede-text">
-        This kit lets you rapidly create HTML prototypes of NHS services.
+        A service for ID checkers to check identity documents, perform facial comparisons and match users to NHS records.
       </p>
 
       <hr>
 
       <h2>
-        About this page
+        Prototype versions
       </h2>
 
-      <p>
-        Use this page as the index for your project.
-      </p>
-      
-      <p>
-        You'll find the code for this page at <strong>/app/views/index.html</strong>.
-      </p>
+      <form action="{{ thisPage }}" method="POST" role="form">
 
-      <p>
-        There is also an <a href="/page-example">example page</a>, which contains a selection of NHS.UK frontend styles and components.
-      </p>
+      <dl class="release-desc">
+        <dt class="design"><button type="submit" class="button-as-link" title="Beta: U" name="version" value="A">Version A</button> <strong class="govuk-tag in-progress">in progress</strong></dt>
+<!--        <dd class="design">New ordering of questions.</dd>-->
+      </dl>
 
-      <hr>
-
-      <h2>
-        Documentation
-      </h2>
-
-      <ul>
-        <li>
-          Get started with <a href="/docs">how to guides and page templates</a>
-        </li>
-        <li>
-          Copy and paste styles and components from the <a href="https://beta.nhs.uk/service-manual/styles-components-patterns">NHS digital service manual</a>
-        </li>
-      </ul>
+      </form>
 
       <!-- End of content -->
 

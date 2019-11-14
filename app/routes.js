@@ -16,9 +16,36 @@ function loadJSONFromFile(fileName, path = "app/data/") {
 
 // Documentation router
 router.get('/', function(req , res){
-  res.render('index');
-  console.log('hello')
+  res.render('index')
 });
+
+router.post("/", function (req, res) {
+
+  let prototype = {} || req.session.data.prototype
+  let startPage = 'signin'
+
+  console.log('yikes')
+
+  let prototypeData = req.session.data.version
+
+    console.log(prototypeData)
+
+    prototype.release = prototypeData
+
+    if (prototype.release == 'A') {
+      startPage = 'dashboard'
+    } else if (prototype.release == 'B') {
+      startPage = 'dashboard'
+    }
+
+    var redirect = '/' + startPage
+
+    req.session.data.prototype = prototype
+    delete req.session.data.version
+
+  res.redirect(redirect)
+
+})
 
 // pull in the test dat when on the dashboard
 router.get('/dashboard', function (req, res) {

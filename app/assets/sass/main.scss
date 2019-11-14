@@ -11,3 +11,36 @@
 ///////////////////////////////////////////
 // Add your custom CSS/Sass styles below... 
 ///////////////////////////////////////////
+
+
+.button-as-link {
+  background: none !important;
+  color: $nhsuk-link-color;
+  border: none;
+  padding: 0 !important;
+  font: inherit;
+  cursor: pointer;
+  text-decoration: underline;
+  &:hover { color: $nhsuk-link-hover-color; }
+  &:active { color: $nhsuk-link-active-color; }
+  &:visited { color: $nhsuk-link-visited-color; }
+  &:focus {
+    color: $nhsuk-button-active-color;
+    outline: none;
+  }
+}
+
+strong.govuk-tag {
+  &.latest-release {
+    background-color: $color_nhsuk-blue;
+    color: $color_nhsuk-white;
+    font-size: 0.9rem;
+  }
+
+  &.concept,
+  &.in-progress {
+    background-color: $color_nhsuk-green;
+    color: $color_nhsuk-white;
+    font-size: 0.9rem;
+  }
+}
