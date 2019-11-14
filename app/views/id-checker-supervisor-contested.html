@@ -1,0 +1,55 @@
+{% extends '_layouts/_grids/_grid-1.html' %}
+{% block page_title %}NHS Identity Verification and Matching Service{% endblock %}
+
+{% set service = "idchecker" %}
+{% set serviceName = "Identity Verification and Matching Service" %}
+{% set signedin = 'audit' %}
+{% set noabort = 'true' %}
+{% set params = "?demographics=" + demographics + "&role=" + role + "&result=" + result + "&failreason=" + failreason + "&devMode=" + devMode + "&idType=" + idType %}
+
+
+{% block content %}
+
+<p><a href="id-checker-supervisor-contested-periods{{ params }}" class="link-back">Back</a></p>
+
+<h1><span class="heading-secondary">Verification request disputes for the period:</span> 11th March 2019 - 17th March 2019</h1>
+<!--<p>11th March 2019 - 17th March 2019</p>-->
+
+<table>
+    <thead>
+    <tr>
+        <th>User</th>
+        <th>Original decision</th>
+        <th>Reason for dispute</th>
+        <th>Date</th>
+        <th>&nbsp;</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td><a href="id-checker-panel-review?demographics=true&role=Supervisor&result=fail&failreason=document&devMode={{ devMode }}&holding=clear" class="">Joe Bloggs</a></td>
+        <td>Auto approved</td>
+        <td>Identity document - Fingers over the corners</td>
+        <td>12/03/19</td>
+        <td>&nbsp;</td>
+    </tr>
+    <tr>
+        <td><a href="id-checker-panel-review?demographics=true&role=Supervisor&result=fail&failreason=document&devMode={{ devMode }}&holding=clear" class="">Maria Anders</a></td>
+        <td>Approved by ID checker</td>
+        <td>Facial comparison - they don't look like the same person</td>
+        <td>13/03/19</td>
+        <td>&nbsp;</td>
+    </tr>
+    <tr>
+        <td><a href="id-checker-panel-review?demographics=true&role=Supervisor&result=fail&failreason=document&devMode={{ devMode }}&holding=clear" class="">Pete Smith</a></td>
+        <td>Auto rejected</td>
+        <td>Identity document - Glare was minimal so could read the details</td>
+        <td>14/03/19</td>
+        <td><div class="idcheck-panel-actioned">Actioned</div></td>
+    </tr>
+    </tbody>
+</table>
+
+
+{% endblock %}
+

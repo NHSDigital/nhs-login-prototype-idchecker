@@ -1,0 +1,46 @@
+{% extends '_layouts/_grids/_grid-1.html' %}
+{% block page_title %}NHS Identity Verification and Matching Service{% endblock %}
+
+{% set service = "idchecker" %}
+{% set serviceName = "Identity Verification and Matching Service" %}
+{% set signedin = 'audit' %}
+{% set noabort = 'true' %}
+{% set params = "?demographics=" + demographics + "&role=" + role + "&result=" + result + "&failreason=" + failreason + "&devMode=" + devMode + "&idType=" + idType %}
+
+
+{% block content %}
+
+<p><a href="id-checker-supervisor-dashboard{{ params }}" class="link-back">Back</a></p>
+
+<h1>Disputed verification requests</h1>
+
+<table>
+    <thead>
+    <tr>
+        <th>Audit period</th>
+        <th>Reviewed</th>
+        <th>&nbsp;</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td><a href="id-checker-supervisor-contested{{ params }}" class="">11th March 2019 - 17th March 2019</a></td>
+        <td>0 of 3</td>
+        <td style="text-align: right;"><span style="color: grey;">Auditing in progress</span></td>
+    </tr>
+    <tr>
+        <td><a href="id-checker-supervisor-contested{{ params }}" class="">4th March 2019 - 10th March 2019</a></td>
+        <td>12 of 14</td>
+        <td style="text-align: right;"><span style="color: grey;">Incomplete</span></td>
+    </tr>
+    <tr>
+        <td><a href="id-checker-supervisor-contested{{ params }}" class="">25th February 2019 - 3rd March 2019</a></td>
+        <td>11 of 11</td>
+        <td style="text-align: right;"><span style="color: grey;">Complete</span></td>
+    </tr>
+    </tbody>
+</table>
+
+
+{% endblock %}
+

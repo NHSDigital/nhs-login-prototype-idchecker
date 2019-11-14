@@ -1,0 +1,1146 @@
+{% extends '_layouts/_grids/_grid-1.html' %}
+{% block page_title %}NHS Identity Verification and Matching Service{% endblock %}
+
+{% set service = "idchecker" %}
+{% set serviceName = "Identity Verification and Matching Service" %}
+{% set signedin = 'true' %}
+{% set params = "?demographics=" + demographics + "&role=" + role + "&result=" + result + "&failreason=" + failreason + "&devMode=" + devMode + "&idType=" + idType %}
+
+{% block content %}
+
+<div class="id-check_automated">Automated journey</div>
+
+<div class="panel" style="margin: 0;">
+    <div class="panel__content panel__content--half">
+        <h3>Submitted details</h3>
+
+        {% if demographics !== 'true' or demographics == 'both' %}
+
+        <div class="form-group">
+            <label class="form-label">NHS Number</label>
+            <input type="text" id="nhsnum" name="" value="485 777 3456" class="year" maxlength="10" readonly
+                   style="display: inline-block; margin-bottom: 0;">
+        </div>
+
+        <!--<h3>OCR details</h3>-->
+
+        <div class="form-group">
+            <label class="form-label">First names</label>
+            <input type="text" id="" name="" value="Joe Billy" class="" maxlength="" readonly style="display: inline-block; margin-bottom: 0;">
+        </div>
+        <div class="form-group">
+            <label class="form-label">Last name</label>
+            <input type="text" id="" name="" value="Bloggs" class="" maxlength="" readonly style="display: inline-block; margin-bottom: 0;">
+        </div>
+
+        <div class="form-group">
+            <fieldset style="display: inline-block; margin-bottom: 0;">
+                <legend class="form-label">
+                    Date of birth
+                </legend>
+                <div class="form-group -date" style="margin-top: 10px;">
+                    <div class="form-date-field">
+                        <!--<label for="dob-day" style="margin-bottom: 5px; display: block;">Day</label>-->
+                        <input type="tel" id="dob-day" name="dob-day" pattern="[0-9]" value="8" class="day"
+                               maxlength="2" min="1" max="31" readonly style="margin-bottom: 0;">
+                    </div>
+                    <div class="form-date-field">
+                        <!--<label for="dob-month" style="margin-bottom: 5px; display: block;">Month</label>-->
+                        <input type="tel" id="dob-month" name="dob-month" pattern="[0-9]" value="2" class="month"
+                               maxlength="2" min="1" max="12" readonly style="margin-bottom: 0;">
+                    </div>
+                    <div class="form-date-field">
+                        <!--<label for="dob-year" style="margin-bottom: 5px; display: block;">Year</label>-->
+                        <input type="tel" id="dob-year" name="dob-year" pattern="[0-9]" value="1979" class="year"
+                               maxlength="4" min="1900" max="2018" readonly style="margin-bottom: 0;">
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">Postcode</label>
+            <input type="text" id="" name="" value="BD7 1DP" class="" maxlength="" readonly
+                   style="display: inline-block; margin-bottom: 0;">
+            {% if result == 'fails' %}
+            <a href="#" class="idcheck-edit">Edit</a>
+            {% endif %}
+        </div>
+
+        {% else %}
+
+        <div class="form-group">
+            <label class="form-label">NHS Number</label>
+            <input type="text" id="nhsnum" name="" value="" class="year" maxlength="10" readonly
+                   style="display: inline-block; margin-bottom: 0;">
+        </div>
+
+        {% if result == 'success' %}
+
+        <div class="form-group">
+            <label class="form-label">NHS Number</label>
+            <input type="text" id="nhsnum" name="" value="485 777 3456" class="year" maxlength="10" readonly
+                   style="display: inline-block; margin-bottom: 0;">
+        </div>
+
+        <div class="form-group">
+            <fieldset style="display: inline-block">
+                <legend class="form-label">
+                    Date of birth
+                </legend>
+                <div class="form-group -date" style="margin-top: 10px;">
+                    <div class="form-date-field">
+                        <!--<label for="dob-day" style="margin-bottom: 5px; display: block;">Day</label>-->
+                        <input type="tel" id="dob-day" name="dob-day" pattern="[0-9]" value="9" class="day"
+                               maxlength="2" min="1" max="31" readonly style="margin-bottom: 0;">
+                    </div>
+                    <div class="form-date-field">
+                        <!--<label for="dob-month" style="margin-bottom: 5px; display: block;">Month</label>-->
+                        <input type="tel" id="dob-month" name="dob-month" pattern="[0-9]" value="2" class="month"
+                               maxlength="2" min="1" max="12" readonly style="margin-bottom: 0;">
+                    </div>
+                    <div class="form-date-field">
+                        <!--<label for="dob-year" style="margin-bottom: 5px; display: block;">Year</label>-->
+                        <input type="tel" id="dob-year" name="dob-year" pattern="[0-9]" value="1979" class="year"
+                               maxlength="4" min="1900" max="2018" readonly style="margin-bottom: 0;">
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+
+
+        {% endif %}
+
+        <!--<h3>OCR details</h3>-->
+
+        <div class="form-group">
+            <label class="form-label">First names</label>
+            <input type="text" id="" name="" value="Joe Billy" class="" maxlength="" readonly style="display: inline-block; margin-bottom: 0;">
+        </div>
+        <div class="form-group">
+            <label class="form-label">Last name</label>
+            <input type="text" id="" name="" value="Bloggs" class="" maxlength="" readonly style="display: inline-block; margin-bottom: 0;">
+        </div>
+
+        {% if result != 'success' %}
+
+        <div class="form-group">
+            <fieldset style="display: inline-block">
+                <legend class="form-label">
+                    Date of birth
+                </legend>
+                <div class="form-group -date" style="margin-top: 10px;">
+                    <div class="form-date-field">
+                        <!--<label for="dob-day" style="margin-bottom: 5px; display: block;">Day</label>-->
+                        <input type="tel" id="dob-day" name="dob-day" pattern="[0-9]" value="8" class="day"
+                               maxlength="2" min="1" max="31" readonly style="margin-bottom: 0;">
+                    </div>
+                    <div class="form-date-field">
+                        <!--<label for="dob-month" style="margin-bottom: 5px; display: block;">Month</label>-->
+                        <input type="tel" id="dob-month" name="dob-month" pattern="[0-9]" value="2" class="month"
+                               maxlength="2" min="1" max="12" readonly style="margin-bottom: 0;">
+                    </div>
+                    <div class="form-date-field">
+                        <!--<label for="dob-year" style="margin-bottom: 5px; display: block;">Year</label>-->
+                        <input type="tel" id="dob-year" name="dob-year" pattern="[0-9]" value="1979" class="year"
+                               maxlength="4" min="1900" max="2018" readonly style="margin-bottom: 0;">
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">Postcode</label>
+            <input type="text" id="" name="" value="BD7 1DP" class="" maxlength="" readonly
+                   style="display: inline-block; margin-bottom: 0;">
+            {% if result == 'fails' %}
+            <a href="#" class="idcheck-edit">Edit</a>
+            {% endif %}
+        </div>
+
+
+        {% endif %}
+
+
+        {% endif %}
+    </div>
+    <div class="panel__content panel__content--half">
+        <h3>PDS record</h3>
+
+        <div class="bar_container" id="loader">
+            <div id="main_container">
+                <div id="pbar" class="progress-spinner" data-percent="0">
+                    <img src="/images/loader-spinner.svg" width="200px" height="200px" id="spinner"/>
+                    <div class="ppc-loading">
+                        <div class="pcc-percents-wrapper">
+                            <span id="spinner-status">Tracing</span><span aria-hidden="true">...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!--<p class="small" id="loader"><img src="/images/ajax-loader.gif" style="width: 30px" alt="loading">&nbsp; Running trace</p>-->
+
+        <!--<div id="trace" class="idcheck-match {{ result }}"-->
+             <!--style="display:none;-webkit-animation-delay: 2s;-moz-animation-delay: 2s;animation-delay: 2s;">-->
+
+
+            {% if result !== 'fail' and result !== 'spine' %}
+
+            <div id="trace" class=" {{ result }}" style="display:none;-webkit-animation-delay: 2s;-moz-animation-delay: 2s;animation-delay: 2s;">
+
+            <table class="">
+                {% if demographics === 'true' %}
+                <tr>
+                    <td>NHS Number:</td>
+                    <td><b>485 777 3456</b></td>
+                </tr>
+                {% endif %}
+                <tr>
+                    <td>First name:</td>
+                    <td><b>Joe</b></td>
+                </tr>
+                <tr>
+                    <td>Middle names:</td>
+                    <td><b>Frederick</b></td>
+                </tr>
+                <tr>
+                    <td>Last name:</td>
+                    <td><b>Bloggs</b></td>
+                </tr>
+                <tr>
+                    <td>Date of birth:</td>
+                    <td><b>9th February, 1979</b></td>
+                </tr>
+            </table>
+
+            {% endif %}
+
+            {% if result === 'fail' %}
+
+            <div class="idcheck-result">
+                {% if result === 'fail' %}
+                {% if failreason === 'expired' %}
+                Match not possible
+                {% else %}
+                Match not found
+                {% endif %}
+                {% elif result === 'spine' %}
+
+                {% if failreason === 'invalid' %}
+                System error - SMSP-0001
+                {% elif failreason === 'validation' %}
+                System error - SMSP-0002
+                {% elif failreason === 'unavailable' %}
+                System error - SMSP-0003
+                {% else %}
+                System error - SMSP-0004
+                {% endif %}
+                {% else %}
+                Match
+                {% endif %}
+
+                {% endif %}
+            </div>
+
+            {% if result === 'fail' %}
+
+            {% if demographics === 'true' %}
+
+            {% if failreason === 'multiple' %}
+            <div class="idcheck-result-reason" id="failed">
+                <p>We found more than one PDS record using these details.</p>
+            </div>
+            {% elif failreason === 'expired' %}
+            <div class="idcheck-result-reason" id="failed">
+                <p>The record for this NHS number contains a date of death.</p>
+            </div>
+            {% else %}
+            <div class="idcheck-result-reason" id="failed">
+                <!--<p>The submitted demographic details do not match an NHS record.</p>-->
+            </div>
+            {% endif %}
+
+            {% else %}
+
+            {% if failreason === 'multiple' %}
+            <div class="idcheck-result-reason" id="failed">
+                <p>Multiple results were returned</p>
+            </div>
+            {% elif failreason === 'invalid' %}
+            <div class="idcheck-result-reason" id="failed">
+                <!--<p>The submitted NHS number is invalid</p>-->
+            </div>
+            {% elif failreason === 'expired' %}
+            <div class="idcheck-result-reason" id="failed">
+                <p>The record for this NHS number contains a date of death.</p>
+            </div>
+            {% else %}
+            <div class="idcheck-result-reason" id="failed">
+                <!--<p>Either the NHS number is invalid or it does not match to the date of birth submitted.</p>-->
+            </div>
+            {% endif %}
+
+            {% endif %}
+
+            {% endif %}
+
+            {% if result === 'spine' %}
+
+            {% if failreason === 'invalid' %}
+            <div class="idcheck-result-reason" id="failed">
+                <p>Please contact your supervisor.</p>
+            </div>
+
+            {% elif failreason === 'validation' %}
+            <div class="idcheck-result-reason" id="failed">
+                <p>Please contact your supervisor.</p>
+            </div>
+
+            {% elif failreason === 'unavailable' %}
+            <div class="idcheck-result-reason" id="failed">
+                <p>We are having technical problems.</p>
+                <p>Please abort and try again later.</p>
+            </div>
+
+            {% else %}
+            <div class="idcheck-result-reason" id="failed">
+                <p>We are having technical problems.</p>
+                <p>Please abort and try again later.</p>
+            </div>
+            {% endif %}
+            {% endif %}
+
+        </div>
+
+        {% if result === 'fail' %}
+
+
+        <div class="form-group" id="declinebtn-2" style="display: none;">
+            {% if failreason === 'expired' %}
+
+            <div id="id-decline3">
+                <a href="id-checker-dashboard?state=declined&emailLink=pb/email-idcheck-declined-goto-gp&devMode={{ devMode }}"
+                   data-target="modal" id="declineBtn3" class="button button--decline">Decline</a>
+            </div>
+
+            {% else %}
+
+            <fieldset>
+
+                <p style="padding-bottom: 32px;">Can you find the person's NHS Number using a manual PDS check, so you can re-run the trace?</p>
+
+                <div class="selection-button-radio-inline">
+                    <div class="multiple-choice" data-target="">
+                        <input id="radio-inline-1" type="radio" name="radio-inline-group" value="yes"
+                               aria-controls="nhs-yes">
+                        <label for="radio-inline-1" class="block-label" style="position: static;">Yes</label>
+                    </div>
+                </div>
+                <div class="selection-button-radio-inline" data-group="decline-0">
+                    <div class="multiple-choice" data-target="">
+                        <input id="radio-inline-2" type="radio" name="radio-inline-group" value="no"
+                               aria-controls="nhs-no">
+                        <label for="radio-inline-2" class="block-label" style="position: static;">No</label>
+                    </div>
+                </div>
+            </fieldset>
+
+            {% if formerror === "true" %}
+
+            <form action="">
+
+                <div aria-hidden="true" aria-expanded="false" class=" js-hidden" id="nhs-yes" style="margin: 0;">
+
+                    <div class="form-group">
+
+                        <div id="nhs-number" class="has-error form-row-error-active">
+                            <label class="has-error form-label" for="nhs_number">NHS Number</label>
+                            <input class="form-control code" id="nhs_number" name="nhs_number" type="text" style="margin-bottom: 0;">
+
+                            <div class="has-error form-row-error-active" style="margin-top:1em;">
+                                <span class="error error-message error-label error-text error-message-active"
+                                      id="nhs-number-error">This NHS Number looks wrong. Please check that you've entered exactly 10 numbers.</span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <fieldset>
+                            <legend class="form-label">Date of birth</legend>
+                            <span class="form-label__hint" style="margin-top: 10px;">Example: 31 3 1980</span>
+                            <div class="form-group -date" style="margin-top: 10px;">
+                                <div class="form-date-field has-error">
+                                    <label for="dob-day" style="margin-bottom: 5px; display: block;">Day</label>
+                                    <input type="number" class="day form-control" id="dob-day" name="dob-day" pattern="[0-9]*" value="8" class="day" maxlength="2" min="1" max="31" style="margin: 0;">
+                                </div>
+                                <div class="form-date-field has-error">
+                                    <label for="dob-month" style="margin-bottom: 5px; display: block;">Month</label>
+                                    <input type="number" class="month form-control" id="dob-month" name="dob-month" pattern="[0-9]*" value="2" class="month" maxlength="2" min="1" max="12" style="margin: 0;">
+                                </div>
+                                <div class="form-date-field has-error">
+                                    <label for="dob-year" style="margin-bottom: 5px; display: block;">Year</label>
+                                    <input type="number" class="year form-control" id="dob-year" name="dob-year" pattern="[0-9]*" value="79" class="year" maxlength="4" min="1900" max="2018" style="margin: 0;">
+                                </div>
+                            </div>
+
+                        </fieldset>
+
+                        <div class="has-error form-row-error-active" style="margin-top:1em;">
+                                <span class="error error-message error-label error-text error-message-active"
+                                      id="nhs-number-error">Please enter the full date of birth.</span>
+                        </div>
+                    </div>
+
+
+                    <div id="id-approve2">
+                        <a href="id-checker-review-automated-pds?demographics=both&role=undefined&result=success&state=undefined&devMode={{ devMode }}&idType={{ idType }}"
+                           id="approveBtn2" data-target="modal" class="button button--retry">Re-run trace</a>
+                    </div>
+
+
+
+                </div>
+
+                <div aria-hidden="true" aria-expanded="false" class="js-hidden" id="nhs-no" style="margin: 0 0 32px;" data-group="decline-0">
+                    <div id="id-decline2">
+                        <a href="id-checker-dashboard?state=declined&emailLink=pb/email-idcheck-declined-try-again&devMode={{ devMode }}"
+                           id="declineBtn2" data-target="modal" class="button button--decline">Decline</a>
+                    </div>
+                </div>
+
+            </form>
+
+            {% else %}
+
+            <div aria-hidden="true" aria-expanded="false" class=" js-hidden" id="nhs-yes" style="margin: 0;">
+
+                <div class="form-group">
+                    <label class="form-label" for="nhs_number">NHS Number</label>
+                    <input class="form-control code" id="nhs_number" name="nhs_number" type="text" value="{% if demographics === 'false' %}485 777 3456{% endif%}">
+                </div>
+
+                <fieldset>
+                    <legend class="form-label">Date of birth</legend>
+                    <span class="form-label__hint" style="margin-top: 10px;">Example: 31 3 1980</span>
+                    <div class="form-group -date" style="margin-top: 10px;">
+                        <div class="form-date-field">
+                            <label for="dob-day" style="margin-bottom: 5px; display: block;">Day</label>
+                            <input type="number" id="dob-day" name="dob-day" pattern="[0-9]*" value="8" class="day" maxlength="2" min="1" max="31">
+                        </div>
+                        <div class="form-date-field">
+                            <label for="dob-month" style="margin-bottom: 5px; display: block;">Month</label>
+                            <input type="number" id="dob-month" name="dob-month" pattern="[0-9]*" value="2" class="month" maxlength="2" min="1" max="12">
+                        </div>
+                        <div class="form-date-field">
+                            <label for="dob-year" style="margin-bottom: 5px; display: block;">Year</label>
+                            <input type="number" id="dob-year" name="dob-year" pattern="[0-9]*" value="1979" class="year" maxlength="4" min="1900" max="2018">
+                        </div>
+                    </div>
+                </fieldset>
+
+                <div id="id-approve2">
+                    <a href="id-checker-review-automated-pds?demographics=both&role=undefined&result=success&state=undefined&devMode={{ devMode }}&idType={{ idType }}"
+                       id="approveBtn2" data-target="modal" class="button button--retry">Re-run trace</a>
+                </div>
+            </div>
+
+            <div aria-hidden="true" aria-expanded="false" class="js-hidden" id="nhs-no" style="margin: 0 0 32px;" data-group="decline-0">
+                <div id="id-decline2">
+                    <a href="id-checker-dashboard?state=declined&emailLink=pb/email-idcheck-declined-try-again&devMode={{ devMode }}"
+                       id="declineBtn2" data-target="modal" class="button button--decline">Decline</a>
+                </div>
+            </div>
+
+            {% endif %}
+
+            {% endif %}
+
+        </div>
+
+        {% endif %}
+
+        {% if result === 'spine' %}
+        <div id="retrybtn-1" style="display:none;">
+            <div id="id-retry">
+                <a href="id-checker-review-automated-pds?demographics=false&role=undefined&result=spine&devMode={{ devMode }}&idType={{ idType }}"
+                   id="retryBtn" class="button button--retry">Retry</a>
+            </div>
+        </div>
+        {% endif %}
+
+    </div>
+</div>
+
+<div class="panel" style="display: block;">
+    <div class="panel__content panel__content--half">
+        <h3>Compare the photo ID and the PDS record</h3>
+        <div class="reading-width">
+
+            <div class="idcheck-image">
+                <div class="idcheck-image-expand"><a href="#" class="idcheck-image-expand-button">Expand image</a></div>
+                <img src="/images/passport_redacted.jpg" class="idcheck-image-img" style="width: 100%;"
+                     alt="Image of a passport"/>
+            </div>
+        </div>
+    </div>
+    <div class="panel__content panel__content--half">
+
+        <h3>PDS record</h3>
+
+        <div class="idcheck-match {{ result }}">
+
+            <table class="">
+                {% if demographics === 'true' %}
+                <tr>
+                    <td>NHS Number:</td>
+                    <td><b>485 777 3456</b></td>
+                </tr>
+                {% endif %}
+                <tr>
+                    <td>First name:</td>
+                    <td><b>Joe</b></td>
+                </tr>
+                <tr>
+                    <td>Middle names:</td>
+                    <td><b>Frederick</b></td>
+                </tr>
+                <tr>
+                    <td>Last name:</td>
+                    <td><b>Bloggs</b></td>
+                </tr>
+                <tr>
+                    <td>Date of birth:</td>
+                    <td><b>9th February, 1979</b></td>
+                </tr>
+            </table>
+
+        </div>
+
+        <div class="qa-questions-group" data-complete="false">
+            <div class="qa-questions-question" id="pds-1" data-answered="false" data-group="decline-1a">
+                <p class="qa-questions-question-text">Do the dates of birth match?</p>
+                <div class="qa-questions-answer-group multiple-choice__container" data-answered="false">
+                    <label class="qa-questions-answer multiple-choice multiple-choice--inline multiple-choice--radio"
+                           for="6" aria-checked="false">
+                        <input type="radio" id="0" name="a-1" class="multiple-choice__input" tabindex="1" {% if
+                               result=== 'fail' or result === 'spine' %}disabled{% endif %}>Yes
+                        <div class="qa-questions-answer-radio-indicator"></div>
+                    </label>
+                    <label class="qa-questions-answer multiple-choice multiple-choice--inline multiple-choice--radio"
+                           for="7" aria-checked="false">
+                        <input type="radio" id="1" name="a-1" class="multiple-choice__input" tabindex="2" {% if
+                               result=== 'fail' or result === 'spine' %}disabled{% endif %}>No
+                        <div class="qa-questions-answer-radio-indicator"></div>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="qa-questions-group" data-complete="false">
+            <div class="qa-questions-question" id="pds-2" data-answered="false" data-group="decline-1b">
+                <p class="qa-questions-question-text">Do the first names match?</p>
+                <div class="qa-questions-answer-group multiple-choice__container" data-answered="false">
+                    <label class="qa-questions-answer multiple-choice multiple-choice--inline multiple-choice--radio"
+                           for="8" aria-checked="false">
+                        <input type="radio" id="2" name="a-2" class="multiple-choice__input" tabindex="3" {% if
+                               result=== 'fail' or result === 'spine' %}disabled{% endif %}>Yes
+                        <div class="qa-questions-answer-radio-indicator"></div>
+                    </label>
+                    <label class="qa-questions-answer multiple-choice multiple-choice--inline multiple-choice--radio"
+                           for="9" aria-checked="false">
+                        <input type="radio" id="3" name="a-2" class="multiple-choice__input" tabindex="4" {% if
+                               result=== 'fail' or result === 'spine' %}disabled{% endif %}>No
+                        <div class="qa-questions-answer-radio-indicator"></div>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="qa-questions-group" data-complete="false">
+            <div class="qa-questions-question" id="pds-3" data-answered="false" data-group="decline-1c">
+                <p class="qa-questions-question-text">Do the last names match?</p>
+                <div class="qa-questions-answer-group multiple-choice__container" data-answered="false">
+                    <label class="qa-questions-answer multiple-choice multiple-choice--inline multiple-choice--radio"
+                           for="0" aria-checked="false">
+                        <input type="radio" id="4" name="a-3" class="multiple-choice__input" tabindex="5" {% if
+                               result=== 'fail' or result === 'spine' %}disabled{% endif %}>Yes
+                        <div class="qa-questions-answer-radio-indicator"></div>
+                    </label>
+                    <label class="qa-questions-answer multiple-choice multiple-choice--inline multiple-choice--radio"
+                           for="1" aria-checked="false">
+                        <input type="radio" id="5" name="a-3" class="multiple-choice__input" tabindex="6" {% if
+                               result=== 'fail' or result === 'spine' %}disabled{% endif %}>No
+                        <div class="qa-questions-answer-radio-indicator"></div>
+                    </label>
+                </div>
+            </div>
+
+            <div class="callout callout--info" style="padding-top: 0px; margin-top: 0; display: none;" id="manual-pds">
+
+                <div class="form-group">
+
+                    <fieldset>
+
+                        <p style="padding-bottom: 32px;">Use DSA to check the PDS record. Do any historic surnames match the last name on the photo ID?</p>
+
+                        <div class="selection-button-radio-inline">
+                            <div class="multiple-choice" data-target="">
+                                <input id="radio-inline-3" type="radio" name="radio-inline-group" value="yes"
+                                       aria-controls="pds-yes">
+                                <label for="radio-inline-3" class="block-label" style="position: static;">Yes</label>
+                            </div>
+                        </div>
+                        <div class="selection-button-radio-inline" data-group="decline-4c">
+                            <div class="multiple-choice" data-target="">
+                                <input id="radio-inline-4" type="radio" name="radio-inline-group" value="no"
+                                       aria-controls="pds-no">
+                                <label for="radio-inline-4" class="block-label" style="position: static;">No</label>
+                            </div>
+                        </div>
+                    </fieldset>
+
+
+                </div>
+
+                <div aria-hidden="true" aria-expanded="false" class="js-hidden" id="pds-no" style="margin: 32px 0 0px;" data-group="decline-4c">
+                    <div id="id-decline2">
+                        <a href="id-checker-dashboard?state=declined&emailLink=pb/email-idcheck-declined-try-again&devMode={{ devMode }}"
+                           id="declineBtn2" data-target="modal" class="button button--decline">Decline</a>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<div class="panel" style="display: block;">
+    <div class="panel__content panel__content--half">
+
+        <h3>Image from face scan</h3>
+
+        <div class="idcheck-media">
+            <div class="idcheck-image">
+                <div class="idcheck-image-expand"><a href="#" class="idcheck-image-expand-button">Expand image</a></div>
+
+                <img src="/images/iproov-scan.png" class="idcheck-image-img" style="width: 100%;"
+                     alt="Image of the user from iproov"/>
+
+            </div>
+        </div>
+
+    </div>
+    <div class="panel__content panel__content--half">
+
+        <div class="qa-questions-group" data-complete="false">
+            <div class="qa-questions-question" id="selfie-1" data-answered="false" data-group="decline-2">
+                <p class="qa-questions-question-text">Do the faces from the face scan and the photo ID match?</p>
+                <div class="qa-questions-answer-group multiple-choice__container">
+                    <label class="qa-questions-answer multiple-choice multiple-choice--inline multiple-choice--radio"
+                           aria-checked="false">
+                        <input type="radio" id="6" name="a-4" class="multiple-choice__input" tabindex="7" {% if
+                               result=== 'fail' or result === 'spine' %}disabled{% endif %}>Yes
+                        <div class="qa-questions-answer-radio-indicator"></div>
+                    </label>
+                    <label class="qa-questions-answer multiple-choice multiple-choice--inline multiple-choice--radio"
+                           aria-checked="false">
+                        <input type="radio" id="7" name="a-4" class="multiple-choice__input" tabindex="8" {% if
+                               result=== 'fail' or result === 'spine' %}disabled{% endif %}>No
+                        <div class="qa-questions-answer-radio-indicator"></div>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div id="id-buttons">
+            <div id="id-approve">
+                <a href="id-checker-dashboard?state=approved&emailLink=email-idcheck-approved&devMode={{ devMode }}"
+                   data-target="modal" id="approveBtn" class="button button--approve" style="display: none;">Approve</a>
+            </div>
+            <div id="id-decline">
+                <a href="id-checker-dashboard?state=declined&emailLink=pb/email-idcheck-declined-try-again&devMode={{ devMode }}"
+                   data-target="modal" id="declineBtn" class="button button--decline" style="display: none;">Decline</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="slideout">
+    <img src="/images/problem.png" alt="Feedback" height="173" width="32"/>
+    <div id="slideout_inner">
+        <h3>Move to holding list</h3>
+        <label class="" for="field3">Reason for moving (required)</label>
+        <textarea class="" id="field3" name="field3" type="text" rows="3"
+              style="margin-top: 16px;" onkeyup='checkText(this.value);'></textarea>
+        <button class="" id="id-holding">Move</button>
+
+    </div>
+</div>
+
+
+<div class="modal-overlay no-fade" id="modal_window" aria-hidden="true" role="dialog" aria-labelledby="modal_title">
+    <p>&nbsp;</p>
+    <p>&nbsp;</p>
+    <div class="modal-content" id="modal_holder" role="document">
+        <h3 id="modal-header">Additional information about this assurance request</h3>
+
+        <div class="first-item">
+            <form>
+
+                <div class="form-group">
+
+                    <div class="govuk-form-group" id="rejection-reasons">
+                        <label class="form-label" for="sort">Rejection reason</label>
+
+                        <select id="decline-0" class="govuk-select decline-group" id="sort" name="sort" style="margin-top:16px;width:100%;display:none;">
+                            <option value="IDC-010" data-question="">--- Please select ---</option>
+                            <option value="IDC-011" data-question="decline-text-1">Driving licence - cannot see information in ID</option>
+                            <option value="IDC-012" data-question="decline-text-2">Driving licence - cannot find NHS Number</option>
+                            <option value="IDC-013" data-question="decline-text-1">Passport - cannot see information in ID</option>
+                            <option value="IDC-014" data-question="decline-text-2">Passport - cannot find NHS Number</option>
+                            <option value="IDC-015" data-question="decline-text-1">National identity card - cannot see information in ID</option>
+                            <option value="IDC-016" data-question="decline-text-2">National identity card - cannot find NHS Number</option>
+                        </select>
+
+                        <select id="decline-1a" class="govuk-select decline-group" id="sort" name="sort" style="margin-top:16px;width:100%;display:none;">
+                            <option value="IDC-050" data-question="">--- Please select ---</option>
+                            <option value="IDC-051" data-question="decline-text-15">Driving licence - dates of birth do not match</option>
+                            <option value="IDC-052" data-question="decline-text-15">Passport - dates of birth do not match</option>
+                            <option value="IDC-053" data-question="decline-text-15">National identity card - dates of birth do not match</option>
+                        </select>
+
+                        <select id="decline-1b" class="govuk-select decline-group" id="sort" name="sort" style="margin-top:16px;width:100%;display:none;">
+                            <option value="IDC-050" data-question="">--- Please select ---</option>
+                            <option value="IDC-051" data-question="decline-text-15">Driving licence - first names do not match</option>
+                            <option value="IDC-052" data-question="decline-text-15">Passport - first names do not match</option>
+                            <option value="IDC-053" data-question="decline-text-15">National identity card - first names do not match</option>
+                        </select>
+
+                        <select id="decline-1c" class="govuk-select decline-group" id="sort" name="sort" style="margin-top:16px;width:100%;display:none;">
+                            <option value="IDC-050" data-question="">--- Please select ---</option>
+                            <option value="IDC-051" data-question="decline-text-15">Driving licence - last names do not match</option>
+                            <option value="IDC-052" data-question="decline-text-15">Passport - last names do not match</option>
+                            <option value="IDC-053" data-question="decline-text-15">National identity card - last names do not match</option>
+                        </select>
+
+                        <select id="decline-2" class="govuk-select decline-group" id="sort" name="sort" style="margin-top:16px;width:100%;display:none;">
+                            <option value="IDC-070" data-question="">--- Please select ---</option>
+                            <option value="IDC-071" data-question="decline-text-10">Driving licence - faces do not match</option>
+                            <option value="IDC-072" data-question="decline-text-10">Passport - faces do not match</option>
+                            <option value="IDC-073" data-question="decline-text-10">National identity card - faces do not match</option>
+                        </select>
+                    </div>
+                </div>
+
+
+                <div class="form-group" id="rejection-text" style="display:none;">
+
+                    <div id="decline-text-1" style="display:none;">
+                        <label class="form-label" for="field3">Which part of the ID is affected, and how?</label>
+                        <span class="form-hint">Tell us if:<br>
+                            &#9679; anything is covered up, and how<br>
+                            &#9679; anything is cut off<br>
+                            &#9679; there is glare<br>
+                            &#9679; there is blur<br>
+                            &#9679; it's too light<br>
+                            &#9679; it's too dark<br>
+                            &#9679; anything else is making it difficult for you to see the information clearly<br>
+                        </span>
+                    </div>
+
+                    <div id="decline-text-2" style="display:none;">
+                        <label class="form-label" for="field3">Why could you not find the person's NHS Number? (required)</label>
+                    </div>
+
+                    <div id="decline-text-3" style="display:none;">
+                        <label class="form-label" for="field3">"Which dates do not match? (required)</label>
+                        <span class="form-hint">Look at the date of birth:<br>
+                                &#9679; in the submitted details<br>
+                                &#9679; in PDS<br>
+                                &#9679; in the photo ID<br>
+                            </span>
+                    </div>
+
+
+                    <div id="decline-text-7" style="display:none;">
+                        <label class="form-label" for="field3">Which details do not match, and why? (required)</label>
+                    </div>
+
+                    <div id="decline-text-10" style="display:none;">
+                        <label class="form-label" for="field3">More information about why you think they do not match (optional)</label>
+                    </div>
+
+
+                    <textarea class="form-control form-textbox" id="field3" name="field3" type="text" rows="3"
+                              style="margin-top: 16px;" onkeyup='checkText(this.value);'></textarea>
+                </div>
+
+                <div class="form-group">
+                    <a class="button" id="modal-link"
+                       href="id-checker-supervisor-dashboard?role=Supervisor&devMode={{ devMode }}" disabled="disabled">Submit</a>
+                    <p><a href="#" id="modal_close">Cancel</a></p>
+                </div>
+            </form>
+        </div>
+    </div> <!-- end .modal-content -->
+</div> <!-- end .modal-overlay -->
+
+<p style="visibility: hidden"><a id="modal_create" class="smartcard" href="#">.</a><a id="holding" href="id-checker-dashboard{{ params }}&holding=inholding">.</a></p>
+
+<script type="text/javascript">
+    /* eslint-disable indent */
+
+    // hide or show the buttons based on selections
+    // localStorage.removeItem("idchecker-pds")
+    addEventListeners()
+    addButtonListeners()
+    addRejectionListeners()
+    addToHolding()
+    resetAllSections()
+    questionsComplete = false
+
+    function getParameterByName(name, url) {
+        if (!url) url = window.location.href
+        name = name.replace(/[\[\]]/g, "\\$&")
+        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+            results = regex.exec(url)
+        if (!results) return null
+        if (!results[2]) return ''
+        return decodeURIComponent(results[2].replace(/\+/g, " "))
+    }
+
+    var state = getParameterByName('state')
+
+    setTimeout(function () {
+        document.getElementById('trace').style.display = 'block'
+        // document.getElementById('retrybtn-1').style.display = 'block'
+        if (state === 'noresult') {
+            $('label[for="1"]').click()
+        }
+    }, 2000)
+    setTimeout(function () {
+        document.getElementById('loader').style.display = 'none'
+    }, 2000)
+
+    setTimeout(function () {
+        document.getElementById('declinebtn-2').style.display = 'block'
+        var errors = document.getElementsByClassName('idcheck-edit')
+        for (i = 0; i < errors.length; i++) {
+            errors[i].style.display = 'inline-block'
+        }
+        if (state === 'noresult') {
+            $('label[for="1"]').click()
+        }
+    }, 2000)
+
+    setTimeout(function () {
+        document.getElementById('slideout-value_tab_spinner').style.display = 'none'
+    }, 4000)
+
+    setTimeout(function () {
+        document.getElementById('slideout-value_tab_value').style.display = 'block'
+    }, 4000)
+
+
+    // when a radio button is clicked
+    var processClick = function (e) {
+        // update local storage straight away
+        updateStorageFromElements()
+
+        // first unset all the aria-checked attributes in an answer group
+        var labels = e.parentNode.parentNode.getElementsByClassName('qa-questions-answer')
+        for (i = 0; i < labels.length; i++) {
+            labels[i].setAttribute('aria-checked', false)
+        }
+        // then check only the selected one
+        e.parentNode.setAttribute('aria-checked', true)
+
+        // a click will trigger the showing and hiding of question groups
+
+        // get the section the click was in and pass it into a function
+        var section = e.parentNode.parentNode.parentNode.parentNode
+        checkSectionComplete(section)
+
+    }
+
+    // when an approve or decline button is clicked
+    var buttonClick = function (object, event) {
+        event.preventDefault()
+        console.log(object)
+        var target = object.parentElement.parentElement.getAttribute('data-group')
+        // console.log(target)
+
+        var link = object.href
+        var heading = document.getElementById('modal-header')
+        heading.text = 'Information about this declined verification'
+        var a = document.getElementById('modal-link')
+        a.href = link
+        document.getElementById('modal_create').click()
+
+        var buttonType = object.text
+
+        if (buttonType === 'Decline') {
+            heading.innerText = 'Information about this declined verification'
+            setSubReasons('')
+            setReasons(target)
+            document.getElementById('modal_create').click()
+        } else {
+            heading.innerText = 'Information about this approved verification'
+            document.getElementById('rejection-reasons').style.display = 'none'
+        }
+    }
+
+
+
+    function setReasons(target) {
+        // first do a reset
+        // get all the dropdowns into an array;
+        document.getElementById('rejection-reasons').style.display = 'block'
+        var reasons = document.getElementsByClassName('decline-group')
+        for (i = 0; i < reasons.length; i++) {
+            reasons[i].style.display = 'none'
+            reasons[i].selectedIndex = "0";
+        }
+        if (target){
+            document.getElementById(target).style.display = 'block'
+        }
+    }
+
+    var selectChange = function (object, event) {
+        var target = object.options[object.selectedIndex].getAttribute('data-question')
+        setSubReasons(target)
+    }
+
+    function setSubReasons(target) {
+        // reset everything before showing the picked one
+        var subReasons = document.getElementById('rejection-text').getElementsByTagName('div')
+        resetText()
+        for (i = 0; i < subReasons.length; i++) {
+            subReasons[i].style.display = 'none'
+        }
+        if (target){
+            document.getElementById(target).style.display = 'block'
+            // show the text area
+            document.getElementById('rejection-text').style.display = 'block'
+        } else {
+            document.getElementById('rejection-text').style.display = 'none'
+        }
+    }
+
+    function checkText(text) {
+        if(text.length >= 1) {
+            document.getElementById('modal-link').removeAttribute("disabled")
+        } else if(text.length == 0) {
+            document.getElementById('modal-link').setAttribute("disabled", "")
+        }
+    }
+
+    function resetText() {
+        var textarea = document.getElementById('field3')
+        textarea.value = "";
+        document.getElementById('modal-link').setAttribute("disabled", "")
+    }
+
+    // run through all sections checking for completeness
+    function resetAllSections() {
+        // get an array of all the question groups
+        var questionGroups = document.getElementsByClassName('qa-questions-group')
+        // lets hold the completion state of each section in an array
+        for (i = 0; i < questionGroups.length; i++) {
+            // reset attributes
+            questionGroups[i].setAttribute('data-complete', false)
+            // get array of all the answer groups
+            var questions = questionGroups[i].getElementsByClassName('qa-questions-question')
+            // loop through all the question groups
+            for (j = 0; j < questions.length; j++) {
+                // get array of the labels
+                var answers = questionGroups[i].getElementsByClassName('qa-questions-answer')
+                // loop through answers
+                for (k = 0; k < answers.length; k++) {
+                    answers[k].setAttribute('aria-checked', false)
+                    // get the individual inputs
+                    var inputs = answers[k].getElementsByTagName('input')
+                    // loop through all the inputs and uncheck them
+                    for (l = 0; l < inputs.length; l++) {
+                        inputs[l].checked = false
+                        inputs[l].disabled = true
+                    }
+                }
+            }
+        }
+        unlockFirstQuestion()
+    }
+
+    {% if result !== 'fail' and result !== 'spine' %}
+    function unlockFirstQuestion() {
+        console.log("unlock")
+
+        // get an array of all the question groups
+        var questionGroup = document.getElementById('pds-1')
+
+        var inputs = questionGroup.getElementsByTagName('input')
+        // loop through all the inputs and uncheck them
+        for (l = 0; l < inputs.length; l++) {
+            inputs[l].checked = false
+            inputs[l].disabled = false
+        }
+    }
+
+    {% else %}
+
+    function unlockFirstQuestion() {
+    }
+
+    {% endif %}
+
+
+    function addEventListeners() {
+        var inputs = document.getElementsByTagName('input')
+        for (i = 0; i < inputs.length; i++) {
+            inputs[i].addEventListener('click', function () {
+                processClick(this)
+            })
+        }
+    }
+
+    function addButtonListeners() {
+        var inputs = document.querySelectorAll('.button--decline')
+        for (i = 0; i < inputs.length; i++) {
+            inputs[i].addEventListener('click', function (event) {
+                buttonClick(this, event)
+            })
+        }
+    }
+
+    function addRejectionListeners() {
+        var selects = document.querySelectorAll('.decline-group')
+        for (i = 0; i < selects.length; i++) {
+            selects[i].addEventListener('change', function (event) {
+                selectChange(this, event)
+            })
+        }
+    }
+
+    function addToHolding() {
+        var selects = document.getElementById('id-holding')
+        selects.addEventListener('click', function (event) {
+            document.getElementById('holding').click()
+        })
+    }
+
+    function updateStorageFromElements() {
+        var idCheck = []
+        var inputs = document.getElementsByTagName('input')
+        for (i = 0; i < inputs.length; i++) {
+            var inputId = inputs[i].getAttribute('id')
+            idCheck[inputId] = inputs[i].checked
+        }
+        localStorage.setItem('idchecker-pds', JSON.stringify(idCheck))
+    }
+
+    function checkSectionComplete(section) {
+        // get an array of all the question subgroups
+        var questions = section.getElementsByClassName('qa-questions-question')
+        var sectionComplete = true
+        for (i = 0; i < questions.length; i++) {
+            var inputs = questions[i].getElementsByTagName('input')
+            var questionComplete = false
+            for (j = 0; j < inputs.length; j++) {
+                if (inputs[j].checked) {
+                    questionComplete = true
+                }
+            }
+            if (false === questionComplete) {
+                sectionComplete = false
+            }
+        }
+        if (sectionComplete) {
+            section.setAttribute('data-complete', true)
+            unlockNextSection(section)
+
+            return true
+        }
+    }
+
+    function unlockNextSection(section) {
+
+        var id = section.getElementsByClassName('qa-questions-question')[0].getAttribute('id')
+        var sections = []
+        var groups = document.getElementsByClassName('qa-questions-group')
+        for (i = 0; i < groups.length; i++) {
+            sections[i] = groups[i].getElementsByClassName('qa-questions-question')[0].getAttribute('id')
+        }
+        // work out what the next section is
+        var currentSectionPosition = sections.indexOf(id)
+        var nextSectionPosition = currentSectionPosition + 1
+        var lastSection = sections[groups.length-1]
+
+        console.log("unlock " + nextSectionPosition)
+
+        if (currentSectionPosition < groups.length-1 ){
+            var nextSection = sections[nextSectionPosition]
+            // get the next section object
+            nextSection = document.getElementById(nextSection)
+
+            // enable radio buttons
+            var nextRadios = nextSection.getElementsByTagName('input')
+            for (j = 0; j < nextRadios.length; j++) {
+                nextRadios[j].disabled = false
+            }
+        }
+        updateSolutions()
+    }
+
+    function updateSolutions() {
+        // pull in the answer array
+        var idCheck = JSON.parse(localStorage['idchecker-pds'])
+
+        if (idCheck[5] === true ) {
+            document.getElementById('manual-pds').style.display = 'block'
+        }
+
+        else if (idCheck[4] === true ) {
+            document.getElementById('manual-pds').style.display = 'none'
+        }
+
+
+        if (idCheck[1] === true || idCheck[3] === true || idCheck[5] === true || idCheck[7] === true  ) {
+
+            if (document.getElementById('radio-inline-3') !== true) {
+
+                document.getElementById('approveBtn').style.display = 'none'
+                document.getElementById('declineBtn').style.display = 'inline-block'
+
+                if (idCheck[1] === true) {
+                    $("#id-decline").appendTo('#pds-1')
+                } else if (idCheck[3] === true) {
+                    $("#id-decline").appendTo('#pds-2')
+                } else if (idCheck[5] === true) {
+                    $("#id-decline").appendTo('#pds-2')
+                } else if (idCheck[7] === true) {
+                    $("#id-decline").appendTo('#selfie-1')
+                } else {
+                    $("#id-decline").appendTo('#id-buttons')
+                }
+            }
+        }
+
+        else if (idCheck[0] === true && idCheck[2] === true && idCheck[4] === true && idCheck[6] === true ) {
+            document.getElementById('approveBtn').style.display = 'inline-block'
+            document.getElementById('declineBtn').style.display = 'none'
+        }
+
+        else {
+            document.getElementById('approveBtn').style.display = 'none'
+            document.getElementById('declineBtn').style.display = 'none'
+        }
+
+    }
+</script>
+
+{% endblock %}

@@ -1,0 +1,89 @@
+
+{% extends 'layout.html' %}
+
+{% block content %}
+
+<h1>Dashboard</h1>
+
+<div class="nhsuk-grid-row nhsuk-u-margin-bottom-5">
+  <div class="nhsuk-grid-column-one-quarter">
+    <div class="idcheck-dash idcheck-dash-{{ queue}}" id="pending">
+      <p class="idcheck-dash-heading">Queue</p>
+
+      <div class="idcheck-dash-details">
+
+        {% if state === 'inprogress' or state === 'declined' or state === 'approved' %}
+        <div class="idcheck-dash-number nhsuk-heading-xl">{{ data.idv_total -1}}</div>
+        {% else %}
+
+          {% if queue === 'clear' %}
+            <div class="idcheck-dash-number nhsuk-heading-xl ">0</div>
+          {% elif queue === 'cleared' %}
+            <div class="idcheck-dash-number nhsuk-heading-xl" id="pending-num">1</div>
+          {% else %}
+            <div class="idcheck-dash-number nhsuk-heading-xl">{{ data.idv_total }}</div>
+          {% endif %}
+        {% endif %}
+
+      </div>
+    </div>
+  </div>
+  <div class="nhsuk-grid-column-one-quarter">
+    <div class="idcheck-dash {% if state === 'inprogress' %}u-inprogress{% endif %}"id="inprogress" >
+      <p class="idcheck-dash-heading">In progress</p>
+      <div class="idcheck-dash-details">
+        {% if state === 'inprogress' %}
+        <span class="idcheck-dash-number nhsuk-heading-xl">2</span>
+        {% else %}
+        <span class="idcheck-dash-number nhsuk-heading-xl" id="progress-num">1</span>
+        {% endif%}
+      </div>
+    </div>
+  </div>
+  <div class="nhsuk-grid-column-one-quarter">
+    <div class="idcheck-dash idcheck-dash-{{holding|default('clear') }} {% if holding === 'inholding' %}u-inholding{% endif %}">
+      <p class="idcheck-dash-heading">Holding list</p>
+
+      <div class="idcheck-dash-details">
+
+        {% if holding === 'inholding' %}
+        <div class="idcheck-dash-number nhsuk-heading-xl">3</div>
+        {% else %}
+        <div class="idcheck-dash-number nhsuk-heading-xl">0</div>
+        {% endif %}
+
+      </div>
+    </div>
+  </div>
+  <div class="nhsuk-grid-column-one-quarter">
+    <div class="idcheck-dash">
+      <p class="idcheck-dash-heading">Completed today</p>
+
+      <div class="idcheck-dash-details">
+
+        {% if state === 'declined' or state === 'approved' %}
+        <div class="idcheck-dash-number nhsuk-heading-xl">9</div>
+        {% else %}
+        <div class="idcheck-dash-number nhsuk-heading-xl">8</div>
+        {% endif %}
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{% if state === 'inprogress' %}
+<p>You still have a verification in progress</p>
+<a class="nhsuk-button" href="id-checker-review{{ params }}">Continue verification</a>
+<p><a href="id-checker-dashboard{{ params }}&state=none">Abort</a></p>
+{% elif queue === 'cleared' %}
+<a class="nhsuk-button" id="cleared" href="id-checker-dashboard{{ params }}">Start next verification</a>
+{% elif queue === 'clear' %}
+{% else %}
+<a class="nhsuk-button" href="id-checker-review{{ params }}">Start next verification</a>
+{% endif%}
+
+
+
+{% endblock %}

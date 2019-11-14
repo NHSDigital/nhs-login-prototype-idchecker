@@ -1,0 +1,673 @@
+{% extends '_layouts/_grids/_grid-1.html' %}
+{% block page_title %}NHS Identity Verification and Matching Service{% endblock %}
+
+{% set service = "idchecker" %}
+{% set serviceName = "Identity Verification and Matching Service" %}
+{% set signedin = 'audit' %}
+{% set noabort = '' %}
+{% set params = "?demographics=" + demographics + "&role=" + role + "&result=" + result + "&failreason=" + failreason + "&devMode=" + devMode + "&idType=" + idType %}
+
+{% block content %}
+
+<div class="id-check_automated">Audit - Part Automated journey</div>
+
+<div class="panel" style="margin: 0;">
+    <div class="panel__content panel__content--half">
+        <h3>Details</h3>
+
+        <h4>Submission date</h4>
+        <p style="margin: 0;">11th March 2019 - 11:18</p>
+
+        <!--<h4>ID checker decision made</h4>-->
+        <!--<p style="margin: 0;">11th March 2019 - 12:21</p>-->
+
+    </div>
+    <div class="panel__content panel__content--half">
+        <h3>Result</h3>
+
+        <div class="bar_container" id="loader" style="display: none;">
+            <div id="main_container">
+                <div id="pbar" class="progress-spinner" data-percent="0">
+                    <img src="/images/loader-spinner.svg" width="200px" height="200px" id="spinner"/>
+                    <div class="ppc-loading">
+                        <div class="pcc-percents-wrapper">
+                            <span id="spinner-status">Tracing</span><span aria-hidden="true">...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="trace" class="idcheck-match fail">
+            <div class="idcheck-result" style="margin-top: 0.25em;">
+                Auto rejected
+            </div>
+
+            <ul class="idcheck-match-reason">
+
+                {% if failreason === 'likeness' %}
+                    <li>Failed PDS match</li>
+                {% elif failreason === 'iproov' %}
+                    <li>Failed iProov</li>
+                {% elif failreason === 'paycasso' %}
+                    <li>Failed document check</li>
+                {% elif failreason === 'pds' %}
+                    <li>Failed document check</li>
+                {% endif %}
+            </ul>
+
+        </div>
+
+        <div id="trace" class="idcheck-match {{ result }}">
+            <div class="idcheck-result" style="margin-top: 0.25em;">
+
+                {% if result === 'success' %}
+                Approved by ID checker
+                {% else %}
+                Rejected by ID checker
+                {% endif %}
+            </div>
+
+            {% if failreason %}
+
+            <ul class="idcheck-match-reason">
+
+                {% if failreason === 'likeness' %}
+
+                <li>Failed facial comparison</li>
+
+                {% elif failreason === 'iproov' %}
+
+                <li>Failed likeness</li>
+
+                {% elif failreason === 'liveness' %}
+
+                <li>Failed challenge response</li>
+
+                {% elif failreason === 'paycasso' %}
+
+                <li>Failed document check</li>
+
+                {% elif failreason === 'document' %}
+
+                <li>Failed document check</li>
+
+                {% elif failreason === 'pds' %}
+
+                <li>Failed PDS match</li>
+
+                {% endif %}
+
+            </ul>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+</div>
+
+<div class="panel" style="display: block;">
+    <div class="panel__content panel__content--half">
+        <h3>Identity document</h3>
+        <div class="reading-width">
+
+            <div class="idcheck-image">
+                <div class="idcheck-image-expand"><a href="#" class="idcheck-image-expand-button">Expand image</a></div>
+
+                {% if idType === 'driving' %}
+
+                <img src="/images/DL-front.jpg" class="idcheck-image-img" style="width: 100%;"
+                     alt="Image of a driving licence"/>
+
+                {% else %}
+
+                <img src="/images/passport_redacted.jpg" class="idcheck-image-img" style="width: 100%;"
+                     alt="Image of a passport"/>
+
+                {% endif %}
+
+            </div>
+
+            {% if idType === 'driving' %}
+
+            <div class="idcheck-image">
+                <div class="idcheck-image-expand"><a href="#" class="idcheck-image-expand-button">Expand image</a></div>
+
+                <img src="/images/DL-back.jpg" class="idcheck-image-img" style="width: 100%;"
+                     alt="Image of a driving licence"/>
+
+            </div>
+
+            {% endif %}
+
+        </div>
+    </div>
+    <div class="panel__content panel__content--half">
+
+        <h3>Image from face scan</h3>
+        <div class="reading-width">
+
+            <div class="idcheck-image">
+                <div class="idcheck-image-expand"><a href="#" class="idcheck-image-expand-button">Expand image</a></div>
+
+                <img src="/images/iproov-scan.png" class="idcheck-image-img" style="width: 100%;"
+                     alt="Image of the user from iproov"/>
+
+            </div>
+
+        </div>
+
+        <div class="qa-questions-group" data-complete="false" style="display:none;">
+            <div class="qa-questions-question" id="document-1" data-answered="false" data-group="decline-1">
+                <p class="qa-questions-question-text">Does the name and date of birth in the PDS record match the
+                    details in the photo ID?</p>
+                <div class="qa-questions-answer-group multiple-choice__container" data-answered="false">
+                    <label class="qa-questions-answer multiple-choice multiple-choice--inline multiple-choice--radio"
+                           for="0" aria-checked="false">
+                        <input type="radio" id="0" name="a-1" class="multiple-choice__input" tabindex="0" {% if
+                               result=== 'fail' or result === 'spine' %}disabled{% endif %}>Yes
+                        <div class="qa-questions-answer-radio-indicator"></div>
+                    </label>
+                    <label class="qa-questions-answer multiple-choice multiple-choice--inline multiple-choice--radio"
+                           for="1" aria-checked="false">
+                        <input type="radio" id="1" name="a-1" class="multiple-choice__input" tabindex="1" {% if
+                               result=== 'fail' or result === 'spine' %}disabled{% endif %}>No
+                        <div class="qa-questions-answer-radio-indicator"></div>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+
+        <div id="id-buttons">
+            <div id="id-approve">
+                <a href="id-checker-dashboard?state=approved&emailLink=email-idcheck-approved&devMode={{ devMode }}"
+                   data-target="modal" id="approveBtn" class="button button--approve" style="display: none;">Approve</a>
+            </div>
+            <div id="id-decline">
+                <a href="id-checker-dashboard?state=declined&emailLink=pb/email-idcheck-declined-try-again&devMode={{ devMode }}"
+                   data-target="modal" id="declineBtn" class="button button--decline" style="display: none;">Decline</a>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="panel">
+
+    <div class="panel__content panel__content--half">
+        <h3>OCR results</h3>
+        <div class="reading-width">
+
+            {% if failreason === 'paycasso' or failreason === 'pds' %}
+
+            <h4>First names</h4>
+            <p style="margin: 0;">--</p>
+
+            <h4>Last names</h4>
+            <p style="margin: 0;">--</p>
+
+            <h4>Date of Birth</h4>
+            <p style="margin: 0;">--</p>
+
+            {% else %}
+
+            <h4>First names</h4>
+            <p style="margin: 0;">Joe Billy</p>
+
+            <h4>Last names</h4>
+            <p style="margin: 0;">Bloggs</p>
+
+            <h4>Date of Birth</h4>
+            <p style="margin: 0;">08/02/1979</p>
+
+            {% endif %}
+
+            <h3>User submitted details</h3>
+            <div class="reading-width">
+
+                <h4>Postcode</h4>
+                <p style="margin: 0;">BD7 1DP</p>
+
+            </div>
+
+        </div>
+    </div>
+    <div class="panel__content panel__content--half">
+
+        <h3>PDS data retrieved</h3>
+        <div class="reading-width">
+
+            {% if failreason === 'paycasso' %}
+
+            <p>PDF match was not completed </p>
+
+            {% else %}
+
+            <h4>First name</h4>
+            <p style="margin: 0;">Joe</p>
+
+            <h4>Middle names</h4>
+            <p style="margin: 0;">Billy</p>
+
+            <h4>Last names</h4>
+            <p style="margin: 0;">Bloggs</p>
+
+            <h4>Date of Birth</h4>
+            <p style="margin: 0;">08/02/1979</p>
+
+            <h4>NHS number</h4>
+            <p style="margin: 0;">485 777 3456</p>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</div>
+
+{% if readOnly !== 'true' %}
+
+
+<div id="id-buttons">
+    <span id="id-approve">
+        <a href="id-checker-supervisor-dashboard{{ params }}&state=approved" data-target="modal" id="approveBtn" class="button button--approve">Agree with decision</a>
+    </span>&nbsp;&nbsp;
+    <span id="id-decline">
+        <a href="id-checker-supervisor-dashboard{{ params }}&state=declined" data-target="modal" id="disputeBtn" class="button button--decline">Add to dispute list</a>
+    </span>
+</div>
+
+{% endif %}
+
+
+<div id="slideout" style="display: none;">
+    <img src="/images/problem.png" alt="Feedback" height="173" width="32"/>
+    <div id="slideout_inner">
+        <h3>Move to holding list</h3>
+        <label class="" for="field3">Reason for moving (required)</label>
+        <textarea class="" id="field3" name="field3" type="text" rows="3"
+                  style="margin-top: 16px;" onkeyup='checkText(this.value);'></textarea>
+        <button class="" id="id-holding">Move</button>
+
+    </div>
+</div>
+
+
+<div class="modal-overlay no-fade" id="modal_window" aria-hidden="true" role="dialog" aria-labelledby="modal_title">
+    <p>&nbsp;</p>
+    <p>&nbsp;</p>
+    <div class="modal-content" id="modal_holder" role="document">
+        <h3 id="modal-header">Additional information about this assurance request</h3>
+
+        <div class="first-item">
+            <form>
+
+                <div class="form-group">
+
+                    <div class="govuk-form-group" id="rejection-reasons">
+                        <label class="form-label" for="sort">Dispute reason</label>
+
+                        <select id="decline-0" class="govuk-select decline-group" id="sort" name="sort" style="margin-top:16px;width:100%;">
+                            <option value="IDC-010" data-question="">--- Please select ---</option>
+                            <option value="IDC-011" data-question="decline-text-1">ID Document</option>
+                            <option value="IDC-012" data-question="decline-text-1">Facial comparison</option>
+                            <option value="IDC-013" data-question="decline-text-1">PDS Trace</option>
+                        </select>
+                    </div>
+                </div>
+
+
+                <div class="form-group" id="rejection-text" style="">
+
+                    <div id="decline-text-1" style="">
+                        <label class="form-label" for="field3">Additional information</label>
+                    </div>
+
+                    <textarea class="form-control form-textbox" id="field3" name="field3" type="text" rows="3"
+                              style="margin-top: 16px;" onkeyup='checkText(this.value);'></textarea>
+                </div>
+
+                <div class="form-group">
+                    <a class="button" id="modal-link"
+                       href="id-checker-supervisor-dashboard?role=Supervisor&devMode={{ devMode }}" disabled="disabled">Submit</a>
+                    <p><a href="#" id="modal_close">Cancel</a></p>
+                </div>
+            </form>
+        </div>
+    </div> <!-- end .modal-content -->
+</div> <!-- end .modal-overlay -->
+
+<p style="visibility: hidden"><a id="modal_create" class="smartcard" href="#">.</a><a id="holding" href="id-checker-dashboard{{ params }}&holding=inholding">.</a></p>
+
+<script type="text/javascript">
+    /* eslint-disable indent */
+
+    // hide or show the buttons based on selections
+    // localStorage.removeItem("idchecker-pds")
+    addEventListeners()
+    addButtonListeners()
+    addRejectionListeners()
+    addToHolding()
+    resetAllSections()
+    questionsComplete = false
+
+    function getParameterByName(name, url) {
+        if (!url) url = window.location.href
+        name = name.replace(/[\[\]]/g, "\\$&")
+        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+            results = regex.exec(url)
+        if (!results) return null
+        if (!results[2]) return ''
+        return decodeURIComponent(results[2].replace(/\+/g, " "))
+    }
+
+    var state = getParameterByName('state')
+
+    setTimeout(function () {
+        document.getElementById('trace').style.display = 'block'
+        // document.getElementById('retrybtn-1').style.display = 'block'
+        if (state === 'noresult') {
+            $('label[for="1"]').click()
+        }
+    }, 2000)
+    setTimeout(function () {
+        document.getElementById('loader').style.display = 'none'
+    }, 2000)
+
+    setTimeout(function () {
+        document.getElementById('declinebtn-2').style.display = 'block'
+        var errors = document.getElementsByClassName('idcheck-edit')
+        for (i = 0; i < errors.length; i++) {
+            errors[i].style.display = 'inline-block'
+        }
+        if (state === 'noresult') {
+            $('label[for="1"]').click()
+        }
+    }, 2000)
+
+    setTimeout(function () {
+        document.getElementById('slideout-value_tab_spinner').style.display = 'none'
+    }, 4000)
+
+    setTimeout(function () {
+        document.getElementById('slideout-value_tab_value').style.display = 'block'
+    }, 4000)
+
+
+    // when a radio button is clicked
+    var processClick = function (e) {
+        // update local storage straight away
+        updateStorageFromElements()
+
+        // first unset all the aria-checked attributes in an answer group
+        var labels = e.parentNode.parentNode.getElementsByClassName('qa-questions-answer')
+        for (i = 0; i < labels.length; i++) {
+            labels[i].setAttribute('aria-checked', false)
+        }
+        // then check only the selected one
+        e.parentNode.setAttribute('aria-checked', true)
+
+        // a click will trigger the showing and hiding of question groups
+
+        // get the section the click was in and pass it into a function
+        var section = e.parentNode.parentNode.parentNode.parentNode
+        checkSectionComplete(section)
+
+    }
+
+    // when an approve or decline button is clicked
+    var buttonClick = function (object, event) {
+        event.preventDefault()
+        console.log(object)
+        var target = object.parentElement.parentElement.getAttribute('data-group')
+        // console.log(target)
+
+        var link = object.href
+        var heading = document.getElementById('modal-header')
+        heading.text = 'Information about this disputed verification'
+        var a = document.getElementById('modal-link')
+        a.href = link
+        document.getElementById('modal_create').click()
+
+        var buttonType = object.text
+
+        heading.innerText = 'Information about this disputed verification'
+        // setSubReasons('')
+        // setReasons(target)
+        document.getElementById('modal_create').click()
+
+    }
+
+
+
+    function setReasons(target) {
+        // first do a reset
+        // get all the dropdowns into an array;
+        document.getElementById('rejection-reasons').style.display = 'block'
+        var reasons = document.getElementsByClassName('decline-group')
+        for (i = 0; i < reasons.length; i++) {
+            reasons[i].style.display = 'none'
+            reasons[i].selectedIndex = "0";
+        }
+        if (target){
+            document.getElementById(target).style.display = 'block'
+        }
+    }
+
+    var selectChange = function (object, event) {
+        var target = object.options[object.selectedIndex].getAttribute('data-question')
+        setSubReasons(target)
+    }
+
+    function setSubReasons(target) {
+        // reset everything before showing the picked one
+        var subReasons = document.getElementById('rejection-text').getElementsByTagName('div')
+        resetText()
+        for (i = 0; i < subReasons.length; i++) {
+            subReasons[i].style.display = 'none'
+        }
+        if (target){
+            document.getElementById(target).style.display = 'block'
+            // show the text area
+            document.getElementById('rejection-text').style.display = 'block'
+        } else {
+            document.getElementById('rejection-text').style.display = 'none'
+        }
+    }
+
+    function checkText(text) {
+        if(text.length >= 1) {
+            document.getElementById('modal-link').removeAttribute("disabled")
+        } else if(text.length == 0) {
+            document.getElementById('modal-link').setAttribute("disabled", "")
+        }
+    }
+
+    function resetText() {
+        var textarea = document.getElementById('field3')
+        textarea.value = "";
+        document.getElementById('modal-link').setAttribute("disabled", "")
+    }
+
+    // run through all sections checking for completeness
+    function resetAllSections() {
+        // get an array of all the question groups
+        var questionGroups = document.getElementsByClassName('qa-questions-group')
+        // lets hold the completion state of each section in an array
+        for (i = 0; i < questionGroups.length; i++) {
+            // reset attributes
+            questionGroups[i].setAttribute('data-complete', false)
+            // get array of all the answer groups
+            var questions = questionGroups[i].getElementsByClassName('qa-questions-question')
+            // loop through all the question groups
+            for (j = 0; j < questions.length; j++) {
+                // get array of the labels
+                var answers = questionGroups[i].getElementsByClassName('qa-questions-answer')
+                // loop through answers
+                for (k = 0; k < answers.length; k++) {
+                    answers[k].setAttribute('aria-checked', false)
+                    // get the individual inputs
+                    var inputs = answers[k].getElementsByTagName('input')
+                    // loop through all the inputs and uncheck them
+                    for (l = 0; l < inputs.length; l++) {
+                        inputs[l].checked = false
+                        inputs[l].disabled = true
+                    }
+                }
+            }
+        }
+        unlockFirstQuestion()
+    }
+
+    {% if result !== 'fail' and result !== 'spine' %}
+    function unlockFirstQuestion() {
+        console.log("unlock")
+
+        // get an array of all the question groups
+        var questionGroup = document.getElementById('document-1')
+
+        var inputs = questionGroup.getElementsByTagName('input')
+        // loop through all the inputs and uncheck them
+        for (l = 0; l < inputs.length; l++) {
+            inputs[l].checked = false
+            inputs[l].disabled = false
+        }
+    }
+
+    {% else %}
+
+    function unlockFirstQuestion() {
+    }
+
+    {% endif %}
+
+
+    function addEventListeners() {
+        var inputs = document.getElementsByTagName('input')
+        for (i = 0; i < inputs.length; i++) {
+            inputs[i].addEventListener('click', function () {
+                processClick(this)
+            })
+        }
+    }
+
+    function addButtonListeners() {
+        var inputs = document.querySelectorAll('.button--decline')
+        for (i = 0; i < inputs.length; i++) {
+            inputs[i].addEventListener('click', function (event) {
+                buttonClick(this, event)
+            })
+        }
+    }
+
+    function addRejectionListeners() {
+        var selects = document.querySelectorAll('.decline-group')
+        for (i = 0; i < selects.length; i++) {
+            selects[i].addEventListener('change', function (event) {
+                selectChange(this, event)
+            })
+        }
+    }
+
+    function addToHolding() {
+        var selects = document.getElementById('id-holding')
+        selects.addEventListener('click', function (event) {
+            document.getElementById('holding').click()
+        })
+    }
+
+    function updateStorageFromElements() {
+        var idCheck = []
+        var inputs = document.getElementsByTagName('input')
+        for (i = 0; i < inputs.length; i++) {
+            var inputId = inputs[i].getAttribute('id')
+            idCheck[inputId] = inputs[i].checked
+        }
+        localStorage.setItem('idchecker-pds', JSON.stringify(idCheck))
+    }
+
+    function checkSectionComplete(section) {
+        // get an array of all the question subgroups
+        var questions = section.getElementsByClassName('qa-questions-question')
+        var sectionComplete = true
+        for (i = 0; i < questions.length; i++) {
+            var inputs = questions[i].getElementsByTagName('input')
+            var questionComplete = false
+            for (j = 0; j < inputs.length; j++) {
+                if (inputs[j].checked) {
+                    questionComplete = true
+                }
+            }
+            if (false === questionComplete) {
+                sectionComplete = false
+            }
+        }
+        if (sectionComplete) {
+            section.setAttribute('data-complete', true)
+            unlockNextSection(section)
+
+            return true
+        }
+    }
+
+    function unlockNextSection(section) {
+
+        var id = section.getElementsByClassName('qa-questions-question')[0].getAttribute('id')
+        var sections = []
+        var groups = document.getElementsByClassName('qa-questions-group')
+        for (i = 0; i < groups.length; i++) {
+            sections[i] = groups[i].getElementsByClassName('qa-questions-question')[0].getAttribute('id')
+        }
+        // work out what the next section is
+        var currentSectionPosition = sections.indexOf(id)
+        var nextSectionPosition = currentSectionPosition + 1
+        var lastSection = sections[groups.length-1]
+
+        console.log(currentSectionPosition)
+        console.log(lastSection)
+
+        if (currentSectionPosition < groups.length-1 ){
+            var nextSection = sections[nextSectionPosition]
+            // get the next section object
+            nextSection = document.getElementById(nextSection)
+
+            // enable radio buttons
+            var nextRadios = nextSection.getElementsByTagName('input')
+            for (j = 0; j < nextRadios.length; j++) {
+                nextRadios[j].disabled = false
+            }
+        }
+        updateSolutions()
+    }
+
+    function updateSolutions() {
+        // pull in the answer array
+        var idCheck = JSON.parse(localStorage['idchecker-pds'])
+
+        if (idCheck[1] === true ) {
+            document.getElementById('approveBtn').style.display = 'none'
+            document.getElementById('declineBtn').style.display = 'inline-block'
+
+            if (idCheck[1] === true) {
+                $("#id-decline").appendTo('#document-1')
+            }
+        }
+
+        else if (idCheck[0] === true) {
+            document.getElementById('approveBtn').style.display = 'inline-block'
+            document.getElementById('declineBtn').style.display = 'none'
+        }
+
+        else {
+            document.getElementById('approveBtn').style.display = 'none'
+            document.getElementById('declineBtn').style.display = 'none'
+        }
+
+    }
+</script>
+
+{% endblock %}
+

@@ -1,0 +1,137 @@
+{% extends '_layouts/_grids/_grid-1.html' %}
+{% block page_title %}NHS Identity Verification and Matching Service{% endblock %}
+
+{% set service = "idchecker" %}
+{% set serviceName = "Identity Verification and Matching Service" %}
+{% set signedin = 'audit' %}
+{% set noabort = 'true' %}
+{% set params = "?demographics=" + demographics + "&role=" + role + "&result=" + result + "&state=" + state + "&devMode=" + devMode %}
+
+{% block content %}
+
+<h1>Auditing</h1>
+
+<p>Current period: 11th March 2019 - 17th March 2019</p>
+
+<div class="grid-row">
+
+    <div class="column--one-quarter">
+        <div class="idcheck-dash {% if state === 'inprogress' %}u-inprogress{% endif %}"id="inprogress" >
+            <p class="idcheck-dash-heading">Audited</p>
+            <div class="idcheck-dash-details">
+                {% if state === 'inprogress' %}
+                <span class="idcheck-dash-number bold-xxlarge">40</span>
+                {% elif state === 'approved' or state === 'declined' %}
+                <span class="idcheck-dash-number bold-xxlarge">41</span>
+                {% else %}
+                <span class="idcheck-dash-number bold-xxlarge" id="progress-num">40</span>
+                {% endif%}
+            </div>
+        </div>
+    </div>
+
+
+    <div class="column--one-quarter">
+        <div class="idcheck-dash idcheck-dash-{{ queue}}" id="pending">
+            <p class="idcheck-dash-heading">Total for period</p>
+
+            <div class="idcheck-dash-details">
+
+                {% if state === 'inprogress' or state === 'declined' or state === 'approved' %}
+                <div class="idcheck-dash-number bold-xxlarge">1111</div>
+                {% else %}
+
+                <div class="idcheck-dash-number bold-xxlarge">1112</div>
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+
+    <div class="column--one-quarter">
+        <div class="idcheck-dash {% if holding === 'inholding' %}u-inholding{% endif %}">
+            <p class="idcheck-dash-heading">% completed</p>
+
+            <div class="idcheck-dash-details">
+
+                {% if state === 'approved' or state === 'declined' %}
+                <span class="idcheck-dash-number bold-xxlarge">3.7%</span>
+                {% else %}
+                <div class="idcheck-dash-number bold-xxlarge">3.6%</div>
+                {% endif %}
+
+
+            </div>
+        </div>
+    </div>
+    <div class="column--one-quarter">
+        <div class="idcheck-dash u-inholding">
+            <p class="idcheck-dash-heading">Disputed</p>
+
+            <div class="idcheck-dash-details">
+
+                {% if state === 'declined' %}
+                <div class="idcheck-dash-number bold-xxlarge">4</div>
+                {% else %}
+                <div class="idcheck-dash-number bold-xxlarge">3</div>
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{% if state === 'inprogress' %}
+<p>You still have a verification in progress</p>
+<a class="button" href="id-checker-supervisor-review?demographics=false&role=Supervisor&result=success&devMode={{ devMode }}&holding=clear">Continue audit</a>
+<p><a href="id-checker-supervisor-dashboard{{ params }}&state=none">Abort</a></p>
+{% elif queue === 'cleared' %}
+<a class="button" id="cleared" href="id-checker-supervisor-review?demographics=false&role=Supervisor&result=success&devMode={{ devMode }}&holding=clear">Start next audit</a>
+{% elif queue === 'clear' %}
+{% else %}
+<a class="button" href="id-checker-supervisor-review?demographics=false&role=Supervisor&result=success&devMode={{ devMode }}&holding=clear">Start next audit</a>
+{% endif%}
+
+<div>
+    <p><a class="" href="id-checker-supervisor-contested-periods{{ params }}">Show disputed verification requests</a></p>
+</div>
+
+{% if devMode === "true" %}
+<details class="dev-mode" role="group" >
+    <summary data-analytics="summary" role="button" aria-controls="details-content-0" aria-expanded="true">
+        <span class="details__summary">Testing scenarios</span>
+    </summary>
+    <div class="callout callout--info callout--friendly" id="details-content-0" aria-hidden="false">
+        <div class="reading-width">
+            <p>Manual</p>
+            <ol>
+                <li><a href="id-checker-supervisor-review?demographics=false&role=Supervisor&result=success&devMode={{ devMode }}&holding=clear">Manual ID checker approved</a></li>
+                <li><a href="id-checker-supervisor-review?demographics=true&role=Supervisor&result=success&devMode={{ devMode }}&holding=clear&readOnly=true">Manual ID checker approved (Read Only)(user submits demographics)</a></li>
+                <li><a href="id-checker-supervisor-review?demographics=false&role=Supervisor&result=success&devMode={{ devMode }}&holding=clear&readOnly=true">Manual ID checker approved (Read Only)(user submits NHS number)</a></li>
+                <li><a href="id-checker-supervisor-review?demographics=false&role=Supervisor&result=fail&failreason=likeness&devMode={{ devMode }}&holding=clear">Manual ID checker declined - likeness</a></li>
+                <li><a href="id-checker-supervisor-review?demographics=false&role=Supervisor&result=fail&failreason=liveness&devMode={{ devMode }}&holding=clear">Manual ID checker declined - liveness</a></li>
+                <li><a href="id-checker-supervisor-review?demographics=false&role=Supervisor&result=fail&failreason=document&devMode={{ devMode }}&holding=clear">Manual ID checker declined - document </a></li>
+                <li><a href="id-checker-supervisor-review?demographics=false&role=Supervisor&result=fail&failreason=pds&devMode={{ devMode }}&holding=clear">Manual ID checker declined - PDS match</a></li>
+            </ol>
+            <p>Part automated</p>
+            <ol>
+                <li><a href="id-checker-supervisor-review-partauto?role=Supervisor&result=success&devMode={{ devMode }}">Part automated ID checker approved</a></li>
+                <li><a href="id-checker-supervisor-review-partauto?role=Supervisor&result=success&devMode={{ devMode }}&readOnly=true">Part automated ID checker approved (read only)</a></li>
+                <li><a href="id-checker-supervisor-review-partauto?role=Supervisor&result=fail&failreason=iproov&devMode={{ devMode }}">Part automated ID checker - declined likeness</a></li>
+                <li><a href="id-checker-supervisor-review-partauto?role=Supervisor&result=fail&failreason=paycasso&devMode={{ devMode }}">Part automated ID checker declined - document</a></li>
+                <li><a href="id-checker-supervisor-review-partauto?role=Supervisor&result=fail&failreason=pds&devMode={{ devMode }}">Part automated ID checker declined - PDS</a></li>
+            </ol>
+            <p>Automated</p>
+            <ol>
+                <li><a href="id-checker-supervisor-review-auto?role=Supervisor&result=success&devMode={{ devMode }}">Automated approved</a></li>
+                <li><a href="id-checker-supervisor-review-auto?role=Supervisor&result=success&devMode={{ devMode }}&readOnly=true">Automated approved (read only)</a></li>
+                <li><a href="id-checker-supervisor-review-auto?role=Supervisor&result=fail&failreason=iproov&devMode={{ devMode }}">Automated declined - Failed automation check with iProov</a></li>
+                <li><a href="id-checker-supervisor-review-auto?role=Supervisor&result=fail&failreason=paycasso&devMode={{ devMode }}">Automated declined - Failed automation check with Paycasso</a></li>
+<!--                <li><a href="id-checker-supervisor-review-auto?role=Supervisor&result=fail&failreason=pds&devMode={{ devMode }}">Automated decline - Failed automation check with PDS</a></li>-->
+            </ol>
+        </div>
+    </div>
+</details>
+{% endif %}
+
+{% endblock %}

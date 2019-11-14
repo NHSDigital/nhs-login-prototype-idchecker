@@ -1,0 +1,15 @@
+{% extends '_layouts/_grids/_grid-1.html' %}
+{% block page_title %}NHS Identity Verification and Matching Service{% endblock %}
+
+{% set service = "idchecker" %}
+{% set serviceName = "Identity Verification and Matching Service" %}
+{% set signedin = '' %}
+{% set params = "?demographics=" + demographics + "&role=" + role + "&result=" + result + "&failreason=" + failreason + "&devMode=" + devMode %}
+
+
+{% block content %}
+<h1>Something went wrong</h1>
+
+<a href="id-checker-dashboard{{ params }}" class="button">Go to dashboard</a>
+
+{% endblock %}
