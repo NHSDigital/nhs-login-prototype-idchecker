@@ -35,7 +35,7 @@
 
                         {% else %}
 
-                        <img src="/images/passport_redacted.jpg" class="idcheck-image-img" style="width: 100%;"
+                        <img src="/images/{{ data.idv[data.user-1].media_photoid_front}}" class="idcheck-image-img" style="width: 100%;"
                              alt="Image of a passport"/>
 
                         {% endif %}
@@ -185,7 +185,7 @@
                     <label class="nhsuk-label" for="nhsnum">
                         NHS Number
                     </label>
-                    <input class="nhsuk-input nhsuk-input--width-10" id="nhsnum" value="485 777 3456" name="nhsnum" type="text" maxlength="10" readonly >
+                    <input class="nhsuk-input nhsuk-input--width-10" id="nhsnum" value="{{ data.idv[data.user].nhs_number}}" name="nhsnum" type="text" maxlength="10" readonly>
                 </div>
 
                 <div class="nhsuk-form-group">
@@ -198,17 +198,17 @@
                         <div class="nhsuk-date-input" id="example">
                             <div class="nhsuk-date-input__item">
                                 <div class="nhsuk-form-group">
-                                    <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-2" id="example-day" name="example-day" type="number" value="9" readonly>
+                                    <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-2" id="example-day" name="example-day" type="number" value="{{ data.idv[data.user-1].date_day}}" readonly>
                                 </div>
                             </div>
                             <div class="nhsuk-date-input__item">
                                 <div class="nhsuk-form-group">
-                                    <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-2" id="example-month" name="example-month" type="number" value="2" readonly>
+                                    <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-2" id="example-month" name="example-month" type="number" value="{{ data.idv[data.user-1].date_month}}" readonly>
                                 </div>
                             </div>
                             <div class="nhsuk-date-input__item">
                                 <div class="nhsuk-form-group">
-                                    <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-4" id="example-year" name="example-year" type="number" value="1979" readonly>
+                                    <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-4" id="example-year" name="example-year" type="number" value="{{ data.idv[data.user-1].date_year}}" readonly>
                                 </div>
                             </div>
                         </div>
@@ -221,21 +221,21 @@
                     <label class="nhsuk-label" for="firstname">
                         First name
                     </label>
-                    <input class="nhsuk-input nhsuk-input--width-20" id="firstname" value="Joe" name="firstname" type="text" maxlength="" readonly >
+                    <input class="nhsuk-input nhsuk-input--width-20" id="firstname" value="{{ data.idv[data.user-1].name_first}}" name="firstname" type="text" maxlength="" readonly >
                 </div>
 
                 <div class="nhsuk-form-group">
                     <label class="nhsuk-label" for="middlename">
                         Middle names
                     </label>
-                    <input class="nhsuk-input nhsuk-input--width-20" id="middlename" value="" name="middlename" type="text" maxlength="" readonly >
+                    <input class="nhsuk-input nhsuk-input--width-20" id="middlename" value="{{ data.idv[data.user-1].name_middle}}" name="middlename" type="text" maxlength="" readonly >
                 </div>
 
                 <div class="nhsuk-form-group">
                     <label class="nhsuk-label" for="lastname">
                         Last name
                     </label>
-                    <input class="nhsuk-input nhsuk-input--width-20" id="lastname" value="Bloggs" name="lastname" type="text" maxlength="" readonly >
+                    <input class="nhsuk-input nhsuk-input--width-20" id="lastname" value="{{ data.idv[data.user-1].name_last}}" name="lastname" type="text" maxlength="" readonly >
                 </div>
 
                 <div class="nhsuk-form-group">
@@ -248,17 +248,17 @@
                         <div class="nhsuk-date-input" id="example">
                             <div class="nhsuk-date-input__item">
                                 <div class="nhsuk-form-group">
-                                    <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-2" id="example-day" name="example-day" type="number" value="9" readonly>
+                                    <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-2" id="example-day" name="example-day" type="number" value="{{ data.idv[data.user-1].date_day}}" readonly>
                                 </div>
                             </div>
                             <div class="nhsuk-date-input__item">
                                 <div class="nhsuk-form-group">
-                                    <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-2" id="example-month" name="example-month" type="number" value="2" readonly>
+                                    <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-2" id="example-month" name="example-month" type="number" value="{{ data.idv[data.user-1].date_month}}" readonly>
                                 </div>
                             </div>
                             <div class="nhsuk-date-input__item">
                                 <div class="nhsuk-form-group">
-                                    <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-4" id="example-year" name="example-year" type="number" value="1979" readonly>
+                                    <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-4" id="example-year" name="example-year" type="number" value="{{ data.idv[data.user-1].date_year}}" readonly>
                                 </div>
                             </div>
                         </div>
@@ -269,7 +269,7 @@
                     <label class="nhsuk-label" for="postcode">
                         Postcode
                     </label>
-                    <input class="nhsuk-input nhsuk-input--width-5" id="postcode" value="BD7 1DP" name="postcode" type="text" maxlength="" readonly >
+                    <input class="nhsuk-input nhsuk-input--width-5" id="postcode" value="{{ data.idv[data.user-1].postcode}}" name="postcode" type="text" maxlength="" readonly >
                 </div>
 
                 {% endif %}
@@ -299,25 +299,20 @@
                 <div id="trace" class="idcheck-match {{ result }}" style="display:none;-webkit-animation-delay: 2s;-moz-animation-delay: 2s;animation-delay: 2s;">
 
                     <div class="idcheck-result">
-                        {% if result === 'fail' %}
-                        {% if failreason === 'expired' %}
-                        Match not possible
+                        {% if data.idv[data.user-1].pds_matches === 'true' %}
+                            Single record found
                         {% else %}
-                        Match not found
-                        {% endif %}
-                        {% elif result === 'spine' %}
-
-                        {% if failreason === 'invalid' %}
-                        System error - SMSP-0001
-                        {% elif failreason === 'validation' %}
-                        System error - SMSP-0002
-                        {% elif failreason === 'unavailable' %}
-                        System error - SMSP-0003
-                        {% else %}
-                        System error - SMSP-0004
-                        {% endif %}
-                        {% else %}
-                        Single record found
+                            {% if data.idv[data.user-1].pds_failreason === 'expired' %}
+                                Match not possible
+                            {% elif data.idv[data.user-1].pds_failreason === 'invalid' %}
+                                System error - SMSP-0001
+                            {% elif data.idv[data.user-1].pds_failreason === 'validation' %}
+                                System error - SMSP-0002
+                            {% elif data.idv[data.user-1].pds_failreason === 'unavailable' %}
+                                System error - SMSP-0003
+                            {% else %}
+                                Match not found
+                            {% endif %}
                         {% endif %}
                     </div>
 
@@ -834,7 +829,7 @@
 
                             {% else %}
 
-                            <img src="/images/passport_redacted.jpg" class="idcheck-image-img" style="width: 100%;"
+                            <img src="/images/{{ data.idv[data.user-1].media_photoid_front}}" class="idcheck-image-img" style="width: 100%;"
                                  alt="Image of a passport"/>
 
                             {% endif %}
@@ -1101,7 +1096,7 @@
 
                                         {% else %}
 
-                                        <img src="/images/passport_redacted.jpg" class="idcheck-image-img" style="width: 100%;"
+                                        <img src="/images/{{ data.idv[data.user-1].media_photoid_front}}" class="idcheck-image-img" style="width: 100%;"
                                              alt="Image of a passport"/>
 
                                         {% endif %}

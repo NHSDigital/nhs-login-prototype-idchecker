@@ -1,5 +1,7 @@
 [
   {
+    "index": 1,
+    "label":  "User 1 - Manual . Demo . Passport . Video OK . PDS OK",
     "name_first": "Joe",
     "name_middle": "",
     "name_last": "Bloggs",
@@ -11,12 +13,14 @@
     "media_photoid_front": "passport_redacted.jpg",
     "media_photoid_back": "",
     "media_video": "challenge.mp4",
-    "media_scan": "iproov-scan.png",
+    "media_scan": "",
     "challenge": "8-4-2-2",
     "pds_matches": "true",
     "pds_failreason": ""
   },
   {
+    "index": 2,
+    "label":  "User 2 - Manual . NHS# . Passport . Video OK . PDS Fail",
     "name_first": "",
     "name_middle": "",
     "name_last": "",
@@ -29,7 +33,7 @@
     "media_photoid_back": "",
     "media_video": "",
     "media_scan": "iproov-scan.png",
-    "challenge": "8-4-2-2",
+    "challenge": "",
     "pds_matches": "false",
     "pds_failreason": "nam404"
   }
