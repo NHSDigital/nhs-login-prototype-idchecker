@@ -52,21 +52,23 @@
   <button class="nhsuk-button">Start next verification</button>
 {% endif%}
 
-{% if data['devMode'] === 'true' %}
+  
+  <div class="{% if data['devMode'] !== 'true' %}js-hidden{% endif %}">
 
-  <hr class="nhsuk-section-break">
+    <hr class="nhsuk-section-break">
 
-  <div class="dev-mode">
+    <div class="dev-mode">
 
-    <select id="decline-0" class="nhsuk-select decline-group" id="sort" name="user">
-      {% for i in range(0, data.idv_total) -%}
-      <option name="user{{ data.idv[i].index }}" value="{{ data.idv[i].index }}">{{ data.idv[i].label }}</option>
-      {%- endfor %}
-    </select>
+      <select id="decline-0" class="nhsuk-select decline-group" id="sort" name="user">
+        {% for i in range(0, data.idv_total) -%}
+        <option name="user{{ data.idv[i].index }}" value="{{ data.idv[i].index }}">{{ data.idv[i].label }}</option>
+        {%- endfor %}
+      </select>
+
+    </div>
 
   </div>
 
-{% endif %}
 
 </form>
 
