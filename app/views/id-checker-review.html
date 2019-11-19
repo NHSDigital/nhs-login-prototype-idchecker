@@ -296,7 +296,7 @@
                 <!-- PDS RESULT -->
 
 
-                <div id="trace" class="idcheck-match {{ result }}" style="display:none;-webkit-animation-delay: 2s;-moz-animation-delay: 2s;animation-delay: 2s;">
+                <div id="trace" class="idcheck-match{% if data.idv[data.user-1].pds_matches === 'false' %} fail{% endif %}" style="display:none;-webkit-animation-delay: 2s;-moz-animation-delay: 2s;animation-delay: 2s;">
 
                     <div class="idcheck-result">
                         {% if data.idv[data.user-1].pds_matches === 'true' %}
@@ -316,81 +316,63 @@
                         {% endif %}
                     </div>
 
-                    {% if result === 'fail' %}
+                    {% if data.idv[data.user-1].pds_matches === 'false' %}
 
-                    {% if demographics === 'true' %}
-
-                    {% if failreason === 'multiple' %}
-                    <div class="idcheck-result-reason" id="failed">
-                        <p>We found more than one PDS record using these details.</p>
-                    </div>
-                    {% elif failreason === 'expired' %}
-                    <div class="idcheck-result-reason" id="failed">
-                        <p>The record for this NHS number contains a date of death.</p>
-                    </div>
-                    {% else %}
-                    <div class="idcheck-result-reason" id="failed">
-                        <!--<p>The submitted demographic details do not match an NHS record.</p>-->
-                    </div>
-                    {% endif %}
-
-                    {% else %}
-
-                    {% if failreason === 'multiple' %}
-                    <div class="idcheck-result-reason" id="failed">
-                        <p>Multiple results were returned</p>
-                    </div>
-                    {% elif failreason === 'invalid' %}
-                    <div class="idcheck-result-reason" id="failed">
-                        <!--<p>The submitted NHS number is invalid</p>-->
-                    </div>
-                    {% elif failreason === 'expired' %}
-                    <div class="idcheck-result-reason" id="failed">
-                        <p>The record for this NHS number contains a date of death.</p>
-                    </div>
-                    {% else %}
-                    <div class="idcheck-result-reason" id="failed">
-                        <!--<p>Either the NHS number is invalid or it does not match to the date of birth submitted.</p>-->
-                    </div>
-                    {% endif %}
+                        {% if data.idv[data.user-1].pds_failreason === 'multiple' %}
+                        <div class="idcheck-result-reason" id="failed">
+                            <p>Multiple results were returned</p>
+                        </div>
+                        {% elif data.idv[data.user-1].pds_failreason === 'invalid' %}
+                        <div class="idcheck-result-reason" id="failed">
+                            <!--<p>The submitted NHS number is invalid</p>-->
+                        </div>
+                        {% elif data.idv[data.user-1].pds_failreason === 'expired' %}
+                        <div class="idcheck-result-reason" id="failed">
+                            <p>The record for this NHS number contains a date of death.</p>
+                        </div>
+                        {% else %}
+                        <div class="idcheck-result-reason" id="failed">
+                            <!--<p>Either the NHS number is invalid or it does not match to the date of birth submitted.</p>-->
+                        </div>
+                        {% endif %}
 
                     {% endif %}
 
-                    {% endif %}
 
-                    {% if result === 'spine' %}
+                    {% if data.idv[data.user-1].pds_matches === 'spine' %}
 
-                    {% if failreason === 'invalid' %}
-                    <div class="idcheck-result-reason" id="failed">
-                        <p>Please contact your supervisor.</p>
-                    </div>
+                        {% if data.idv[data.user-1].pds_failreason === 'invalid' %}
+                        <div class="idcheck-result-reason" id="failed">
+                            <p>Please contact your supervisor.</p>
+                        </div>
 
-                    {% elif failreason === 'validation' %}
-                    <div class="idcheck-result-reason" id="failed">
-                        <p>Please contact your supervisor.</p>
-                    </div>
+                        {% elif data.idv[data.user-1].pds_failreason === 'validation' %}
+                        <div class="idcheck-result-reason" id="failed">
+                            <p>Please contact your supervisor.</p>
+                        </div>
 
-                    {% elif failreason === 'unavailable' %}
-                    <div class="idcheck-result-reason" id="failed">
-                        <p>We are having technical problems.</p>
-                        <p>Please abort and try again later.</p>
-                    </div>
+                        {% elif data.idv[data.user-1].pds_failreason === 'unavailable' %}
+                        <div class="idcheck-result-reason" id="failed">
+                            <p>We are having technical problems.</p>
+                            <p>Please abort and try again later.</p>
+                        </div>
 
-                    {% else %}
-                    <div class="idcheck-result-reason" id="failed">
-                        <p>We are having technical problems.</p>
-                        <p>Please abort and try again later.</p>
-                    </div>
-                    {% endif %}
+                        {% else %}
+                        <div class="idcheck-result-reason" id="failed">
+                            <p>We are having technical problems.</p>
+                            <p>Please abort and try again later.</p>
+                        </div>
+                        {% endif %}
+
                     {% endif %}
 
                 </div>
 
-                {% if result === 'fail' %}
+                {% if data.idv[data.user-1].pds_matches === 'false' %}
 
+                <div class="form-group nhsuk-u-margin-top-4" id="declinebtn-2" style="display: none;">
 
-                <div class="form-group" id="declinebtn-2" style="display: none;">
-                    {% if failreason === 'expired' %}
+                    {% if data.idv[data.user-1].pds_failreason === 'expired' %}
 
                     <div id="id-decline3">
                         <a href="dashboard" data-target="modal" id="declineBtn3" class="button button--decline">Decline</a>
@@ -400,102 +382,57 @@
 
                     <div class="qa-questions-group" data-complete="false">
                         <div class="qa-questions-question" id="trace-1" data-answered="false" data-group="decline-4a">
-                            <p class="qa-questions-question-text">Can you find the person's NHS Number using a manual PDS check, so you can re-run the trace?</p>
-                            <div class="qa-questions-answer-group multiple-choice__container" data-answered="false">
-                                <label class="qa-questions-answer multiple-choice multiple-choice--inline multiple-choice--radio"
-                                       for="6" aria-checked="false" data-target="">
-                                    <input type="radio" id="6" name="a-4" class="multiple-choice__input" tabindex="6" aria-controls="nhs-yes">Yes
-                                    <div class="qa-questions-answer-radio-indicator"></div>
-                                </label>
-                                <label class="qa-questions-answer multiple-choice multiple-choice--inline multiple-choice--radio"
-                                       for="7" aria-checked="false" data-target="">
-                                    <input type="radio" id="7" name="a-4" class="multiple-choice__input" tabindex="7" aria-controls="nhs-no">No
-                                    <div class="qa-questions-answer-radio-indicator"></div>
-                                </label>
-                            </div>
+
+                            <fieldset class="nhsuk-fieldset nhsuk-u-margin-top-4">
+
+                                <div class="qa-questions-question-text nhsuk-u-padding-bottom-2">
+                                    <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--m">
+                                        <h3 class="nhsuk-fieldset__heading">
+                                            Can you find the person's NHS Number using a manual PDS check, so you can re-run the trace?
+                                        </h3>
+                                    </legend>
+                                </div>
+
+                                <div class="qa-questions-answer-group multiple-choice__container" data-answered="false">
+
+                                    <div class="nhsuk-radios nhsuk-radios--inline">
+
+                                        <div class="nhsuk-radios__item nhsuk-u-margin-bottom-3">
+                                            <input class="nhsuk-radios__input qa-questions-answer" id="6" name="a-4a" type="radio" value="yes" aria-checked="false" aria-controls="nhs-yes">
+                                            <label class="nhsuk-label nhsuk-radios__label" for="6">
+                                                Yes
+                                            </label>
+                                        </div>
+
+                                        <div class="nhsuk-radios__item nhsuk-u-margin-bottom-3" data-target="" >
+                                            <input class="nhsuk-radios__input qa-questions-answer" id="7" name="a-4a" type="radio" value="no" aria-checked="false" aria-controls="nhs-no">
+                                            <label class="nhsuk-label nhsuk-radios__label" for="7">
+                                                No
+                                            </label>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </fieldset>
+
                         </div>
+
                         <div id="id-canttell4">
-                            <a href="dashboard" data-target="modal" id="canttellBtn" class="button--decline--clarity" style="">I cannot answer this question</a>
+                            <a href="dashboard" data-target="modal" id="canttellBtn" class="button--decline--clarity disabled" style="">There's an issue with the image and I can't answer the question</a>
                         </div>
+
                     </div>
 
-                    {% if formerror === "true" %}
 
-                    <form action="">
+                    <div aria-hidden="true" aria-expanded="false" class="js-hidden nhsuk-u-margin-top-3" id="nhs-yes" data-group="decline-4a">
 
-                        <div aria-hidden="true" aria-expanded="false" class=" js-hidden" id="nhs-yes" style="margin: 0;">
-
-                            <div class="form-group">
-
-                                <div id="nhs-number" class="has-error form-row-error-active">
-                                    <label class="has-error form-label" for="nhs_number">NHS Numbers</label>
-                                    <input class="form-control code" id="nhs_number" name="nhs_number" type="text">
-
-                                    <div id="nhs-number" class="has-error form-row-error-active">
-                                <span class="error error-message error-label error-text error-message-active"
-                                      id="nhs-number-error">This NHS Number looks wrong. Please check that you've entered exactly 10 numbers.</span>
-                                    </div>
-                                </div>
-
-                            </div>
-
-
-
-                            <div class="form-group" style="display:none;">
-
-                                <fieldset>
-                                    <legend class="form-label">Date of birth</legend>
-                                    <span class="form-label__hint" style="margin-top: 10px;">Example: 31 3 1980</span>
-                                    <div class="form-group -date" style="margin-top: 10px;">
-                                        <div class="form-date-field has-error">
-                                            <label for="dob-day" style="margin-bottom: 5px; display: block;">Day</label>
-                                            <input type="number" class="day form-control" id="dob-day" name="dob-day" pattern="[0-9]*" value="9" class="day" maxlength="2" min="1" max="31" style="margin: 0;">
-                                        </div>
-                                        <div class="form-date-field has-error">
-                                            <label for="dob-month" style="margin-bottom: 5px; display: block;">Month</label>
-                                            <input type="number" class="month form-control" id="dob-month" name="dob-month" pattern="[0-9]*" value="2" class="month" maxlength="2" min="1" max="12" style="margin: 0;">
-                                        </div>
-                                        <div class="form-date-field has-error">
-                                            <label for="dob-year" style="margin-bottom: 5px; display: block;">Year</label>
-                                            <input type="number" class="year form-control" id="dob-year" name="dob-year" pattern="[0-9]*" value="79" class="year" maxlength="4" min="1900" max="2018" style="margin: 0;">
-                                        </div>
-                                    </div>
-
-                                </fieldset>
-
-                                <div class="has-error form-row-error-active" style="margin-top:1em;">
-                                <span class="error error-message error-label error-text error-message-active"
-                                      id="nhs-number-error">Please enter the full date of birth.</span>
-                                </div>
-
-                            </div>
-
-
-
-                            <div id="id-approve2">
-                                <a href="id-checker-review-automated-ocr?demographics=false&role=undefined&result=undefined&failreason=ocr&state=undefined&devMode={{ devMode }}&idType={{ idType }}"
-                                   id="approveBtn2" data-target="modal" class="button button--retry">Re-run trace</a>
-                            </div>
-
-
-                        </div>
-
-                        <div aria-hidden="true" aria-expanded="false" class="js-hidden" id="nhs-no" style="margin: 0 0 32px;" data-group="decline-0">
-                            <div id="id-decline2">
-                                <a href="id-checker-dashboard?state=declined&emailLink=pb/email-idcheck-declined-try-again&devMode={{ devMode }}"
-                                   id="declineBtn2" data-target="modal" class="button button--decline">Decline</a>
-                            </div>
-                        </div>
-
-                    </form>
-
-                    {% else %}
-
-                    <div aria-hidden="true" aria-expanded="false" class="js-hidden" id="nhs-yes" style="margin: 0;">
-
-                        <div class="form-group">
-                            <label class="form-label" for="nhs_number">NHS Number</label>
-                            <input class="form-control code" id="nhs_number" name="nhs_number" type="text" value="{% if demographics === 'false' %}485 777 3456{% endif%}">
+                        <div class="nhsuk-form-group">
+                            <label class="nhsuk-label" for="nhs_number">
+                                NHS Number
+                            </label>
+                            <input class="nhsuk-input nhsuk-input--width-10" id="nhs_number" value="" name="nhs_number" type="text" maxlength="" >
                         </div>
 
                         <fieldset  style="display:none;">
@@ -518,28 +455,23 @@
                         </fieldset>
 
                         <div id="id-approve2">
-                            <a href="id-checker-review-automated-ocr?demographics=true&role=undefined&result=success&state=undefined&devMode={{ devMode }}&idType={{ idType }}"
-                               id="approveBtn2b" data-target="modal" class="button button--retry">Re-run trace</a>
+                            <button id="approveBtn2b" data-target="" class="nhsuk-button button--retry">Re-run trace</button>
                         </div>
                     </div>
 
-                    <div aria-hidden="true" aria-expanded="false" class="js-hidden" id="nhs-no" style="margin: 0 0 32px;" data-group="decline-0">
+                    <div aria-hidden="true" aria-expanded="false" class="js-hidden nhsuk-u-margin-top-3" id="nhs-no" data-group="decline-4a">
                         <div id="id-decline2">
-                            <a href="id-checker-dashboard?state=declined&emailLink=pb/email-idcheck-declined-try-again&devMode={{ devMode }}"
-                               id="declineBtn2" data-target="modal" class="button button--decline">Decline</a>
+                            <a href="dashboard" id="declineBtn2" data-target="modal" class="nhsuk-button button--decline">Decline</a>
                         </div>
                     </div>
 
-                    {% endif %}
-
-
-                    {% endif %}
+                {% endif %}
 
                 </div>
 
                 {% endif %}
 
-                {% if result === 'spine' %}
+                {% if data.idv[data.user-1].pds_matches === 'spine' %}
                 <div id="retrybtn-1" style="display:none;">
                     <div id="id-retry">
                         <a href="id-checker-review"
@@ -761,17 +693,6 @@
                                             No
                                         </label>
                                     </div>
-
-
-<!--                                    <div class="selection-button-radio-inline" data-group="decline-4c">-->
-<!--                                        <div class="multiple-choice" data-target="">-->
-<!--                                            <input id="radio-inline-4" type="radio" name="radio-inline-group" value="no"-->
-<!--                                                   aria-controls="pds-no">-->
-<!--                                            <label for="radio-inline-4" class="block-label" style="position: static;">No</label>-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-
-
                                 </div>
                             </fieldset>
 
@@ -781,8 +702,7 @@
 
                         </div>
 
-
-                        <div aria-hidden="true" aria-expanded="false" class="js-hidden nhsuk-u-margin-top-1" id="pds-no" data-group="decline-4c">
+                        <div aria-hidden="true" aria-expanded="false" class="js-hidden nhsuk-u-margin-top-3" id="pds-no" data-group="decline-4c">
                             <div id="id-decline2">
                                 <a href="dashboard" id="declineBtn2" data-target="modal" class="nhsuk-button button--decline nhsuk-u-margin-bottom-0">Reject</a>
                             </div>
@@ -1427,16 +1347,16 @@
         document.getElementById('loader').style.display = 'none'
     }, 2000)
 
-    // setTimeout(function () {
-    //     document.getElementById('declinebtn-2').style.display = 'block'
-    //     var errors = document.getElementsByClassName('idcheck-edit')
-    //     for (i = 0; i < errors.length; i++) {
-    //         errors[i].style.display = 'inline-block'
-    //     }
-    //     if (state === 'noresult') {
-    //         $('label[for="1"]').click()
-    //     }
-    // }, 2000)
+    setTimeout(function () {
+        document.getElementById('declinebtn-2').style.display = 'block'
+        var errors = document.getElementsByClassName('idcheck-edit')
+        for (i = 0; i < errors.length; i++) {
+            errors[i].style.display = 'inline-block'
+        }
+        if (state === 'noresult') {
+            $('label[for="1"]').click()
+        }
+    }, 2000)
 
     setTimeout(function () {
         document.getElementById('slideout-value_tab_spinner').style.display = 'none'
