@@ -280,7 +280,7 @@
 
   &.fail,
   &.spine {
-    background-color: $color_nhsuk-red;
+    background-color: #f5e6e4;
   }
 }
 
@@ -618,11 +618,12 @@ textarea {
 }
 
 .button--retry {
+  padding-left: 2.5em;
   &::before {
     content: "";
     position: absolute;
-    top: 1.3em;
-    left: 1.4em;
+    top: 0.75em;
+    left: 0.75em;
     height: 30px;
     width: 30px;
     background: transparent url("/images/three-circling-arrows.svg") no-repeat;
