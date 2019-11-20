@@ -560,6 +560,7 @@ textarea {
 .button--approve,
 .button--decline,
 .button--decline--clarity2 {
+  padding-left: 2.5em;
   &::before,
   &::after {
     content: "";
@@ -573,33 +574,36 @@ textarea {
     border: solid;
     border-color: $color_nhsuk-white;
     border-width: 0 0 8px 8px;
-    height: 7px;
-    top: 1.2em;
-    left: 0.3em;
+    height: 18px;
+    top: 0.75em;
+    left: 0.6em;
     transform: rotate(-45deg);
     width: 25px;
   }
   &:active::before {
-    height: 18px !important;
-    top: 1.3em !important;
+    top: 0.75em;
   }
 }
 
 .button--decline,
 .button--decline--clarity2 {
   background-color: $color_nhsuk-red;
-  padding-left: 35px;
   &::before,
   &::after {
     background: $color_nhsuk-white;
     height: 7px;
     top: 1.2em;
-    left: 0.3em;
+    left: 0.5em;
+    border-width: unset;
     transform: rotate(45deg);
     width: 25px;
   }
   &::after {
     transform: rotate(-45deg);
+  }
+
+  &:active::before {
+    top: 1.2em;
   }
 
   &:hover {
@@ -656,7 +660,7 @@ textarea {
 
 @media (min-width: 40.0625em) {
   .nhsuk-checkboxes--small .nhsuk-checkboxes__label {
-    padding:11px 15px 10px 1px
+    padding:6px 15px 5px 1px
   }
 }
 
@@ -686,13 +690,13 @@ textarea {
 }
 
 .nhsuk-checkboxes--small .nhsuk-checkboxes__item:hover .nhsuk-checkboxes__input:not(:disabled) + .nhsuk-checkboxes__label::before {
-  -webkit-box-shadow: 0 0 0 10px #b1b4b6;
-  box-shadow:0 0 0 10px #b1b4b6
+  -webkit-box-shadow: 0 0 0 5px #b1b4b6;
+  box-shadow:0 0 0 5px #b1b4b6
 }
 
 .nhsuk-checkboxes--small .nhsuk-checkboxes__item:hover .nhsuk-checkboxes__input:focus + .nhsuk-checkboxes__label::before {
-  -webkit-box-shadow: 0 0 0 3px #fd0, 0 0 0 10px #b1b4b6;
-  box-shadow:0 0 0 3px #fd0, 0 0 0 10px #b1b4b6
+  -webkit-box-shadow: 0 0 0 3px #fd0, 0 0 0 5px #b1b4b6;
+  box-shadow:0 0 0 3px #fd0, 0 0 0 5px #b1b4b6
 }
 
 @media (hover: none),(pointer: coarse) {
