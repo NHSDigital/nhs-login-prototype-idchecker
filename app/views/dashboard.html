@@ -53,32 +53,32 @@
     <p><a href="javascript{}:" onclick="document.getElementById('abort').submit(); return false;">Abort</a></p>
   </form>
 
-{% elif queue === 'cleared' %}
-  <button class="nhsuk-button" id="cleared">Start next verification</button>
 {% else %}
+
   <form action="{{ thisPage }}" method="POST" role="form">
+
     <button class="nhsuk-button">Start next verification</button>
-  </form>
-{% endif%}
 
+    <div class="{% if data['devMode'] !== 'true' %}js-hidden{% endif %}">
 
-  <div class="{% if data['devMode'] !== 'true' %}js-hidden{% endif %}">
+      <hr class="nhsuk-section-break">
 
-    <hr class="nhsuk-section-break">
+      <div class="dev-mode">
 
-    <div class="dev-mode">
+        <select id="decline-0" class="nhsuk-select decline-group" id="sort" name="user">
+          {% for i in range(0, data.prototype.total) -%}
+          <option name="user{{ data.idv[i].index }}" value="{{ data.idv[i].index }}" {% if i === data.prototype.count %}selected{% endif %}>{{ data.idv[i].label }}</option>
+          {%- endfor %}
+        </select>
 
-      <select id="decline-0" class="nhsuk-select decline-group" id="sort" name="user">
-        {% for i in range(0, data.prototype.total) -%}
-        <option name="user{{ data.idv[i].index }}" value="{{ data.idv[i].index }}" {% if i === data.prototype.count %}selected{% endif %}>{{ data.idv[i].label }}</option>
-        {%- endfor %}
-      </select>
+      </div>
 
     </div>
 
-  </div>
+  </form>
+
+{% endif%}
 
 
-</form>
 
 {% endblock %}

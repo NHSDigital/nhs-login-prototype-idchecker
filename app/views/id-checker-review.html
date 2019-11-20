@@ -176,6 +176,60 @@
         <div class="nhsuk-grid-row">
             <div class="nhsuk-grid-column-one-half">
 
+                {% if data.idv[data.user-1].media_scan !== '' %}
+
+                    <h3>OCR results</h3>
+
+                    <div class="nhsuk-form-group">
+                        <label class="nhsuk-label" for="ocrfirstname">
+                            First name
+                        </label>
+                        <input class="nhsuk-input nhsuk-input--width-20" id="ocrfirstname" value="{{ data.idv[data.user-1].ocr_name_first}}" name="ocrfirstname" type="text" maxlength="" readonly >
+                    </div>
+
+                    <div class="nhsuk-form-group">
+                        <label class="nhsuk-label" for="ocrmiddlename">
+                            Middle names
+                        </label>
+                        <input class="nhsuk-input nhsuk-input--width-20" id="ocrmiddlename" value="{{ data.idv[data.user-1].ocr_name_middle}}" name="ocrmiddlename" type="text" maxlength="" readonly >
+                    </div>
+
+                    <div class="nhsuk-form-group">
+                        <label class="nhsuk-label" for="ocrlastname">
+                            Last name
+                        </label>
+                        <input class="nhsuk-input nhsuk-input--width-20" id="ocrlastname" value="{{ data.idv[data.user-1].ocr_name_last}}" name="ocrlastname" type="text" maxlength="" readonly >
+                    </div>
+
+                    <div class="nhsuk-form-group">
+                        <label class="nhsuk-label" for="ocrdob">
+                            Date of birth
+                        </label>
+                        <input class="nhsuk-input nhsuk-input--width-20" id="ocrdob" value="{{ data.idv[data.user-1].ocr_dob}}" name="ocrdob" type="text" maxlength="" readonly >
+                    </div>
+
+                    <h3>User submitted details</h3>
+
+                    <div class="nhsuk-form-group">
+                        <label class="nhsuk-label" for="postcode">
+                            Postcode
+                        </label>
+                        <input class="nhsuk-input nhsuk-input--width-5" id="postcode" value="{{ data.idv[data.user-1].postcode}}" name="postcode" type="text" maxlength="" readonly >
+                    </div>
+
+                    {% if data.idv[data.user-1].nhs_number !== '' %}
+
+                    <div class="nhsuk-form-group">
+                        <label class="nhsuk-label" for="nhsnum">
+                            NHS Number
+                        </label>
+                        <input class="nhsuk-input nhsuk-input--width-10" id="nhsnum" value="{{ data.idv[data.user-1].nhs_number}}" name="nhsnum" type="text" maxlength="10" readonly>
+                    </div>
+
+                    {% endif %}
+
+                {% else %}
+
                 <h3>User submitted details</h3>
 
                 {% if data.idv[data.user-1].nhs_number !== '' %}
@@ -270,6 +324,8 @@
                     </label>
                     <input class="nhsuk-input nhsuk-input--width-5" id="postcode" value="{{ data.idv[data.user-1].postcode}}" name="postcode" type="text" maxlength="" readonly >
                 </div>
+
+                {% endif %}
 
                 {% endif %}
 
@@ -523,27 +579,25 @@
                 <div class="idcheck-match {{ result }}">
 
                     <table class="">
-                        {% if demographics === 'true' %}
-                        <tr>
-                            <td>NHS Number:</td>
-                            <td><b>485 777 3456</b></td>
-                        </tr>
-                        {% endif %}
                         <tr>
                             <td>First name:</td>
-                            <td><b>Joe</b></td>
+                            <td><b>{{ data.idv[data.user-1].pds_name_first }}</b></td>
                         </tr>
                         <tr>
                             <td>Middle names:</td>
-                            <td><b>Frederick</b></td>
+                            <td><b>{{ data.idv[data.user-1].pds_name_middle }}</b></td>
                         </tr>
                         <tr>
                             <td>Last name:</td>
-                            <td><b>Bloggs</b></td>
+                            <td><b>{{ data.idv[data.user-1].pds_name_last }}</b></td>
                         </tr>
                         <tr>
                             <td>Date of birth:</td>
-                            <td><b>9th February, 1979</b></td>
+                            <td><b>{{ data.idv[data.user-1].pds_name_dob }}</b></td>
+                        </tr>
+                        <tr>
+                            <td>NHS Number:</td>
+                            <td><b>{{ data.idv[data.user-1].pds_name_nhs_number }}</b></td>
                         </tr>
                     </table>
 
