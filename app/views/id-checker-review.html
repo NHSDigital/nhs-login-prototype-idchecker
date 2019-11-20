@@ -2,7 +2,6 @@
 
 
 {% set service = "idchecker" %}
-{% set serviceName = "Identity Verification and Matching Service" %}
 {% set signedin = 'true' %}
 {% set params = "?demographics=" + demographics + "&role=" + role + "&result=" + result + "&failreason=" + failreason + "&devMode=" + devMode + "&automation=" + automation  %}
 {% set dataResult = 'data-result=' + result %}
@@ -895,8 +894,10 @@
 
                 <div id="id-buttons">
                     <div id="id-approve">
-                        <a href="dashboard"
-                           data-target="modal" id="approveBtn" class="nhsuk-button button--approve" style="display: none;">Approve</a>
+                        <form action="accept" method="POST" role="form">
+                            <button href="dashboard"
+                           data-target="modal" id="approveBtn" class="nhsuk-button button--approve" style="display: none;">Approve</button>
+                        </form>
                     </div>
                     <div id="id-decline">
                         <a href="dashboard"
@@ -993,7 +994,7 @@
 
 
         <div class="first-item">
-            <form>
+            <form action="reject" method="POST" role="form">
 
                 <div class="nhsuk-form-group">
 
@@ -1300,8 +1301,8 @@
                 </div>
 
                 <div class="form-group nhsuk-u-margin-bottom-0 nhsuk-u-margin-top-0">
-                    <a class="nhsuk-button nhsuk-u-margin-bottom-3 nhsuk-u-margin-top-0" id="modal-link"
-                       href="supervisor-dashboard" disabled="disabled">Submit</a>
+                    <button class="nhsuk-button nhsuk-u-margin-bottom-3 nhsuk-u-margin-top-0" id="modal-link"
+                       href="supervisor-dashboard" disabled="disabled">Submit</button>
                     <p class="nhsuk-u-margin-bottom-0 nhsuk-u-margin-top-3 nhsuk-u-margin-left-3" style="display:inline-block;"><a href="#" id="modal_close">Cancel</a></p>
                 </div>
             </form>

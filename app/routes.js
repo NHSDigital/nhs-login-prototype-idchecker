@@ -14,67 +14,48 @@ function loadJSONFromFile(fileName, path = "app/data/") {
 
 // Add your routes here - above the module.exports line
 
-// Documentation router
-router.get('/', function(req , res){
-  res.render('index')
-});
-
 router.post("/", function (req, res) {
 
   let prototype = {} || req.session.data.prototype
-  let startPage = 'signin'
 
-  let prototypeData = req.session.data.version
+  // pull in JSON data file
+  delete req.session.data.idv
+  let idvFile = 'verification-requests.json'
+  let path = 'app/data/'
+  req.session.data.idv = loadJSONFromFile(idvFile, path)
 
-    console.log(prototypeData)
-
-    prototype.release = prototypeData
-
-    if (prototype.release == 'A') {
-      startPage = 'dashboard'
-    } else if (prototype.release == 'B') {
-      startPage = 'dashboard2'
-    }
-
-    var redirect = '/' + startPage
-
-    req.session.data.prototype = prototype
-    delete req.session.data.version
-
-  res.redirect(redirect)
-
-})
-
-// pull in the test data when on the dashboard
-router.get('/dashboard', function (req, res) {
-  let page = "dashboard"
-  if (!req.session.data.idv) {
-    let idvFile = 'verification-requests.json'
-    let path = 'app/data/'
-    req.session.data.idv = loadJSONFromFile(idvFile, path)
-  }
-  req.session.data.idv_total = req.session.data.idv.length
-  res.render('dashboard');
-})
-
-router.post("/dashboard", function (req, res) {
-
-  let prototype = {} || req.session.data.prototype
-
-  console.log('yikes')
-  //
-  let userData = req.session.data.user
-  prototype.user = userData
-  //
-  console.log('user number: ' + prototype.user)
+  prototype.version = req.session.data.version
+  prototype.total = req.session.data.idv.length
+  prototype.count = 0
 
   req.session.data.prototype = prototype
 
+  res.redirect('/dashboard')
+
+})
+
+
+router.post("/dashboard", function (req, res) {
+  console.log(req.session.data.prototype)
   res.redirect('id-checker-review')
 
 })
 
-module.exports = router;
+
+router.post("/reject", function (req, res) {
+  let prototype = req.session.data.prototype
+  prototype.count = prototype.count +1
+  req.session.data.prototype = prototype
+  res.redirect('dashboard')
+})
+
+router.post("/accept", function (req, res) {
+  let prototype = req.session.data.prototype
+  prototype.count = prototype.count +1
+  req.session.data.prototype = prototype
+  res.redirect('dashboard')
+})
+
 
 // Dev Mode
 
@@ -97,3 +78,6 @@ function devModeRoute(req, res, next) {
 
 router.get("/*", devModeRoute);
 router.get("/", devModeRoute);
+
+
+module.exports = router;

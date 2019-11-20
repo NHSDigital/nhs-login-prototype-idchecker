@@ -605,16 +605,17 @@ textarea {
   &:hover {
     background-color: #c32519;
   }
-  //&:active::before {
-  //  height: 10px !important;
-  //  top: 1.8em !important;
-  //}
 }
 
-.button--decline--clarity.disabled {
-  pointer-events: none;
-  cursor: default;
-  color: #b6c4ce;
+.button--decline--clarity {
+  &:visited {
+    color: $nhsuk-link-color;
+  }
+  &.disabled {
+    pointer-events: none;
+    cursor: default;
+    color: #b6c4ce;
+  }
 }
 
 .button--retry {
@@ -626,9 +627,8 @@ textarea {
     left: 0.75em;
     height: 30px;
     width: 30px;
-    background: transparent url("/images/three-circling-arrows.svg") no-repeat;
+    background: transparent url('/images/three-circling-arrows.svg') no-repeat;
     background-size: 25px 25px;
-    background-position: middle;
   }
   &:active::before {
     top: 1.3em;
