@@ -2,7 +2,7 @@
 
 module.exports = {
   // Service name
-  serviceName: 'Identity checking application',
+  serviceName: 'Identity Verification and Matching Service',
 
   // Port to run nodemon on locally
   port: 2000,
