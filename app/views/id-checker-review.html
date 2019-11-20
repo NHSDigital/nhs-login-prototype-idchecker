@@ -29,7 +29,7 @@
                     <div class="idcheck-image zoomable1">
                         {% if idType === 'driving' %}
 
-                        <img src="/images/DL-front.jpg" class="idcheck-image-img" style="width: 100%;"
+                        <img src="/images/{{ data.idv[data.user-1].media_photoid_front}}" class="idcheck-image-img" style="width: 100%;"
                              alt="Image of a driving licence"/>
 
                         {% else %}
@@ -43,12 +43,12 @@
                     </div>
 
 
-                    {% if idType === 'driving' %}
+                    {% if data.idv[data.user-1].media_photoid_back !== '' %}
 
                     <div class="reading-width idcheck-image-container">
                         <div class="idcheck-image-expand"><a href="#" class="idcheck-image-expand-button">Expand image</a></div>
                         <div class="idcheck-image zoomable2">
-                            <img src="/images/DL-back.jpg" class="idcheck-image-img" style="width: 100%;" alt="Image of a driving licence"/>
+                            <img src="/images/{{ data.idv[data.user-1].media_photoid_back}}" class="idcheck-image-img" style="width: 100%;" alt="Image of a driving licence"/>
                         </div>
                     </div>
 
@@ -500,12 +500,12 @@
 
                         {% if idType === 'driving' %}
 
-                        <img src="/images/DL-front.jpg" class="idcheck-image-img" style="width: 100%;"
+                        <img src="/images/{{ data.idv[data.user-1].media_photoid_front}}" class="idcheck-image-img" style="width: 100%;"
                              alt="Image of a driving licence"/>
 
                         {% else %}
 
-                        <img src="/images/passport_redacted.jpg" class="idcheck-image-img" style="width: 100%;"
+                        <img src="/images/{{ data.idv[data.user-1].media_photoid_front}}" class="idcheck-image-img" style="width: 100%;"
                              alt="Image of a passport"/>
 
                         {% endif %}
@@ -752,7 +752,7 @@
                         <div class="idcheck-image zoomable4" >
                             {% if idType === 'driving' %}
 
-                            <img src="/images/DL-front.jpg" class="idcheck-image-img" style="width: 100%;"
+                            <img src="/images/{{ data.idv[data.user-1].media_photoid_front}}" class="idcheck-image-img" style="width: 100%;"
                                  alt="Image of a driving licence"/>
 
                             {% else %}
@@ -1023,7 +1023,7 @@
                                     <div class="idcheck-image zoomable5">
                                         {% if idType === 'driving' %}
 
-                                        <img src="/images/DL-front.jpg" class="idcheck-image-img" style="width: 100%;"
+                                        <img src="/images/{{ data.idv[data.user-1].media_photoid_front}}" class="idcheck-image-img" style="width: 100%;"
                                              alt="Image of a driving licence"/>
 
                                         {% else %}

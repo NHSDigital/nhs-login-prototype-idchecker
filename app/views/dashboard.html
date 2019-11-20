@@ -15,10 +15,10 @@
     </div>
   </div>
   <div class="nhsuk-grid-column-one-quarter">
-    <div class="idcheck-dash {% if state === 'inprogress' %}u-inprogress{% endif %}"id="inprogress" >
+    <div class="idcheck-dash {% if data.prototype.inprogress === 1 %}u-inprogress{% endif %}"id="inprogress" >
       <p class="idcheck-dash-heading">In progress</p>
       <div class="idcheck-dash-details">
-        <span class="idcheck-dash-number nhsuk-heading-xl" id="progress-num">0</span>
+        <span class="idcheck-dash-number nhsuk-heading-xl" id="progress-num">{{ data.prototype.inprogress }}</span>
       </div>
     </div>
   </div>
@@ -34,22 +34,31 @@
     <div class="idcheck-dash">
       <p class="idcheck-dash-heading">Completed today</p>
       <div class="idcheck-dash-details">
-        <div class="idcheck-dash-number nhsuk-heading-xl">{{ data.prototype.count }}</div>
+        <div class="idcheck-dash-number nhsuk-heading-xl">{{ data.prototype.count - data.prototype.inprogress }}</div>
       </div>
     </div>
   </div>
 </div>
 
-<form action="{{ thisPage }}" method="POST" role="form">
 
-{% if state === 'inprogress' %}
+
+{% if data.prototype.inprogress === 1 %}
   <p>You still have a verification in progress</p>
-  <a class="nhsuk-button" href="id-checker-review{{ params }}">Continue verification</a>
-  <p><a href="id-checker-dashboard{{ params }}&state=none">Abort</a></p>
+
+  <form action="continue" method="POST" role="form" id="continue">
+    <a class="nhsuk-button" href="javascript{}:" onclick="document.getElementById('continue').submit(); return false;">Continue verification</a>
+  </form>
+
+  <form action="abort-from-dash" method="POST" role="form" id="abort">
+    <p><a href="javascript{}:" onclick="document.getElementById('abort').submit(); return false;">Abort</a></p>
+  </form>
+
 {% elif queue === 'cleared' %}
   <button class="nhsuk-button" id="cleared">Start next verification</button>
 {% else %}
-  <button class="nhsuk-button">Start next verification</button>
+  <form action="{{ thisPage }}" method="POST" role="form">
+    <button class="nhsuk-button">Start next verification</button>
+  </form>
 {% endif%}
 
 

@@ -26,6 +26,7 @@ router.post("/", function (req, res) {
 
   prototype.version = req.session.data.version
   prototype.total = req.session.data.idv.length
+  prototype.inprogress = 0
   prototype.count = 0
 
   req.session.data.prototype = prototype
@@ -36,15 +37,18 @@ router.post("/", function (req, res) {
 
 
 router.post("/dashboard", function (req, res) {
-  console.log(req.session.data.prototype)
+  let prototype = req.session.data.prototype
+  prototype.thePage = 'idcheck'
+  req.session.data.prototype = prototype
   res.redirect('id-checker-review')
-
 })
 
 
 router.post("/reject", function (req, res) {
   let prototype = req.session.data.prototype
   prototype.count = prototype.count +1
+  prototype.thePage = 'dashboard'
+  prototype.inprogress = 0
   req.session.data.prototype = prototype
   res.redirect('dashboard')
 })
@@ -52,9 +56,47 @@ router.post("/reject", function (req, res) {
 router.post("/accept", function (req, res) {
   let prototype = req.session.data.prototype
   prototype.count = prototype.count +1
+  prototype.thePage = 'dashboard'
+  prototype.inprogress = 0
   req.session.data.prototype = prototype
   res.redirect('dashboard')
 })
+
+router.post("/abort", function (req, res) {
+  let prototype = req.session.data.prototype
+  prototype.thePage = 'dashboard'
+  prototype.inprogress = 0
+  req.session.data.prototype = prototype
+  res.redirect('dashboard')
+})
+
+router.post("/abort-from-dash", function (req, res) {
+  let prototype = req.session.data.prototype
+  prototype.thePage = 'dashboard'
+  prototype.count = prototype.count -1
+  prototype.inprogress = 0
+  req.session.data.prototype = prototype
+  res.redirect('dashboard')
+})
+
+router.post("/return", function (req, res) {
+  let prototype = req.session.data.prototype
+  prototype.inprogress = 1
+  prototype.count = prototype.count +1
+  prototype.thePage = 'dashboard'
+  req.session.data.prototype = prototype
+  res.redirect('dashboard')
+})
+
+router.post("/continue", function (req, res) {
+  let prototype = req.session.data.prototype
+  prototype.thePage = 'idcheck'
+  prototype.count = prototype.count -1
+  prototype.inprogress = 0
+  req.session.data.prototype = prototype
+  res.redirect('id-checker-review')
+})
+
 
 
 // Dev Mode
