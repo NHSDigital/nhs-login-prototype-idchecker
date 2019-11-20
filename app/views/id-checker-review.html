@@ -178,13 +178,13 @@
 
                 <h3>User submitted details</h3>
 
-                {% if demographics === 'true' %}
+                {% if data.idv[data.user-1].nhs_number !== '' %}
 
                 <div class="nhsuk-form-group">
                     <label class="nhsuk-label" for="nhsnum">
                         NHS Number
                     </label>
-                    <input class="nhsuk-input nhsuk-input--width-10" id="nhsnum" value="{{ data.idv[data.user].nhs_number}}" name="nhsnum" type="text" maxlength="10" readonly>
+                    <input class="nhsuk-input nhsuk-input--width-10" id="nhsnum" value="{{ data.idv[data.user-1].nhs_number}}" name="nhsnum" type="text" maxlength="10" readonly>
                 </div>
 
                 <div class="nhsuk-form-group">
@@ -725,17 +725,26 @@
 
         <div class="nhsuk-grid-row">
             <div class="nhsuk-grid-column-one-half">
-                <h3>Watch the video</h3>
+                {% if data.idv[data.user-1].media_video === '' %}
+                    <h3>Look at the image</h3>
+                {% else %}
+                    <h3>Watch the video</h3>
+                {% endif %}
                 <div class="idcheck-media">
                     <div class="idcheck-video">
 
                         <div class="idcheck-video-paired"><a href="#" class="idcheck-video-paired-button">Show document</a></div>
 
+                        {% if data.idv[data.user-1].media_video === '' %}
+                        <img src="/images/iproov-scan.png" class="idcheck-image-img" style="width: 100%;"
+                             alt="Image of the user from iproov"/>
+                        {% else %}
                         <video id="uploaded-video" controls autoplay="" name="media" style="width:100%;height:auto;">
                             <source src="/images/challenge.mp4" type="video/mp4">
                             <p>Your browser doesn't support Apple's HEVC videos yet. Here is
                                 a <a href="hevc.mkv">link to the video</a> instead.</p>
                         </video>
+                        {% endif %}
                     </div>
 
                     <div class="idcheck-image-container" style="display: none;">
@@ -769,7 +778,7 @@
                             <div class="qa-questions-question-text nhsuk-u-padding-bottom-2">
                                 <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--m">
                                     <h3 class="nhsuk-fieldset__heading">
-                                        Can you clearly see the face in the video?
+                                        Can you clearly see the face in the {% if data.idv[data.user-1].media_video === '' %}image{% else %}video{% endif %}?
                                     </h3>
                                 </legend>
                             </div>
@@ -809,7 +818,7 @@
                             <div class="qa-questions-question-text nhsuk-u-padding-bottom-2">
                                 <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--m">
                                     <h3 class="nhsuk-fieldset__heading">
-                                        Does the face in the photo ID match the face in the video?
+                                        Does the face in the photo ID match the face in the {% if data.idv[data.user-1].media_video === '' %}image{% else %}video{% endif %}?
                                     </h3>
                                 </legend>
                             </div>
@@ -852,8 +861,10 @@
                     </div>
                 </div>
 
-                <div class="qa-questions-group" data-complete="false">
-                    <div class="qa-questions-question" id="selfie-3" data-answered="false" data-group="decline-7">
+                <!-- hide this question in automation -->
+
+                <div class="qa-questions-group {% if data.idv[data.user-1].media_video === '' %}js-hidden" data-complete="true"{% else %}" data-complete="false"{% endif %}>
+                    <div class="qa-questions-question" id="selfie-3" {% if data.idv[data.user-1].media_video === '' %}data-answered="true"{% else %}data-answered="false"{% endif %} data-group="decline-7">
 
                         <fieldset class="nhsuk-fieldset nhsuk-u-margin-top-6">
 
@@ -865,12 +876,12 @@
                                 </legend>
                             </div>
 
-                            <div class="qa-questions-answer-group multiple-choice__container" data-answered="false">
+                            <div class="qa-questions-answer-group multiple-choice__container" {% if data.idv[data.user-1].media_video === '' %} data-answered="true"{% else %} data-answered="false" {% endif %}>
 
                                 <div class="nhsuk-radios nhsuk-radios--inline">
 
                                     <div class="nhsuk-radios__item nhsuk-u-margin-bottom-3">
-                                        <input class="nhsuk-radios__input qa-questions-answer" id="17" name="a-9" type="radio" value="yes" aria-checked="false">
+                                        <input class="nhsuk-radios__input qa-questions-answer" id="17" name="a-9" type="radio" value="yes" {% if data.idv[data.user-1].media_video === '' %}aria-checked="true" checked="checked"{% else %} aria-checked="false" {% endif %}>
                                         <label class="nhsuk-label nhsuk-radios__label" for="17">
                                             Yes
                                         </label>
@@ -896,12 +907,12 @@
                     <div id="id-approve">
                         <form action="accept" method="POST" role="form">
                             <button href="dashboard"
-                           data-target="modal" id="approveBtn" class="nhsuk-button button--approve" style="display: none;">Approve</button>
+                           data-target="modal" id="approveBtn" class="nhsuk-button button--approve nhsuk-u-margin-top-3" style="display: none;">Approve</button>
                         </form>
                     </div>
                     <div id="id-decline">
                         <a href="dashboard"
-                           data-target="modal" id="declineBtn" class="nhsuk-button button--decline" style="display: none;">Reject</a>
+                           data-target="modal" id="declineBtn" class="nhsuk-button button--decline nhsuk-u-margin-top-3" style="display: none;">Reject</a>
                     </div>
                     <div id="id-canttell">
                         <a href="dashboard"
@@ -1032,16 +1043,7 @@
 
                                 <div class="nhsuk-form-group">
 
-                                    <fieldset class="nhsuk-fieldset" aria-describedby="example-hint-hint">
-<!--                                        <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend&#45;&#45;m">-->
-<!--                                            <h1 class="nhsuk-fieldset__heading">-->
-<!--                                                Have you ever had any of these conditions?-->
-<!--                                            </h1>-->
-<!--                                        </legend>-->
-
-<!--                                        <span class="nhsuk-hint" id="example-hint-hint">-->
-<!--                                          Select all the options that are relevant.-->
-<!--                                        </span>-->
+                                    <fieldset class="nhsuk-fieldset">
 
                                         <div class="nhsuk-checkboxes nhsuk-checkboxes--small">
 
@@ -1535,7 +1537,7 @@
                     var inputs = answers[k].getElementsByTagName('input')
                     // loop through all the inputs and uncheck them
                     for (l = 0; l < answers.length; l++) {
-                      answers[l].checked = false
+                      // answers[l].checked = false
                       answers[l].disabled = true
                     }
                 }
