@@ -21,6 +21,7 @@
     "challenge": "8-4-2-2",
     "pds_matches": "true",
     "pds_failreason": "",
+    "pds_retrace_matches": "",
     "pds_name_first": "Joe",
     "pds_name_middle": "Billy",
     "pds_name_last": "Bloggs",
@@ -49,10 +50,11 @@
     "challenge": "",
     "pds_matches": "false",
     "pds_failreason": "nam404",
-    "pds_name_first": "-",
-    "pds_name_middle": "-",
-    "pds_name_last": "-",
-    "pds_name_dob": "-",
-    "pds_name_nhs_number": "-"
+    "pds_retrace_matches": "true",
+    "pds_name_first": "Joe",
+    "pds_name_middle": "Billy",
+    "pds_name_last": "Bloggs",
+    "pds_name_dob": "9th February, 1979",
+    "pds_name_nhs_number": "485 777 3456"
   }
 ]

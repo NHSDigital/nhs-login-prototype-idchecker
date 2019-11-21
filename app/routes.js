@@ -27,6 +27,7 @@ router.post("/", function (req, res) {
   prototype.version = req.session.data.version
   prototype.total = req.session.data.idv.length
   prototype.inprogress = 0
+  prototype.inholding = 0
   prototype.count = 0
 
   req.session.data.prototype = prototype
@@ -58,6 +59,16 @@ router.post("/accept", function (req, res) {
   prototype.count = prototype.count +1
   prototype.thePage = 'dashboard'
   prototype.inprogress = 0
+  req.session.data.prototype = prototype
+  res.redirect('dashboard')
+})
+
+router.post("/holding", function (req, res) {
+  let prototype = req.session.data.prototype
+  prototype.count = prototype.count +1
+  prototype.thePage = 'dashboard'
+  prototype.inprogress = 0
+  prototype.inholding = 1
   req.session.data.prototype = prototype
   res.redirect('dashboard')
 })

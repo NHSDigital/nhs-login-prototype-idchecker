@@ -23,10 +23,10 @@
     </div>
   </div>
   <div class="nhsuk-grid-column-one-quarter">
-    <div class="idcheck-dash idcheck-dash-{{holding|default('clear') }} {% if holding === 'inholding' %}u-inholding{% endif %}">
+    <div class="idcheck-dash idcheck-dash-{{holding|default('clear') }} {% if data.prototype.inholding === 1 %}u-inholding{% endif %}">
       <p class="idcheck-dash-heading">Holding list</p>
       <div class="idcheck-dash-details">
-        <div class="idcheck-dash-number nhsuk-heading-xl">0</div>
+        <div class="idcheck-dash-number nhsuk-heading-xl">{{ data.prototype.inholding }}</div>
       </div>
     </div>
   </div>
@@ -34,7 +34,7 @@
     <div class="idcheck-dash">
       <p class="idcheck-dash-heading">Completed today</p>
       <div class="idcheck-dash-details">
-        <div class="idcheck-dash-number nhsuk-heading-xl">{{ data.prototype.count - data.prototype.inprogress }}</div>
+        <div class="idcheck-dash-number nhsuk-heading-xl">{{ data.prototype.count - data.prototype.inprogress - data.prototype.inholding}}</div>
       </div>
     </div>
   </div>

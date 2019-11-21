@@ -351,7 +351,7 @@
                 <!-- PDS RESULT -->
 
 
-                <div id="trace" class="idcheck-match{% if data.idv[data.user-1].pds_matches === 'false' %} fail{% endif %}" style="display:none;-webkit-animation-delay: 2s;-moz-animation-delay: 2s;animation-delay: 2s;">
+                <div id="trace" class="idcheck-match{% if data.idv[data.user-1].pds_matches === 'false' %} fail{% endif %}" style="display:none;">
 
                     <div class="idcheck-result">
                         {% if data.idv[data.user-1].pds_matches === 'true' %}
@@ -370,6 +370,8 @@
                             {% endif %}
                         {% endif %}
                     </div>
+
+
 
                     {% if data.idv[data.user-1].pds_matches === 'false' %}
 
@@ -421,6 +423,12 @@
 
                     {% endif %}
 
+                </div>
+
+                <div id="retrace" class="idcheck-match" style="display:none;">
+                    <div class="idcheck-result">
+                            Single record found
+                    </div>
                 </div>
 
                 {% if data.idv[data.user-1].pds_matches === 'false' %}
@@ -490,6 +498,8 @@
                             <input class="nhsuk-input nhsuk-input--width-10" id="nhs_number" value="" name="nhs_number" type="text" maxlength="" >
                         </div>
 
+                        {% if data.idv[data.user-1].media_scan !== '' %}
+
                         <fieldset  style="display:none;">
                             <legend class="form-label">Date of birth</legend>
                             <span class="form-label__hint" style="margin-top: 10px;">Example: 31 3 1980</span>
@@ -509,8 +519,10 @@
                             </div>
                         </fieldset>
 
+                        {% endif %}
+
                         <div id="id-approve2">
-                            <button id="approveBtn2b" data-target="" class="nhsuk-button button--retry">Re-run trace</button>
+                            <button id="retraceBtn" data-target="" class="nhsuk-button button--retry">Re-run trace</button>
                         </div>
                     </div>
 
@@ -576,9 +588,33 @@
             <div class="nhsuk-grid-column-one-half">
                 <h3>PDS record</h3>
 
-                <div class="idcheck-match {{ result }}">
+                <div class="idcheck-match">
 
-                    <table class="">
+                    <table id="pds-result">
+                        <tr>
+                            <td>First name:</td>
+                            <td><b>{% if data.idv[data.user-1].pds_matches === 'true' %}{{ data.idv[data.user-1].pds_name_first }}{% else %}-{% endif %}</b></td>
+                        </tr>
+                        <tr>
+                            <td>Middle names:</td>
+                            <td><b>{% if data.idv[data.user-1].pds_matches === 'true' %}{{ data.idv[data.user-1].pds_name_middle }}{% else %}-{% endif %}</b></td>
+                        </tr>
+                        <tr>
+                            <td>Last name:</td>
+                            <td><b>{% if data.idv[data.user-1].pds_matches === 'true' %}{{ data.idv[data.user-1].pds_name_last }}{% else %}-{% endif %}</b></td>
+                        </tr>
+                        <tr>
+                            <td>Date of birth:</td>
+                            <td><b>{% if data.idv[data.user-1].pds_matches === 'true' %}{{ data.idv[data.user-1].pds_name_dob }}{% else %}-{% endif %}</b></td>
+                        </tr>
+                        <tr>
+                            <td>NHS Number:</td>
+                            <td><b>{% if data.idv[data.user-1].pds_matches === 'true' %}{{ data.idv[data.user-1].pds_name_nhs_number }}{% else %}-{% endif %}</b></td>
+                        </tr>
+                    </table>
+
+
+                    <table id="pds-retrace-result" style="display: none;">
                         <tr>
                             <td>First name:</td>
                             <td><b>{{ data.idv[data.user-1].pds_name_first }}</b></td>
@@ -978,16 +1014,15 @@
     </div>
 </div>
 
-
-<div id="slideout" {% if state === 'pickedup' %}style="display:none;"{% endif %}>
+<div id="slideout">
     <img src="/images/problem.png" alt="Feedback" height="173" width="32"/>
     <div id="slideout_inner">
-        <h3>Move to holding list</h3>
-        <label class="" for="field3">Reason for moving (required)</label>
-        <textarea class="" id="field6" name="field6" type="text" rows="3"
-              style="margin-top: 16px;" onkeyup='checkText(this.value);'></textarea>
-        <button class="nhsuk-button nhsuk-button--reverse" id="id-holding">Move</button>
-
+        <form action="holding" method="POST" role="form">
+            <h3>Move to holding list</h3>
+            <label class="" for="field6">Reason for moving (required)</label>
+            <textarea class="" id="field6" name="field6" type="text" rows="3" style="margin-top: 16px;" onkeyup='checkText(this.value);'></textarea>
+            <button class="nhsuk-button nhsuk-button--reverse" id="id-holding">Move</button>
+        </form>
     </div>
 </div>
 
@@ -1377,8 +1412,8 @@
     addButtonListeners()
     addClarityButtonListeners()
     addRejectionListeners()
-    addToHolding()
     resetAllSections()
+    addRetraceListener()
     questionsComplete = false
 
     function getParameterByName(name, url) {
@@ -1570,6 +1605,20 @@
         document.getElementById('modal-link').setAttribute("disabled", '')
     }
 
+    function retrace() {
+        document.getElementById('trace').style.display = 'none'
+        document.getElementById('declinebtn-2').style.display = 'none'
+        document.getElementById('loader').style.display = 'block'
+        setTimeout(function () {
+            document.getElementById('retrace').style.display = 'block'
+            document.getElementById('pds-retrace-result').style.display = 'block'
+        }, 2000)
+        setTimeout(function () {
+            document.getElementById('loader').style.display = 'none'
+            document.getElementById('pds-result').style.display = 'none'
+        }, 2000)
+    }
+
     // run through all sections checking for completeness
     function resetAllSections() {
         // get an array of all the question groups
@@ -1650,12 +1699,15 @@
         }
     }
 
-    function addToHolding() {
-        var selects = document.getElementById('id-holding')
-        selects.addEventListener('click', function (event) {
-            document.getElementById('holding').click()
-        })
+    function addRetraceListener() {
+        if (document.getElementById('retraceBtn')) {
+            var selects = document.getElementById('retraceBtn')
+            selects.addEventListener('click', function (event) {
+                retrace(this, event)
+            })
+        }
     }
+
 
     function updateStorageFromElements() {
         var idCheck = []
