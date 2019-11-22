@@ -1086,7 +1086,7 @@
 
 
 
-<div class="modal-overlay no-fade" id="modal_window" aria-hidden="true" role="dialog" aria-labelledby="modal_title">
+<div class="modal-overlay" id="modal_window" aria-hidden="true" role="dialog" aria-labelledby="modal_title">
     <div class="modal-content" id="modal_holder" role="document">
         <label class="nhsuk-label" for="sort">
             <h3 id="modal-header">Select the reason we cannot accept this document</h3>
@@ -1207,7 +1207,7 @@
                                             </div>
 
                                             <div class="nhsuk-checkboxes__item nhsuk-u-margin-bottom-0 nhsuk-u-margin-top-0">
-                                                <input class="nhsuk-checkboxes__input" id="example-hint-10" name="example-hint" type="checkbox" value="other">
+                                                <input class="nhsuk-checkboxes__input" id="example-hint-10" name="example-hint" type="checkbox" value="other" data-question="decline-text-16">
                                                 <label class="nhsuk-label nhsuk-checkboxes__label" for="example-hint-10">
                                                     Other
                                                 </label>
@@ -1387,7 +1387,11 @@
                         <label class="nhsuk-label" for="field3" style="display:none;"></label>
                     </div>
 
-                    <textarea class="nhsuk-textarea" id="field3" name="field3" type="text" rows="5"
+                    <div id="decline-text-16" style="display:none;">
+                        <label class="nhsuk-label" for="field3" style="display:none;">What is the other reason? (required)</label>
+                    </div>
+
+                    <textarea class="nhsuk-textarea" id="field3" name="field3" type="text" rows="3"
                               style="margin-top: 16px;" onkeyup='checkText(this.value);'></textarea>
                 </div>
 
@@ -1414,6 +1418,7 @@
     addRejectionListeners()
     resetAllSections()
     addRetraceListener()
+    addOtherListener()
     questionsComplete = false
 
     function getParameterByName(name, url) {
@@ -1695,6 +1700,21 @@
         for (i = 0; i < selects.length; i++) {
             selects[i].addEventListener('change', function (event) {
                 selectChange(this, event)
+            })
+        }
+    }
+
+    function addOtherListener() {
+        if (document.getElementById('example-hint-10')) {
+            var selects = document.getElementById('example-hint-10')
+            selects.addEventListener('change', function () {
+                if(this.checked) {
+                    // selectChange(this, event)
+                    var target = this.getAttribute('data-question')
+                    setSubReasons(target)
+                } else {
+                    // Checkbox is not checked..
+                }
             })
         }
     }
