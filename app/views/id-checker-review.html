@@ -1014,9 +1014,9 @@
     </div>
 </div>
 
-<div id="slideout">
-    <img src="/images/problem.png" alt="Feedback" height="173" width="32"/>
-    <div id="slideout_inner">
+<div id="slideout" data-status="closed">
+    <img src="/images/problem.png" alt="Feedback" height="173" width="32" id="slideout__button"/>
+    <div id="slideout_inner" data-status="closed">
         <form action="holding" method="POST" role="form">
             <h3>Move to holding list</h3>
             <label class="" for="field6">Reason for moving (required)</label>
@@ -1419,6 +1419,7 @@
     resetAllSections()
     addRetraceListener()
     addOtherListener()
+    addSlideoutListener()
     questionsComplete = false
 
     function getParameterByName(name, url) {
@@ -1713,7 +1714,8 @@
                     var target = this.getAttribute('data-question')
                     setSubReasons(target)
                 } else {
-                    // Checkbox is not checked..
+                    var target = this.getAttribute('data-question')
+                    setSubReasons(target)
                 }
             })
         }
@@ -1728,6 +1730,21 @@
         }
     }
 
+    function addSlideoutListener() {
+        if (document.getElementById('slideout__button')) {
+            var selects = document.getElementById('slideout__button')
+            selects.addEventListener('click', function (event) {
+                if (document.getElementById('slideout').getAttribute('data-status') === 'closed') {
+                    console.log('slideout')
+                    document.getElementById('slideout').setAttribute('data-status', 'open')
+                    document.getElementById('slideout_inner').setAttribute('data-status', 'open')
+                } else {
+                    document.getElementById('slideout').setAttribute('data-status', 'closed')
+                    document.getElementById('slideout_inner').setAttribute('data-status', 'closed')
+                }
+            })
+        }
+    }
 
     function updateStorageFromElements() {
         var idCheck = []
