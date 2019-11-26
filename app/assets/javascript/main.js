@@ -117,11 +117,11 @@ $(document).ready(function () {
     if ($( e.target ).closest(".nhsuk-grid-column-one-half").hasClass('expanded')) {
       $( e.target ).closest(".nhsuk-grid-column-one-half").toggleClass( "expanded" )
       $( e.target ).closest(".idcheck-media").children('.idcheck-image-container').hide()
-      $( e.target ).text( "Show document" )
+      $( e.target ).text( "Show ID" )
     } else {
       $( e.target ).closest(".nhsuk-grid-column-one-half").toggleClass( "expanded" )
       $( e.target ).closest(".idcheck-media").children('.idcheck-image-container').show()
-      $( e.target ).text( "Hide document" )
+      $( e.target ).text( "Hide ID" )
     }
   })
 

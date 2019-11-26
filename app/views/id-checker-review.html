@@ -14,14 +14,14 @@
 
 <div class="nhsuk-care-card nhsuk-care-card--non-urgent nhsuk-u-margin-bottom-0">
     <div class="nhsuk-care-card__heading-container">
-        <h2 class="nhsuk-care-card__heading"><span role="text">Check if we can accept this document</span></h2>
+        <h2 class="nhsuk-care-card__heading"><span role="text">Check if we can accept this ID</span></h2>
         <span class="nhsuk-care-card__arrow" aria-hidden="true"></span>
     </div>
     <div class="nhsuk-care-card__content">
 
         <div class="nhsuk-grid-row">
             <div class="nhsuk-grid-column-one-half">
-                <p class="nhsuk-body-s idcheck-help">Double click or hold down 'ALT' when scrolling to zoom the image in and out. </p>
+                <p class="nhsuk-body-s idcheck-help">To zoom in and out: double-click on the picture, or hold down the 'ALT' key and use your mouse wheel to scroll.</p>
                 <div class="reading-width panzoom-parent idcheck-image-container">
 
                     <div class="idcheck-image-expand"><a href="#" class="idcheck-image-expand-button">Expand image</a></div>
@@ -119,7 +119,7 @@
                             <div class="qa-questions-question-text nhsuk-u-padding-bottom-2">
                                 <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--m">
                                     <h3 class="nhsuk-fieldset__heading">
-                                        Is the document false, expired or damaged?
+                                        Is the ID invalid because it's expired, damaged or looks false?
                                     </h3>
                                 </legend>
                             </div>
@@ -168,7 +168,7 @@
 
 <div class="nhsuk-care-card nhsuk-care-card--non-urgent nhsuk-u-margin-top-0 nhsuk-u-margin-bottom-0">
     <div class="nhsuk-care-card__heading-container">
-        <h2 class="nhsuk-care-card__heading"><span role="text">PDS match</span></h2>
+        <h2 class="nhsuk-care-card__heading"><span role="text">PDS record</span></h2>
         <span class="nhsuk-care-card__arrow" aria-hidden="true"></span>
     </div>
     <div class="nhsuk-care-card__content">
@@ -582,7 +582,7 @@
 
                 </div>
                 <div id="id-canttell5">
-                    <a href="dashboard" data-target="modal" id="canttellBtn" class="button--decline--clarity" style="">There's an issue with the image and I can't answer the questions</a>
+                    <a href="dashboard" data-target="modal" id="canttellBtn" class="button--decline--clarity" style="">I cannot answer 1 or more of these questions</a>
                 </div>
             </div>
             <div class="nhsuk-grid-column-one-half">
@@ -596,7 +596,7 @@
                             <td><b>{% if data.idv[data.user-1].pds_matches === 'true' %}{{ data.idv[data.user-1].pds_name_first }}{% else %}-{% endif %}</b></td>
                         </tr>
                         <tr>
-                            <td>Middle names:</td>
+                            <td>Middle name:</td>
                             <td><b>{% if data.idv[data.user-1].pds_matches === 'true' %}{{ data.idv[data.user-1].pds_name_middle }}{% else %}-{% endif %}</b></td>
                         </tr>
                         <tr>
@@ -607,10 +607,10 @@
                             <td>Date of birth:</td>
                             <td><b>{% if data.idv[data.user-1].pds_matches === 'true' %}{{ data.idv[data.user-1].pds_name_dob }}{% else %}-{% endif %}</b></td>
                         </tr>
-                        <tr>
-                            <td>NHS Number:</td>
-                            <td><b>{% if data.idv[data.user-1].pds_matches === 'true' %}{{ data.idv[data.user-1].pds_name_nhs_number }}{% else %}-{% endif %}</b></td>
-                        </tr>
+<!--                        <tr>-->
+<!--                            <td>NHS Number:</td>-->
+<!--                            <td><b>{% if data.idv[data.user-1].pds_matches === 'true' %}{{ data.idv[data.user-1].pds_name_nhs_number }}{% else %}-{% endif %}</b></td>-->
+<!--                        </tr>-->
                     </table>
 
 
@@ -620,7 +620,7 @@
                             <td><b>{{ data.idv[data.user-1].pds_name_first }}</b></td>
                         </tr>
                         <tr>
-                            <td>Middle names:</td>
+                            <td>Middle name:</td>
                             <td><b>{{ data.idv[data.user-1].pds_name_middle }}</b></td>
                         </tr>
                         <tr>
@@ -631,10 +631,10 @@
                             <td>Date of birth:</td>
                             <td><b>{{ data.idv[data.user-1].pds_name_dob }}</b></td>
                         </tr>
-                        <tr>
-                            <td>NHS Number:</td>
-                            <td><b>{{ data.idv[data.user-1].pds_name_nhs_number }}</b></td>
-                        </tr>
+<!--                        <tr>-->
+<!--                            <td>NHS Number:</td>-->
+<!--                            <td><b>{{ data.idv[data.user-1].pds_name_nhs_number }}</b></td>-->
+<!--                        </tr>-->
                     </table>
 
                 </div>
@@ -785,9 +785,9 @@
                                 </div>
                             </fieldset>
 
-                            <div id="id-canttell6">
-                                <a href="dashboard" data-target="modal" id="canttellBtn" class="button--decline--clarity" style="">There's an issue with the image and I can't answer the questions</a>
-                            </div>
+<!--                            <div id="id-canttell6">-->
+<!--                                <a href="dashboard" data-target="modal" id="canttellBtn" class="button&#45;&#45;decline&#45;&#45;clarity" style="">There's an issue with the image and I can't answer the questions</a>-->
+<!--                            </div>-->
 
                         </div>
 
@@ -823,7 +823,7 @@
                 <div class="idcheck-media">
                     <div class="idcheck-video">
 
-                        <div class="idcheck-video-paired"><a href="#" class="idcheck-video-paired-button">Show document</a></div>
+                        <div class="idcheck-video-paired"><a href="#" class="idcheck-video-paired-button"><u>Show ID</u></a></div>
 
                         {% if data.idv[data.user-1].media_video === '' %}
                         <img src="/images/iproov-scan.png" class="idcheck-image-img" style="width: 100%;"
@@ -868,7 +868,11 @@
                             <div class="qa-questions-question-text nhsuk-u-padding-bottom-2">
                                 <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--m">
                                     <h3 class="nhsuk-fieldset__heading">
-                                        Can you clearly see the face in the {% if data.idv[data.user-1].media_video === '' %}image{% else %}video{% endif %}?
+                                        {% if data.idv[data.user-1].media_video === '' %}
+                                            Can you clearly see a face in the picture?
+                                        {% else %}
+                                            Can you clearly see the face in the video?
+                                        {% endif %}
                                     </h3>
                                 </legend>
                             </div>
@@ -908,7 +912,11 @@
                             <div class="qa-questions-question-text nhsuk-u-padding-bottom-2">
                                 <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--m">
                                     <h3 class="nhsuk-fieldset__heading">
-                                        Does the face in the photo ID match the face in the {% if data.idv[data.user-1].media_video === '' %}image{% else %}video{% endif %}?
+                                        {% if data.idv[data.user-1].media_video === '' %}
+                                            Does the face in the photo ID match the face in the picture?
+                                        {% else %}
+                                            Does the face in the photo ID match the face in the video?
+                                        {% endif %}
                                     </h3>
                                 </legend>
                             </div>
@@ -947,7 +955,7 @@
                     </div>
 
                     <div id="id-canttell7">
-                        <a href="dashboard" data-target="modal" id="canttellBtn" class="button--decline--clarity disabled" style="">I cannot see what I need to answer this question</a>
+                        <a href="dashboard" data-target="modal" id="canttellBtn" class="button--decline--clarity disabled" style="">I cannot answer this question</a>
                     </div>
                 </div>
 
@@ -1089,7 +1097,7 @@
 <div class="modal-overlay" id="modal_window" aria-hidden="true" role="dialog" aria-labelledby="modal_title">
     <div class="modal-content" id="modal_holder" role="document">
         <label class="nhsuk-label" for="sort">
-            <h3 id="modal-header">Select the reason we cannot accept this document</h3>
+            <h3 id="modal-header">Select the reason we cannot accept this ID</h3>
         </label>
 
 
@@ -1237,19 +1245,18 @@
 
                         <select id="decline-1" class="nhsuk-select decline-group" id="sort" name="sort" style="margin-top:16px;width:100%;display:none;">
                             <option value="IDC-020" data-question="">--- Select 1 option ---</option>
-                            <option value="IDC-021" data-question="none">It is not a type of ID we accept</option>
-                            <option value="IDC-022" data-question="none">It is a type of ID we accept, but it is not a photo or scan of the original</option>
-                            <option value="IDC-023" data-question="none">It is a visa sticker</option>
-                            <option value="IDC-024" data-question="decline-text-1">Other reason</option>
+                            <option value="IDC-021" data-question="none">User has not sent any ID at all</option>
+                            <option value="IDC-022" data-question="none">It is not a type of ID we accept</option>
+                            <option value="IDC-023" data-question="none">It is a type of ID we accept, but it is not a photo or scan of the original</option>
+                            <option value="IDC-024" data-question="none">It is a visa sticker</option>
+                            <option value="IDC-025" data-question="decline-text-1">Other reason</option>
                         </select>
 
                         <select id="decline-2" class="nhsuk-select decline-group" id="sort" name="sort" style="margin-top:16px;width:100%;display:none;">
                             <option value="IDC-030" data-question="">--- Select 1 option ---</option>
-                            <option value="IDC-031" data-question="decline-text-4c">It looks false</option>
-                            <option value="IDC-032" data-question="none">It's expired</option>
-                            <option value="IDC-033" data-question="decline-text-4b">It's been cut up or damaged (and is now legally invalid)</option>
-<!--                            <option value="IDC-034" data-question="decline-text-4b"">It’s been cut up or damaged (and is now legally invalid)</option>-->
-<!--                            <option value="IDC-035" data-question="decline-text-4a">Other</option>-->
+                            <option value="IDC-031" data-question="none">It has expired</option>
+                            <option value="IDC-032" data-question="decline-text-4c">It looks false</option>
+                            <option value="IDC-033" data-question="decline-text-4b">It has been cut up or is too damaged for us to accept</option>
                         </select>
 
                         <select id="decline-3" class="nhsuk-select decline-group" id="sort" name="sort" style="margin-top:16px;width:100%;display:none;">
@@ -1264,35 +1271,29 @@
 
                         <select id="decline-4a" class="nhsuk-select decline-group" id="sort" name="sort" style="margin-top:16px;width:100%;display:none;">
                             <option value="IDC-050" data-question="">--- Select 1 option ---</option>
-                            <option value="IDC-051" data-question="decline-text-15">Driving licence - dates of birth do not match</option>
-                            <option value="IDC-052" data-question="decline-text-15">Passport - dates of birth do not match</option>
-                            <option value="IDC-053" data-question="decline-text-15">National identity card - dates of birth do not match</option>
+                            <option value="IDC-051" data-question="decline-text-15">Dates of birth do not match</option>
                         </select>
 
                         <select id="decline-4b" class="nhsuk-select decline-group" id="sort" name="sort" style="margin-top:16px;width:100%;display:none;">
                             <option value="IDC-050" data-question="">--- Select 1 option ---</option>
-                            <option value="IDC-051" data-question="decline-text-15">Driving licence - first names do not match</option>
-                            <option value="IDC-052" data-question="decline-text-15">Passport - first names do not match</option>
-                            <option value="IDC-053" data-question="decline-text-15">National identity card - first names do not match</option>
+                            <option value="IDC-051" data-question="decline-text-15">First names do not match</option>
                         </select>
 
                         <select id="decline-4c" class="nhsuk-select decline-group" id="sort" name="sort" style="margin-top:16px;width:100%;display:none;">
                             <option value="IDC-050" data-question="">--- Select 1 option ---</option>
-                            <option value="IDC-051" data-question="decline-text-15">Driving licence - last names do not match</option>
-                            <option value="IDC-052" data-question="decline-text-15">Passport - last names do not match</option>
-                            <option value="IDC-053" data-question="decline-text-15">National identity card - last names do not match</option>
+                            <option value="IDC-051" data-question="decline-text-15">Last names do not match</option>
                         </select>
 
                         <select id="decline-5" class="nhsuk-select decline-group" id="sort" name="sort" style="margin-top:16px;width:100%;display:none;">
                             <option value="IDC-080" data-question="">--- Select 1 option ---</option>
-                            <option value="IDC-081" data-question="decline-text-8">There is a face, but it’s not clear</option>
-                            <option value="IDC-082" data-question="decline-text-9">There is no face in the video</option>
+                            <option value="IDC-081" data-question="none">There is a face, but it's not clear</option>
+                            <option value="IDC-082" data-question="none">There is no face in the picture</option>
+                            <option value="IDC-083" data-question="decline-text-9">The face is covered</option>
                         </select>
 
                         <select id="decline-6" class="nhsuk-select decline-group" id="sort" name="sort" style="margin-top:16px;width:100%;display:none;">
                             <option value="IDC-090" data-question="">--- Select 1 option ---</option>
-                            <option value="IDC-091" data-question="decline-text-10">Driving licence - faces do not match</option>
-                            <option value="IDC-092" data-question="decline-text-10">Passport - faces do not match</option>
+                            <option value="IDC-091" data-question="decline-text-10">Faces do not match</option>
                         </select>
 
                         <select id="decline-7" class="nhsuk-select decline-group" id="sort" name="sort" style="margin-top:16px;width:100%;display:none;">
@@ -1310,9 +1311,8 @@
                 <div class="nhsuk-form-group" id="rejection-text" style="display:none;">
 
                     <div id="decline-text-1" style="display:none;">
-                        <label class="nhsuk-label" for="field3">Why is this not an accepted document? (required)</label>
+                        <label class="nhsuk-label" for="field3">Explain why you made this decision. <br>This information will not be sent to the user</label>
                     </div>
-
                     <div id="decline-text-2" style="display:none;">
                         <label class="nhsuk-label" for="field3">Why could you not find the person's NHS Number? (required)</label>
                     </div>
@@ -1331,11 +1331,11 @@
                     </div>
 
                     <div id="decline-text-4b" style="display:none;">
-                        <label class="nhsuk-label" for="field3">How was the document damaged? (required)</label>
+                        <label class="nhsuk-label" for="field3">Explain how the document is damaged</label>
                     </div>
 
                     <div id="decline-text-4c" style="display:none;">
-                        <label class="nhsuk-label" for="field3">How does the document look false? (required)</label>
+                        <label class="nhsuk-label" for="field3">Explain why the document looks false</label>
                     </div>
 
                     <div id="decline-text-6" style="display:none;">
@@ -1360,7 +1360,7 @@
                     </div>
 
                     <div id="decline-text-9" style="display:none;">
-                        <label class="nhsuk-label" for="field3">What can you see? (required)</label>
+                        <label class="nhsuk-label" for="field3">Explain how the face is covered</label>
                     </div>
 
                     <div id="decline-text-10" style="display:none;">
@@ -1388,7 +1388,7 @@
                     </div>
 
                     <div id="decline-text-16" style="display:none;">
-                        <label class="nhsuk-label" for="field3" style="display:none;">What is the other reason? (required)</label>
+                        <label class="nhsuk-label" for="field3" style="display:block;">What is the 'other' reason?</label>
                     </div>
 
                     <textarea class="nhsuk-textarea" id="field3" name="field3" type="text" rows="3"
@@ -1508,7 +1508,11 @@
 
         if (buttonType === 'Reject') {
             console.log(target)
-            heading.innerText = 'Select the reason we cannot accept this document'
+            if (target === 'decline-5') {
+                heading.innerText = 'Select the reason you cannot see a face'
+            } else {
+                heading.innerText = 'Select the reason we cannot accept this ID'
+            }
             setSubReasons('')
             setReasons(target)
             document.getElementById('modal_create').click()
@@ -1525,11 +1529,13 @@
         var link = object.href
         var heading = document.getElementById('modal-header')
 
-        var clarityQuestion = object.parentNode.parentNode.getAttribute('id')
+        var clarityQuestion = object.parentNode.getAttribute('id')
 
-        if (clarityQuestion === 'document-1') {
-            heading.innerText = 'Select the reason you cannot confirm whether it\'s a type of document we accept (select all that apply)'
-        } else if (clarityQuestion === 'document-2') {
+        console.log(clarityQuestion)
+
+        if (clarityQuestion === 'id-canttell2') {
+            heading.innerText = 'Select all the reasons you cannot answer this question'
+        } else if (clarityQuestion === 'id-canttell3') {
             heading.innerText = 'Select the reason you cannot confirm whether it\'s a valid document (select all that apply)'
           document.getElementById('idcheck-clarity-hologram').style.display = 'block'
         } else if (clarityQuestion === 'selfie-2') {
@@ -1591,6 +1597,10 @@
               document.getElementById('rejection-text').style.display = 'none'
             } else {
                 document.getElementById('rejection-text').style.display = 'block'
+
+                if (target === "decline-text-16") {
+                    console.log('hello')
+                }
             }
 
             document.getElementById(target).style.display = 'block'
