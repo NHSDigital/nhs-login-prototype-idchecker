@@ -27,28 +27,17 @@
                     <div class="idcheck-image-expand"><a href="#" class="idcheck-image-expand-button">Expand image</a></div>
 
                     <div class="idcheck-image zoomable1">
-                        {% if idType === 'driving' %}
-
-                        <img src="/images/{{ data.idv[data.user-1].media_photoid_front}}" class="idcheck-image-img" style="width: 100%;"
-                             alt="Image of a driving licence"/>
-
-                        {% else %}
-
-                        <img src="/images/{{ data.idv[data.user-1].media_photoid_front}}" class="idcheck-image-img" style="width: 100%;"
-                             alt="Image of a passport"/>
-
-                        {% endif %}
-
-
+                        <img src="/images/media/photos/{{ data.idv[data.prototype.count].media_photoid_front}}" class="idcheck-image-img" style="width: 100%;"
+                             alt="Picture of identity document"/>
                     </div>
 
 
-                    {% if data.idv[data.user-1].media_photoid_back !== '' %}
+                    {% if data.idv[data.prototype.count].media_photoid_back !== '' %}
 
                     <div class="reading-width idcheck-image-container">
                         <div class="idcheck-image-expand"><a href="#" class="idcheck-image-expand-button">Expand image</a></div>
                         <div class="idcheck-image zoomable2">
-                            <img src="/images/{{ data.idv[data.user-1].media_photoid_back}}" class="idcheck-image-img" style="width: 100%;" alt="Image of a driving licence"/>
+                            <img src="/images/media/photos/{{ data.idv[data.prototype.count].media_photoid_back}}" class="idcheck-image-img" style="width: 100%;" alt="Image of a driving licence"/>
                         </div>
                     </div>
 
@@ -176,7 +165,7 @@
         <div class="nhsuk-grid-row">
             <div class="nhsuk-grid-column-one-half">
 
-                {% if data.idv[data.user-1].media_scan !== '' %}
+                {% if data.idv[data.prototype.count].media_scan !== '' %}
 
                     <h3>OCR results</h3>
 
@@ -184,28 +173,28 @@
                         <label class="nhsuk-label" for="ocrfirstname">
                             First name
                         </label>
-                        <input class="nhsuk-input nhsuk-input--width-20" id="ocrfirstname" value="{{ data.idv[data.user-1].ocr_name_first}}" name="ocrfirstname" type="text" maxlength="" readonly >
+                        <input class="nhsuk-input nhsuk-input--width-20" id="ocrfirstname" value="{{ data.idv[data.prototype.count].ocr_name_first}}" name="ocrfirstname" type="text" maxlength="" readonly >
                     </div>
 
                     <div class="nhsuk-form-group">
                         <label class="nhsuk-label" for="ocrmiddlename">
                             Middle names
                         </label>
-                        <input class="nhsuk-input nhsuk-input--width-20" id="ocrmiddlename" value="{{ data.idv[data.user-1].ocr_name_middle}}" name="ocrmiddlename" type="text" maxlength="" readonly >
+                        <input class="nhsuk-input nhsuk-input--width-20" id="ocrmiddlename" value="{{ data.idv[data.prototype.count].ocr_name_middle}}" name="ocrmiddlename" type="text" maxlength="" readonly >
                     </div>
 
                     <div class="nhsuk-form-group">
                         <label class="nhsuk-label" for="ocrlastname">
                             Last name
                         </label>
-                        <input class="nhsuk-input nhsuk-input--width-20" id="ocrlastname" value="{{ data.idv[data.user-1].ocr_name_last}}" name="ocrlastname" type="text" maxlength="" readonly >
+                        <input class="nhsuk-input nhsuk-input--width-20" id="ocrlastname" value="{{ data.idv[data.prototype.count].ocr_name_last}}" name="ocrlastname" type="text" maxlength="" readonly >
                     </div>
 
                     <div class="nhsuk-form-group">
                         <label class="nhsuk-label" for="ocrdob">
                             Date of birth
                         </label>
-                        <input class="nhsuk-input nhsuk-input--width-20" id="ocrdob" value="{{ data.idv[data.user-1].ocr_dob}}" name="ocrdob" type="text" maxlength="" readonly >
+                        <input class="nhsuk-input nhsuk-input--width-20" id="ocrdob" value="{{ data.idv[data.prototype.count].ocr_dob}}" name="ocrdob" type="text" maxlength="" readonly >
                     </div>
 
                     <h3>User submitted details</h3>
@@ -214,16 +203,16 @@
                         <label class="nhsuk-label" for="postcode">
                             Postcode
                         </label>
-                        <input class="nhsuk-input nhsuk-input--width-5" id="postcode" value="{{ data.idv[data.user-1].postcode}}" name="postcode" type="text" maxlength="" readonly >
+                        <input class="nhsuk-input nhsuk-input--width-5" id="postcode" value="{{ data.idv[data.prototype.count].postcode}}" name="postcode" type="text" maxlength="" readonly >
                     </div>
 
-                    {% if data.idv[data.user-1].nhs_number !== '' %}
+                    {% if data.idv[data.prototype.count].nhs_number !== '' %}
 
                     <div class="nhsuk-form-group">
                         <label class="nhsuk-label" for="nhsnum">
                             NHS Number
                         </label>
-                        <input class="nhsuk-input nhsuk-input--width-10" id="nhsnum" value="{{ data.idv[data.user-1].nhs_number}}" name="nhsnum" type="text" maxlength="10" readonly>
+                        <input class="nhsuk-input nhsuk-input--width-10" id="nhsnum" value="{{ data.idv[data.prototype.count].nhs_number}}" name="nhsnum" type="text" maxlength="10" readonly>
                     </div>
 
                     {% endif %}
@@ -232,13 +221,13 @@
 
                 <h3>User submitted details</h3>
 
-                {% if data.idv[data.user-1].nhs_number !== '' %}
+                {% if data.idv[data.prototype.count].nhs_number !== '' %}
 
                 <div class="nhsuk-form-group">
                     <label class="nhsuk-label" for="nhsnum">
                         NHS Number
                     </label>
-                    <input class="nhsuk-input nhsuk-input--width-10" id="nhsnum" value="{{ data.idv[data.user-1].nhs_number}}" name="nhsnum" type="text" maxlength="10" readonly>
+                    <input class="nhsuk-input nhsuk-input--width-10" id="nhsnum" value="{{ data.idv[data.prototype.count].nhs_number}}" name="nhsnum" type="text" maxlength="10" readonly>
                 </div>
 
                 <div class="nhsuk-form-group">
@@ -251,17 +240,17 @@
                         <div class="nhsuk-date-input" id="example">
                             <div class="nhsuk-date-input__item">
                                 <div class="nhsuk-form-group">
-                                    <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-2" id="example-day" name="example-day" type="number" value="{{ data.idv[data.user-1].date_day}}" readonly>
+                                    <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-2" id="example-day" name="example-day" type="number" value="{{ data.idv[data.prototype.count].date_day}}" readonly>
                                 </div>
                             </div>
                             <div class="nhsuk-date-input__item">
                                 <div class="nhsuk-form-group">
-                                    <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-2" id="example-month" name="example-month" type="number" value="{{ data.idv[data.user-1].date_month}}" readonly>
+                                    <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-2" id="example-month" name="example-month" type="number" value="{{ data.idv[data.prototype.count].date_month}}" readonly>
                                 </div>
                             </div>
                             <div class="nhsuk-date-input__item">
                                 <div class="nhsuk-form-group">
-                                    <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-4" id="example-year" name="example-year" type="number" value="{{ data.idv[data.user-1].date_year}}" readonly>
+                                    <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-4" id="example-year" name="example-year" type="number" value="{{ data.idv[data.prototype.count].date_year}}" readonly>
                                 </div>
                             </div>
                         </div>
@@ -274,21 +263,21 @@
                     <label class="nhsuk-label" for="firstname">
                         First name
                     </label>
-                    <input class="nhsuk-input nhsuk-input--width-20" id="firstname" value="{{ data.idv[data.user-1].name_first}}" name="firstname" type="text" maxlength="" readonly >
+                    <input class="nhsuk-input nhsuk-input--width-20" id="firstname" value="{{ data.idv[data.prototype.count].name_first}}" name="firstname" type="text" maxlength="" readonly >
                 </div>
 
                 <div class="nhsuk-form-group">
                     <label class="nhsuk-label" for="middlename">
                         Middle names
                     </label>
-                    <input class="nhsuk-input nhsuk-input--width-20" id="middlename" value="{{ data.idv[data.user-1].name_middle}}" name="middlename" type="text" maxlength="" readonly >
+                    <input class="nhsuk-input nhsuk-input--width-20" id="middlename" value="{{ data.idv[data.prototype.count].name_middle}}" name="middlename" type="text" maxlength="" readonly >
                 </div>
 
                 <div class="nhsuk-form-group">
                     <label class="nhsuk-label" for="lastname">
                         Last name
                     </label>
-                    <input class="nhsuk-input nhsuk-input--width-20" id="lastname" value="{{ data.idv[data.user-1].name_last}}" name="lastname" type="text" maxlength="" readonly >
+                    <input class="nhsuk-input nhsuk-input--width-20" id="lastname" value="{{ data.idv[data.prototype.count].name_last}}" name="lastname" type="text" maxlength="" readonly >
                 </div>
 
                 <div class="nhsuk-form-group">
@@ -301,17 +290,17 @@
                         <div class="nhsuk-date-input" id="example">
                             <div class="nhsuk-date-input__item">
                                 <div class="nhsuk-form-group">
-                                    <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-2" id="example-day" name="example-day" type="number" value="{{ data.idv[data.user-1].date_day}}" readonly>
+                                    <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-2" id="example-day" name="example-day" type="number" value="{{ data.idv[data.prototype.count].date_day}}" readonly>
                                 </div>
                             </div>
                             <div class="nhsuk-date-input__item">
                                 <div class="nhsuk-form-group">
-                                    <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-2" id="example-month" name="example-month" type="number" value="{{ data.idv[data.user-1].date_month}}" readonly>
+                                    <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-2" id="example-month" name="example-month" type="number" value="{{ data.idv[data.prototype.count].date_month}}" readonly>
                                 </div>
                             </div>
                             <div class="nhsuk-date-input__item">
                                 <div class="nhsuk-form-group">
-                                    <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-4" id="example-year" name="example-year" type="number" value="{{ data.idv[data.user-1].date_year}}" readonly>
+                                    <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-4" id="example-year" name="example-year" type="number" value="{{ data.idv[data.prototype.count].date_year}}" readonly>
                                 </div>
                             </div>
                         </div>
@@ -322,7 +311,7 @@
                     <label class="nhsuk-label" for="postcode">
                         Postcode
                     </label>
-                    <input class="nhsuk-input nhsuk-input--width-5" id="postcode" value="{{ data.idv[data.user-1].postcode}}" name="postcode" type="text" maxlength="" readonly >
+                    <input class="nhsuk-input nhsuk-input--width-5" id="postcode" value="{{ data.idv[data.prototype.count].postcode}}" name="postcode" type="text" maxlength="" readonly >
                 </div>
 
                 {% endif %}
@@ -351,19 +340,19 @@
                 <!-- PDS RESULT -->
 
 
-                <div id="trace" class="idcheck-match{% if data.idv[data.user-1].pds_matches === 'false' %} fail{% endif %}" style="display:none;">
+                <div id="trace" class="idcheck-match{% if data.idv[data.prototype.count].pds_matches === 'false' %} fail{% endif %}" style="display:none;">
 
                     <div class="idcheck-result">
-                        {% if data.idv[data.user-1].pds_matches === 'true' %}
+                        {% if data.idv[data.prototype.count].pds_matches === 'true' %}
                             Single record found
                         {% else %}
-                            {% if data.idv[data.user-1].pds_failreason === 'expired' %}
+                            {% if data.idv[data.prototype.count].pds_failreason === 'expired' %}
                                 Match not possible
-                            {% elif data.idv[data.user-1].pds_failreason === 'invalid' %}
+                            {% elif data.idv[data.prototype.count].pds_failreason === 'invalid' %}
                                 System error - SMSP-0001
-                            {% elif data.idv[data.user-1].pds_failreason === 'validation' %}
+                            {% elif data.idv[data.prototype.count].pds_failreason === 'validation' %}
                                 System error - SMSP-0002
-                            {% elif data.idv[data.user-1].pds_failreason === 'unavailable' %}
+                            {% elif data.idv[data.prototype.count].pds_failreason === 'unavailable' %}
                                 System error - SMSP-0003
                             {% else %}
                                 Match not found
@@ -373,17 +362,17 @@
 
 
 
-                    {% if data.idv[data.user-1].pds_matches === 'false' %}
+                    {% if data.idv[data.prototype.count].pds_matches === 'false' %}
 
-                        {% if data.idv[data.user-1].pds_failreason === 'multiple' %}
+                        {% if data.idv[data.prototype.count].pds_failreason === 'multiple' %}
                         <div class="idcheck-result-reason" id="failed">
                             <p>Multiple results were returned</p>
                         </div>
-                        {% elif data.idv[data.user-1].pds_failreason === 'invalid' %}
+                        {% elif data.idv[data.prototype.count].pds_failreason === 'invalid' %}
                         <div class="idcheck-result-reason" id="failed">
                             <!--<p>The submitted NHS number is invalid</p>-->
                         </div>
-                        {% elif data.idv[data.user-1].pds_failreason === 'expired' %}
+                        {% elif data.idv[data.prototype.count].pds_failreason === 'expired' %}
                         <div class="idcheck-result-reason" id="failed">
                             <p>The record for this NHS number contains a date of death.</p>
                         </div>
@@ -396,19 +385,19 @@
                     {% endif %}
 
 
-                    {% if data.idv[data.user-1].pds_matches === 'spine' %}
+                    {% if data.idv[data.prototype.count].pds_matches === 'spine' %}
 
-                        {% if data.idv[data.user-1].pds_failreason === 'invalid' %}
+                        {% if data.idv[data.prototype.count].pds_failreason === 'invalid' %}
                         <div class="idcheck-result-reason" id="failed">
                             <p>Please contact your supervisor.</p>
                         </div>
 
-                        {% elif data.idv[data.user-1].pds_failreason === 'validation' %}
+                        {% elif data.idv[data.prototype.count].pds_failreason === 'validation' %}
                         <div class="idcheck-result-reason" id="failed">
                             <p>Please contact your supervisor.</p>
                         </div>
 
-                        {% elif data.idv[data.user-1].pds_failreason === 'unavailable' %}
+                        {% elif data.idv[data.prototype.count].pds_failreason === 'unavailable' %}
                         <div class="idcheck-result-reason" id="failed">
                             <p>We are having technical problems.</p>
                             <p>Please abort and try again later.</p>
@@ -431,11 +420,11 @@
                     </div>
                 </div>
 
-                {% if data.idv[data.user-1].pds_matches === 'false' %}
+                {% if data.idv[data.prototype.count].pds_matches === 'false' %}
 
                 <div class="form-group nhsuk-u-margin-top-4" id="declinebtn-2" style="display: none;">
 
-                    {% if data.idv[data.user-1].pds_failreason === 'expired' %}
+                    {% if data.idv[data.prototype.count].pds_failreason === 'expired' %}
 
                     <div id="id-decline3">
                         <a href="dashboard" data-target="modal" id="declineBtn3" class="button button--decline">Decline</a>
@@ -498,7 +487,7 @@
                             <input class="nhsuk-input nhsuk-input--width-10" id="nhs_number" value="" name="nhs_number" type="text" maxlength="" >
                         </div>
 
-                        {% if data.idv[data.user-1].media_scan !== '' %}
+                        {% if data.idv[data.prototype.count].media_scan !== '' %}
 
                         <fieldset  style="display:none;">
                             <legend class="form-label">Date of birth</legend>
@@ -538,7 +527,7 @@
 
                 {% endif %}
 
-                {% if data.idv[data.user-1].pds_matches === 'spine' %}
+                {% if data.idv[data.prototype.count].pds_matches === 'spine' %}
                 <div id="retrybtn-1" style="display:none;">
                     <div id="id-retry">
                         <a href="id-checker-review"
@@ -566,17 +555,8 @@
 
                     <div class="idcheck-image zoomable3">
 
-                        {% if idType === 'driving' %}
-
-                        <img src="/images/{{ data.idv[data.user-1].media_photoid_front}}" class="idcheck-image-img" style="width: 100%;"
-                             alt="Image of a driving licence"/>
-
-                        {% else %}
-
-                        <img src="/images/{{ data.idv[data.user-1].media_photoid_front}}" class="idcheck-image-img" style="width: 100%;"
-                             alt="Image of a passport"/>
-
-                        {% endif %}
+                        <img src="/images/media/photos/{{ data.idv[data.prototype.count].media_photoid_front}}" class="idcheck-image-img" style="width: 100%;"
+                             alt="Picture of a identity document"/>
 
                     </div>
 
@@ -593,23 +573,23 @@
                     <table id="pds-result">
                         <tr>
                             <td>First name:</td>
-                            <td><b>{% if data.idv[data.user-1].pds_matches === 'true' %}{{ data.idv[data.user-1].pds_name_first }}{% else %}-{% endif %}</b></td>
+                            <td><b>{% if data.idv[data.prototype.count].pds_matches === 'true' %}{{ data.idv[data.prototype.count].pds_name_first }}{% else %}-{% endif %}</b></td>
                         </tr>
                         <tr>
                             <td>Middle name:</td>
-                            <td><b>{% if data.idv[data.user-1].pds_matches === 'true' %}{{ data.idv[data.user-1].pds_name_middle }}{% else %}-{% endif %}</b></td>
+                            <td><b>{% if data.idv[data.prototype.count].pds_matches === 'true' %}{{ data.idv[data.prototype.count].pds_name_middle }}{% else %}-{% endif %}</b></td>
                         </tr>
                         <tr>
                             <td>Last name:</td>
-                            <td><b>{% if data.idv[data.user-1].pds_matches === 'true' %}{{ data.idv[data.user-1].pds_name_last }}{% else %}-{% endif %}</b></td>
+                            <td><b>{% if data.idv[data.prototype.count].pds_matches === 'true' %}{{ data.idv[data.prototype.count].pds_name_last }}{% else %}-{% endif %}</b></td>
                         </tr>
                         <tr>
                             <td>Date of birth:</td>
-                            <td><b>{% if data.idv[data.user-1].pds_matches === 'true' %}{{ data.idv[data.user-1].pds_name_dob }}{% else %}-{% endif %}</b></td>
+                            <td><b>{% if data.idv[data.prototype.count].pds_matches === 'true' %}{{ data.idv[data.prototype.count].pds_name_dob }}{% else %}-{% endif %}</b></td>
                         </tr>
 <!--                        <tr>-->
 <!--                            <td>NHS Number:</td>-->
-<!--                            <td><b>{% if data.idv[data.user-1].pds_matches === 'true' %}{{ data.idv[data.user-1].pds_name_nhs_number }}{% else %}-{% endif %}</b></td>-->
+<!--                            <td><b>{% if data.idv[data.prototype.count].pds_matches === 'true' %}{{ data.idv[data.prototype.count].pds_name_nhs_number }}{% else %}-{% endif %}</b></td>-->
 <!--                        </tr>-->
                     </table>
 
@@ -617,23 +597,23 @@
                     <table id="pds-retrace-result" style="display: none;">
                         <tr>
                             <td>First name:</td>
-                            <td><b>{{ data.idv[data.user-1].pds_name_first }}</b></td>
+                            <td><b>{{ data.idv[data.prototype.count].pds_name_first }}</b></td>
                         </tr>
                         <tr>
                             <td>Middle name:</td>
-                            <td><b>{{ data.idv[data.user-1].pds_name_middle }}</b></td>
+                            <td><b>{{ data.idv[data.prototype.count].pds_name_middle }}</b></td>
                         </tr>
                         <tr>
                             <td>Last name:</td>
-                            <td><b>{{ data.idv[data.user-1].pds_name_last }}</b></td>
+                            <td><b>{{ data.idv[data.prototype.count].pds_name_last }}</b></td>
                         </tr>
                         <tr>
                             <td>Date of birth:</td>
-                            <td><b>{{ data.idv[data.user-1].pds_name_dob }}</b></td>
+                            <td><b>{{ data.idv[data.prototype.count].pds_name_dob }}</b></td>
                         </tr>
 <!--                        <tr>-->
 <!--                            <td>NHS Number:</td>-->
-<!--                            <td><b>{{ data.idv[data.user-1].pds_name_nhs_number }}</b></td>-->
+<!--                            <td><b>{{ data.idv[data.prototype.count].pds_name_nhs_number }}</b></td>-->
 <!--                        </tr>-->
                     </table>
 
@@ -815,7 +795,7 @@
 
         <div class="nhsuk-grid-row">
             <div class="nhsuk-grid-column-one-half">
-                {% if data.idv[data.user-1].media_video === '' %}
+                {% if data.idv[data.prototype.count].media_video === '' %}
                     <h3>Look at the image</h3>
                 {% else %}
                     <h3>Watch the video</h3>
@@ -826,11 +806,11 @@
                         <div class="idcheck-video-paired"><a href="#" class="idcheck-video-paired-button"><u>Show ID</u></a></div>
 
                         {% if data.idv[data.user-1].media_video === '' %}
-                        <img src="/images/iproov-scan.png" class="idcheck-image-img" style="width: 100%;"
+                        <img src="/images/media/scans/{{ data.idv[data.prototype.count].media_scan }}" class="idcheck-image-img" style="width: 100%;"
                              alt="Image of the user from iproov"/>
                         {% else %}
                         <video id="uploaded-video" controls autoplay="" name="media" style="width:100%;height:auto;">
-                            <source src="/images/challenge.mp4" type="video/mp4">
+                            <source src="/images/media/videos/{{ data.idv[data.prototype.count].media_video }}" type="video/mp4">
                             <p>Your browser doesn't support Apple's HEVC videos yet. Here is
                                 a <a href="hevc.mkv">link to the video</a> instead.</p>
                         </video>
@@ -840,18 +820,9 @@
                     <div class="idcheck-image-container" style="display: none;">
 
                         <div class="idcheck-image zoomable4" >
-                            {% if idType === 'driving' %}
 
-                            <img src="/images/{{ data.idv[data.user-1].media_photoid_front}}" class="idcheck-image-img" style="width: 100%;"
-                                 alt="Image of a driving licence"/>
-
-                            {% else %}
-
-                            <img src="/images/{{ data.idv[data.user-1].media_photoid_front}}" class="idcheck-image-img" style="width: 100%;"
-                                 alt="Image of a passport"/>
-
-                            {% endif %}
-
+                            <img src="/images/media/photos/{{ data.idv[data.prototype.count].media_photoid_front}}" class="idcheck-image-img" style="width: 100%;"
+                                 alt="Picture of an identity document"/>
 
                         </div>
 
@@ -868,7 +839,7 @@
                             <div class="qa-questions-question-text nhsuk-u-padding-bottom-2">
                                 <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--m">
                                     <h3 class="nhsuk-fieldset__heading">
-                                        {% if data.idv[data.user-1].media_video === '' %}
+                                        {% if data.idv[data.prototype.count].media_video === '' %}
                                             Can you clearly see a face in the picture?
                                         {% else %}
                                             Can you clearly see the face in the video?
@@ -912,7 +883,7 @@
                             <div class="qa-questions-question-text nhsuk-u-padding-bottom-2">
                                 <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--m">
                                     <h3 class="nhsuk-fieldset__heading">
-                                        {% if data.idv[data.user-1].media_video === '' %}
+                                        {% if data.idv[data.prototype.count].media_video === '' %}
                                             Does the face in the photo ID match the face in the picture?
                                         {% else %}
                                             Does the face in the photo ID match the face in the video?
@@ -961,25 +932,25 @@
 
                 <!-- hide this question in automation -->
 
-                <div class="qa-questions-group {% if data.idv[data.user-1].media_video === '' %}js-hidden" data-complete="true"{% else %}" data-complete="false"{% endif %}>
-                    <div class="qa-questions-question" id="selfie-3" {% if data.idv[data.user-1].media_video === '' %}data-answered="true"{% else %}data-answered="false"{% endif %} data-group="decline-7">
+                <div class="qa-questions-group {% if data.idv[data.prototype.count].media_video === '' %}js-hidden" data-complete="true"{% else %}" data-complete="false"{% endif %}>
+                    <div class="qa-questions-question" id="selfie-3" {% if data.idv[data.prototype.count].media_video === '' %}data-answered="true"{% else %}data-answered="false"{% endif %} data-group="decline-7">
 
                         <fieldset class="nhsuk-fieldset nhsuk-u-margin-top-6">
 
                             <div class="qa-questions-question-text nhsuk-u-padding-bottom-2">
                                 <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--m">
                                     <h3 class="nhsuk-fieldset__heading">
-                                        Are these 4 numbers clearly read out: <br>4-2-2-8?
+                                        Are these 4 numbers clearly read out: <br>{{data.idv[data.prototype.count].challenge }}
                                     </h3>
                                 </legend>
                             </div>
 
-                            <div class="qa-questions-answer-group multiple-choice__container" {% if data.idv[data.user-1].media_video === '' %} data-answered="true"{% else %} data-answered="false" {% endif %}>
+                            <div class="qa-questions-answer-group multiple-choice__container" {% if data.idv[data.prototype.count].media_video === '' %} data-answered="true"{% else %} data-answered="false" {% endif %}>
 
                                 <div class="nhsuk-radios nhsuk-radios--inline">
 
                                     <div class="nhsuk-radios__item nhsuk-u-margin-bottom-3">
-                                        <input class="nhsuk-radios__input qa-questions-answer" id="17" name="a-9" type="radio" value="yes" {% if data.idv[data.user-1].media_video === '' %}aria-checked="true" checked="checked"{% else %} aria-checked="false" {% endif %}>
+                                        <input class="nhsuk-radios__input qa-questions-answer" id="17" name="a-9" type="radio" value="yes" {% if data.idv[data.prototype.count].media_video === '' %}aria-checked="true" checked="checked"{% else %} aria-checked="false" {% endif %}>
                                         <label class="nhsuk-label nhsuk-radios__label" for="17">
                                             Yes
                                         </label>
@@ -1118,18 +1089,9 @@
                                 <div class="idcheck-image-container panzoom-parent">
 
                                     <div class="idcheck-image zoomable5">
-                                        {% if idType === 'driving' %}
 
-                                        <img src="/images/{{ data.idv[data.user-1].media_photoid_front}}" class="idcheck-image-img" style="width: 100%;"
-                                             alt="Image of a driving licence"/>
-
-                                        {% else %}
-
-                                        <img src="/images/{{ data.idv[data.user-1].media_photoid_front}}" class="idcheck-image-img" style="width: 100%;"
-                                             alt="Image of a passport"/>
-
-                                        {% endif %}
-
+                                        <img src="/images/media/photos/{{ data.idv[data.prototype.count].media_photoid_front}}" class="idcheck-image-img" style="width: 100%;"
+                                             alt="Picture of an identity document"/>
 
                                     </div>
 
@@ -1981,11 +1943,11 @@
         maxZoom: 3
     })
 
-    var reset = document.getElementById('reset')
-    reset.addEventListener('click', function (event) {
-        console.log('clicked')
-        panzoom.moveTo(0, 0)
-    })
+    // var reset = document.getElementById('reset')
+    // reset.addEventListener('click', function (event) {
+    //     console.log('clicked')
+    //     panzoom.moveTo(0, 0)
+    // })
 
 </script>
 {% endblock %}
