@@ -16,21 +16,21 @@ function loadJSONFromFile(fileName, path = "app/data/") {
 
 router.post("/", function (req, res) {
 
-  let prototype = {} || req.session.data.prototype
+  let prototype = {} || req.session.data['prototype']
 
   // pull in JSON data file
-  delete req.session.data.idv
-  let idvFile = 'verification-requests.json'
+  delete req.session.data['idv']
+  let idvFile = 'verification-requests-prod.json'
   let path = 'app/data/'
-  req.session.data.idv = loadJSONFromFile(idvFile, path)
+  req.session.data['idv'] = loadJSONFromFile(idvFile, path)
 
   prototype.version = req.session.data.version
-  prototype.total = req.session.data.idv.length
+  prototype.total = req.session.data['idv'].length
   prototype.inprogress = 0
   prototype.inholding = 0
   prototype.count = 0
 
-  req.session.data.prototype = prototype
+  req.session.data['prototype'] = prototype
 
   res.redirect('/dashboard')
 
@@ -38,73 +38,74 @@ router.post("/", function (req, res) {
 
 
 router.post("/dashboard", function (req, res) {
-  let prototype = req.session.data.prototype
+  let prototype = req.session.data['prototype']
   prototype.thePage = 'idcheck'
-  req.session.data.prototype = prototype
+  prototype.count = req.session.data.user -1
+  req.session.data['prototype'] = prototype
   res.redirect('id-checker-review')
 })
 
 
 router.post("/reject", function (req, res) {
-  let prototype = req.session.data.prototype
+  let prototype = req.session.data['prototype']
   prototype.count = prototype.count +1
   prototype.thePage = 'dashboard'
   prototype.inprogress = 0
-  req.session.data.prototype = prototype
+  req.session.data['prototype'] = prototype
   res.redirect('dashboard')
 })
 
 router.post("/accept", function (req, res) {
-  let prototype = req.session.data.prototype
+  let prototype = req.session.data['prototype']
   prototype.count = prototype.count +1
   prototype.thePage = 'dashboard'
   prototype.inprogress = 0
-  req.session.data.prototype = prototype
+  req.session.data['prototype'] = prototype
   res.redirect('dashboard')
 })
 
 router.post("/holding", function (req, res) {
-  let prototype = req.session.data.prototype
+  let prototype = req.session.data['prototype']
   prototype.count = prototype.count +1
   prototype.thePage = 'dashboard'
   prototype.inprogress = 0
   prototype.inholding = 1
-  req.session.data.prototype = prototype
+  req.session.data['prototype'] = prototype
   res.redirect('dashboard')
 })
 
 router.post("/abort", function (req, res) {
-  let prototype = req.session.data.prototype
+  let prototype = req.session.data['prototype']
   prototype.thePage = 'dashboard'
   prototype.inprogress = 0
-  req.session.data.prototype = prototype
+  req.session.data['prototype'] = prototype
   res.redirect('dashboard')
 })
 
 router.post("/abort-from-dash", function (req, res) {
-  let prototype = req.session.data.prototype
+  let prototype = req.session.data['prototype']
   prototype.thePage = 'dashboard'
   prototype.count = prototype.count -1
   prototype.inprogress = 0
-  req.session.data.prototype = prototype
+  req.session.data['prototype'] = prototype
   res.redirect('dashboard')
 })
 
 router.post("/return", function (req, res) {
-  let prototype = req.session.data.prototype
+  let prototype = req.session.data['prototype']
   prototype.inprogress = 1
   prototype.count = prototype.count +1
   prototype.thePage = 'dashboard'
-  req.session.data.prototype = prototype
+  req.session.data['prototype'] = prototype
   res.redirect('dashboard')
 })
 
 router.post("/continue", function (req, res) {
-  let prototype = req.session.data.prototype
+  let prototype = req.session.data['prototype']
   prototype.thePage = 'idcheck'
   prototype.count = prototype.count -1
   prototype.inprogress = 0
-  req.session.data.prototype = prototype
+  req.session.data['prototype'] = prototype
   res.redirect('id-checker-review')
 })
 
@@ -114,17 +115,17 @@ router.post("/continue", function (req, res) {
 
 function devModeRoute(req, res, next) {
   if (!req.session.data['devMode']) {
-    console.log('no data found');
+    // console.log('no data found');
     var devMode = req.query.devMode;
     if (devMode === 'true') {
-      console.log('devmode detected');
+      // console.log('devmode detected');
       req.session.data['devMode'] = 'true'
-      console.log('local storage updated');
+      // console.log('local storage updated');
     } else {
-      console.log('devmode not detected');
+      // console.log('devmode not detected');
     }
   } else {
-    console.log('data found and set to ' +  req.session.data['devMode'] )
+    // console.log('data found and set to ' +  req.session.data['devMode'] )
   }
   next()
 }
