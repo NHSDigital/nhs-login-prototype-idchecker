@@ -21,7 +21,7 @@
 
         <div class="nhsuk-grid-row">
             <div class="nhsuk-grid-column-one-half">
-                <p class="nhsuk-body-s idcheck-help">Hold down 'ALT' when scrolling to zoom the image in and out. <a href="#" id="reset">Reset</a> </p>
+                <p class="nhsuk-body-s idcheck-help">Double click or hold down 'ALT' when scrolling to zoom the image in and out. </p>
                 <div class="reading-width panzoom-parent idcheck-image-container">
 
                     <div class="idcheck-image-expand"><a href="#" class="idcheck-image-expand-button">Expand image</a></div>
@@ -119,7 +119,7 @@
                             <div class="qa-questions-question-text nhsuk-u-padding-bottom-2">
                                 <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--m">
                                     <h3 class="nhsuk-fieldset__heading">
-                                        Is it a valid document?
+                                        Is the document false, expired or damaged?
                                     </h3>
                                 </legend>
                             </div>
@@ -131,14 +131,14 @@
                                     <div class="nhsuk-radios__item nhsuk-u-margin-bottom-3">
                                         <input class="nhsuk-radios__input qa-questions-answer" id="3" name="a-2" type="radio" value="yes" aria-checked="false">
                                         <label class="nhsuk-label nhsuk-radios__label" for="3">
-                                            Yes
+                                            No
                                         </label>
                                     </div>
 
                                     <div class="nhsuk-radios__item nhsuk-u-margin-bottom-3">
                                         <input class="nhsuk-radios__input qa-questions-answer" id="4" name="a-2" type="radio" value="yes" aria-checked="false">
                                         <label class="nhsuk-label nhsuk-radios__label" for="4">
-                                            No
+                                            Yes
                                         </label>
                                     </div>
 
@@ -526,9 +526,9 @@
                         </div>
                     </div>
 
-                    <div aria-hidden="true" aria-expanded="false" class="js-hidden nhsuk-u-margin-top-3" id="nhs-no" data-group="decline-4a">
+                    <div aria-hidden="true" aria-expanded="false" class="js-hidden nhsuk-u-margin-top-3" id="nhs-no" data-group="decline-0">
                         <div id="id-decline2">
-                            <a href="dashboard" id="declineBtn2" data-target="modal" class="nhsuk-button button--decline">Decline</a>
+                            <a href="dashboard" id="declineBtn2" data-target="modal" class="nhsuk-button button--decline">Reject</a>
                         </div>
                     </div>
 
@@ -1507,6 +1507,7 @@
         var buttonType = object.text
 
         if (buttonType === 'Reject') {
+            console.log(target)
             heading.innerText = 'Select the reason we cannot accept this document'
             setSubReasons('')
             setReasons(target)
@@ -1554,6 +1555,7 @@
 
     function setReasons(target) {
         // first do a reset
+        console.log("set reasons")
         // get all the dropdowns into an array;
         document.getElementById('rejection-reasons').style.display = 'block'
         var reasons = document.getElementsByClassName('decline-group')
@@ -1572,6 +1574,8 @@
     }
 
     function setSubReasons(target) {
+
+
         // reset everything before showing the picked one
         var subReasons = document.getElementById('rejection-text').getElementsByTagName('div')
         resetText()
