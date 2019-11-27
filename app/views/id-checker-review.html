@@ -321,7 +321,7 @@
             </div>
 
             <div class="nhsuk-grid-column-one-half">
-                <h3>PDS result</h3>
+                <h3>PDS trace result</h3>
 
                 <div class="bar_container" id="loader">
                     <div id="main_container">
@@ -355,7 +355,7 @@
                             {% elif data.idv[data.prototype.count].pds_failreason === 'unavailable' %}
                                 System error - SMSP-0003
                             {% else %}
-                                Match not found
+                                    No single matching record found
                             {% endif %}
                         {% endif %}
                     </div>
@@ -439,8 +439,9 @@
 
                                 <div class="qa-questions-question-text nhsuk-u-padding-bottom-2">
                                     <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--m">
-                                        <h3 class="nhsuk-fieldset__heading">
-                                            Can you find the person's NHS Number using a manual PDS check, so you can re-run the trace?
+                                        <br class="nhsuk-fieldset__heading">
+                                            Can you find a single matching PDS record to re-run a trace?</br>
+                                            Search using the name and date of birth on the ID
                                         </h3>
                                     </legend>
                                 </div>
@@ -472,7 +473,7 @@
                         </div>
 
                         <div id="id-canttell4">
-                            <a href="dashboard" data-target="modal" id="canttellBtn" class="button--decline--clarity disabled" style="">There's an issue with the image and I can't answer the question</a>
+                            <a href="dashboard" data-target="modal" id="canttellBtn" class="button--decline--clarity disabled" style="">I cannot answer this question</a>
                         </div>
 
                     </div>
@@ -482,7 +483,7 @@
 
                         <div class="nhsuk-form-group">
                             <label class="nhsuk-label" for="nhs_number">
-                                NHS Number
+                                NHS number (from PDS)
                             </label>
                             <input class="nhsuk-input nhsuk-input--width-10" id="nhs_number" value="" name="nhs_number" type="text" maxlength="" >
                         </div>
@@ -493,7 +494,7 @@
                             <fieldset class="nhsuk-fieldset" aria-describedby="example-hint" role="group">
                                 <legend class="nhsuk-fieldset__legend">
                                     <h3 class="nhsuk-fieldset__legend">
-                                        Date of birth
+                                        Date of birth (from ID)
                                     </h3>
                                 </legend>
                                 <div class="nhsuk-date-input" id="example">
@@ -948,7 +949,7 @@
                             <div class="qa-questions-question-text nhsuk-u-padding-bottom-2">
                                 <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--m">
                                     <h3 class="nhsuk-fieldset__heading">
-                                        Are these 4 numbers clearly read out: <br>{{data.idv[data.prototype.count].challenge }}
+                                        Can you hear or see these 4 numbers in the video: <br>{{data.idv[data.prototype.count].challenge }}
                                     </h3>
                                 </legend>
                             </div>
@@ -1206,11 +1207,14 @@
 
                         <select id="decline-0" class="nhsuk-select decline-group" id="sort" name="sort" style="margin-top:16px;width:100%;display:none;">
                             <option value="IDC-010" data-question="">--- Select 1 option ---</option>
-                            <option value="IDC-011" data-question="none">Cannot find the user in PDS</option>
-                            <option value="IDC-012" data-question="none">More than 1 PDS record for same person</option>
-                            <option value="IDC-013" data-question="none">More than 1 date of bith on record</option>
-                            <option value="IDC-014" data-question="none">More than 1 person on PDS record</option>
-                            <option value="IDC-015" data-question="none">First name on PDS record does not match first name on ID document</option>
+                            <option value="IDC-011" data-question="none">No records returned</option>
+                            <option value="IDC-012" data-question="none">More than 1 record returned</option>
+                            <option value="IDC-013" data-question="none">More than 1 date of birth on the record</option>
+                            <option value="IDC-014" data-question="none">More than 1 full name on the record</option>
+                            <option value="IDC-015" data-question="none">Current first name on the record does not match ID</option>
+                            {% if data.idv[data.prototype.count].media_video !== '' %}
+                            <option value="IDC-016" data-question="none">Date of birth user entered does not match PDS</option>
+                            {% endif %}
                         </select>
 
                         <select id="decline-1" class="nhsuk-select decline-group" id="sort" name="sort" style="margin-top:16px;width:100%;display:none;">
@@ -1268,11 +1272,11 @@
 
                         <select id="decline-7" class="nhsuk-select decline-group" id="sort" name="sort" style="margin-top:16px;width:100%;display:none;">
                             <option value="IDC-100" data-question="">--- Select 1 option ---</option>
-                            <option value="IDC-101" data-question="none">There is no sound at all</option>
-                            <option value="IDC-102" data-question="decline-text-11">Cannot hear the numbers clearly</option>
+                            <option value="IDC-101" data-question="none">Mouth moves but there is no sound at all</option>
+                            <option value="IDC-102" data-question="decline-text-11">Cannot hear or see numbers clearly</option>
                             <option value="IDC-103" data-question="decline-text-12">Missing first or last number</option>
-                            <option value="IDC-104" data-question="decline-text-13">Numbers are wrong</option>
-                            <option value="IDC-105" data-question="decline-text-14">Says something other than numbers</option>
+                            <option value="IDC-104" data-question="decline-text-13">Numbers are completely wrong</option>
+                            <option value="IDC-105" data-question="decline-text-14">Does not say or show numbers at all</option>
                         </select>
                     </div>
                 </div>
@@ -1480,6 +1484,10 @@
             console.log(target)
             if (target === 'decline-5') {
                 heading.innerText = 'Select the reason you cannot see a face'
+            } else if (target === 'decline-0') {
+                heading.innerText = 'Select the reason you cannot find a single matching PDS record to re-run a trace'
+            } else if (target === 'decline-7') {
+                heading.innerText = 'Select why you cannot hear or see the 4 numbers'
             } else {
                 heading.innerText = 'Select the reason we cannot accept this ID'
             }
