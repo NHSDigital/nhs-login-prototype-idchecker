@@ -32,12 +32,12 @@ router.post("/", function (req, res) {
 
   req.session.data['prototype'] = prototype
 
-  res.redirect('/dashboard')
+  res.redirect('/' + prototype.version + '/dashboard')
 
 })
 
 
-router.post("/dashboard", function (req, res) {
+router.post('/*/dashboard', function (req, res) {
   let prototype = req.session.data['prototype']
   prototype.thePage = 'idcheck'
   prototype.count = req.session.data.user -1
@@ -46,7 +46,7 @@ router.post("/dashboard", function (req, res) {
 })
 
 
-router.post("/reject", function (req, res) {
+router.post("/*/reject", function (req, res) {
   let prototype = req.session.data['prototype']
   prototype.count = prototype.count +1
   prototype.thePage = 'dashboard'
@@ -55,7 +55,7 @@ router.post("/reject", function (req, res) {
   res.redirect('dashboard')
 })
 
-router.post("/accept", function (req, res) {
+router.post("/*/accept", function (req, res) {
   let prototype = req.session.data['prototype']
   prototype.count = prototype.count +1
   prototype.thePage = 'dashboard'
@@ -64,7 +64,7 @@ router.post("/accept", function (req, res) {
   res.redirect('dashboard')
 })
 
-router.post("/holding", function (req, res) {
+router.post("/*/holding", function (req, res) {
   let prototype = req.session.data['prototype']
   prototype.count = prototype.count +1
   prototype.thePage = 'dashboard'
@@ -74,7 +74,7 @@ router.post("/holding", function (req, res) {
   res.redirect('dashboard')
 })
 
-router.post("/abort", function (req, res) {
+router.post("/*/abort", function (req, res) {
   let prototype = req.session.data['prototype']
   prototype.thePage = 'dashboard'
   prototype.inprogress = 0
@@ -82,7 +82,7 @@ router.post("/abort", function (req, res) {
   res.redirect('dashboard')
 })
 
-router.post("/abort-from-dash", function (req, res) {
+router.post("/*/abort-from-dash", function (req, res) {
   let prototype = req.session.data['prototype']
   prototype.thePage = 'dashboard'
   prototype.count = prototype.count -1
@@ -91,7 +91,7 @@ router.post("/abort-from-dash", function (req, res) {
   res.redirect('dashboard')
 })
 
-router.post("/return", function (req, res) {
+router.post("/*/return", function (req, res) {
   let prototype = req.session.data['prototype']
   prototype.inprogress = 1
   prototype.count = prototype.count +1
@@ -100,7 +100,7 @@ router.post("/return", function (req, res) {
   res.redirect('dashboard')
 })
 
-router.post("/continue", function (req, res) {
+router.post("/*/continue", function (req, res) {
   let prototype = req.session.data['prototype']
   prototype.thePage = 'idcheck'
   prototype.count = prototype.count -1
