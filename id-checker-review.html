@@ -1,0 +1,1969 @@
+{% extends 'layout.html' %}
+
+
+{% set service = "idchecker" %}
+{% set signedin = 'true' %}
+{% set params = "?demographics=" + demographics + "&role=" + role + "&result=" + result + "&failreason=" + failreason + "&devMode=" + devMode + "&automation=" + automation  %}
+{% set dataResult = 'data-result=' + result %}
+
+{% block extrastyles %}
+<script src='/panzoom.min.js'></script>
+{% endblock %}
+
+{% block content %}
+
+<div class="nhsuk-care-card nhsuk-care-card--non-urgent nhsuk-u-margin-bottom-0">
+    <div class="nhsuk-care-card__heading-container">
+        <h2 class="nhsuk-care-card__heading"><span role="text">Check if we can accept this ID</span></h2>
+        <span class="nhsuk-care-card__arrow" aria-hidden="true"></span>
+    </div>
+    <div class="nhsuk-care-card__content">
+
+        <div class="nhsuk-grid-row">
+            <div class="nhsuk-grid-column-one-half">
+                <p class="nhsuk-body-s idcheck-help">To zoom in and out: double-click on the picture, or hold down the 'ALT' key and use your mouse wheel to scroll.</p>
+                <div class="reading-width panzoom-parent idcheck-image-container">
+
+                    <div class="idcheck-image-expand"><a href="#" class="idcheck-image-expand-button">Expand image</a></div>
+
+                    <div class="idcheck-image zoomable1">
+                        <img src="/images/media/photos/{{ data.idv[data.prototype.count].media_photoid_front}}" class="idcheck-image-img" style="width: 100%;"
+                             alt="Picture of identity document"/>
+                    </div>
+
+
+                    {% if data.idv[data.prototype.count].media_photoid_back !== '' %}
+
+                    <div class="reading-width idcheck-image-container">
+                        <div class="idcheck-image-expand"><a href="#" class="idcheck-image-expand-button">Expand image</a></div>
+                        <div class="idcheck-image zoomable2">
+                            <img src="/images/media/photos/{{ data.idv[data.prototype.count].media_photoid_back}}" class="idcheck-image-img" style="width: 100%;" alt="Image of a driving licence"/>
+                        </div>
+                    </div>
+
+                    {% endif %}
+
+                </div>
+            </div>
+            <div class="nhsuk-grid-column-one-half">
+                <div class="qa-questions-group" data-complete="false">
+
+                    <div class="qa-questions-question" id="document-1" data-answered="false" data-group="decline-1">
+
+                        <fieldset class="nhsuk-fieldset">
+
+                            <div class="qa-questions-question-text nhsuk-u-padding-bottom-2">
+                                <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--m">
+                                    <h3 class="nhsuk-fieldset__heading">
+                                        Is this a photo or scan of an original ID that we accept?
+                                    </h3>
+                                </legend>
+                            </div>
+
+                            <div class="qa-questions-answer-group multiple-choice__container" data-answered="false">
+
+                                <div class="nhsuk-radios nhsuk-radios--inline">
+
+                                    <div class="nhsuk-radios__item nhsuk-u-margin-bottom-3">
+                                        <input class="nhsuk-radios__input qa-questions-answer" id="0" name="a-1" type="radio" value="yes" aria-checked="false">
+                                        <label class="nhsuk-label nhsuk-radios__label" for="0">
+                                            Yes
+                                        </label>
+                                    </div>
+
+                                    <div class="nhsuk-radios__item nhsuk-u-margin-bottom-3">
+                                        <input class="nhsuk-radios__input qa-questions-answer" id="1" name="a-1" type="radio" value="yes" aria-checked="false">
+                                        <label class="nhsuk-label nhsuk-radios__label" for="1">
+                                            No
+                                        </label>
+                                    </div>
+
+                                    <div class="nhsuk-radios__item nhsuk-u-margin-bottom-3 u-visuallyhidden">
+                                        <input class="nhsuk-radios__input qa-questions-answer" id="2" name="a-1" type="radio" value="yes" aria-checked="false">
+                                        <label class="nhsuk-label nhsuk-radios__label" for="2">
+                                            I cannot answer this question
+                                        </label>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </fieldset>
+                    </div>
+
+                    <div id="id-canttell2">
+                        <a href="dashboard" data-target="modal" id="canttellBtn" class="button--decline--clarity" style="">I cannot answer this question</a>
+                    </div>
+
+                </div>
+
+                <div class="qa-questions-group" data-complete="false">
+
+                    <div class="qa-questions-question" id="document-2" data-answered="false" data-group="decline-2">
+
+
+                        <fieldset class="nhsuk-fieldset nhsuk-u-margin-top-6">
+
+                            <div class="qa-questions-question-text nhsuk-u-padding-bottom-2">
+                                <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--m">
+                                    <h3 class="nhsuk-fieldset__heading">
+                                        Is the ID invalid because it's expired, damaged or looks false?
+                                    </h3>
+                                </legend>
+                            </div>
+
+                            <div class="qa-questions-answer-group multiple-choice__container" data-answered="false">
+
+                                <div class="nhsuk-radios nhsuk-radios--inline">
+
+                                    <div class="nhsuk-radios__item nhsuk-u-margin-bottom-3">
+                                        <input class="nhsuk-radios__input qa-questions-answer" id="3" name="a-2" type="radio" value="yes" aria-checked="false">
+                                        <label class="nhsuk-label nhsuk-radios__label" for="3">
+                                            No
+                                        </label>
+                                    </div>
+
+                                    <div class="nhsuk-radios__item nhsuk-u-margin-bottom-3">
+                                        <input class="nhsuk-radios__input qa-questions-answer" id="4" name="a-2" type="radio" value="yes" aria-checked="false">
+                                        <label class="nhsuk-label nhsuk-radios__label" for="4">
+                                            Yes
+                                        </label>
+                                    </div>
+
+                                    <div class="nhsuk-radios__item nhsuk-u-margin-bottom-3 u-visuallyhidden">
+                                        <input class="nhsuk-radios__input qa-questions-answer" id="5" name="a-2" type="radio" value="yes" aria-checked="false">
+                                        <label class="nhsuk-label nhsuk-radios__label" for="5">
+                                            I cannot answer this question
+                                        </label>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </fieldset>
+
+                    </div>
+
+                    <div id="id-canttell3" class="idcheck-clarity">
+                        <a href="dashboard" data-target="modal" id="canttellBtn" class="button--decline--clarity disabled" style="">I cannot answer this question</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="nhsuk-care-card nhsuk-care-card--non-urgent nhsuk-u-margin-top-0 nhsuk-u-margin-bottom-0">
+    <div class="nhsuk-care-card__heading-container">
+        <h2 class="nhsuk-care-card__heading"><span role="text">PDS record</span></h2>
+        <span class="nhsuk-care-card__arrow" aria-hidden="true"></span>
+    </div>
+    <div class="nhsuk-care-card__content">
+
+        <div class="nhsuk-grid-row">
+            <div class="nhsuk-grid-column-one-half">
+
+                {% if data.idv[data.prototype.count].media_video === '' %}
+
+                    <h3>OCR results</h3>
+
+                    <div class="nhsuk-form-group">
+                        <label class="nhsuk-label" for="ocrfirstname">
+                            First name
+                        </label>
+                        <input class="nhsuk-input nhsuk-input--width-20" id="ocrfirstname" value="{{ data.idv[data.prototype.count].ocr_name_first}}" name="ocrfirstname" type="text" maxlength="" readonly >
+                    </div>
+
+                    <div class="nhsuk-form-group">
+                        <label class="nhsuk-label" for="ocrmiddlename">
+                            Middle names
+                        </label>
+                        <input class="nhsuk-input nhsuk-input--width-20" id="ocrmiddlename" value="{{ data.idv[data.prototype.count].ocr_name_middle}}" name="ocrmiddlename" type="text" maxlength="" readonly >
+                    </div>
+
+                    <div class="nhsuk-form-group">
+                        <label class="nhsuk-label" for="ocrlastname">
+                            Last name
+                        </label>
+                        <input class="nhsuk-input nhsuk-input--width-20" id="ocrlastname" value="{{ data.idv[data.prototype.count].ocr_name_last}}" name="ocrlastname" type="text" maxlength="" readonly >
+                    </div>
+
+                    <div class="nhsuk-form-group">
+                        <label class="nhsuk-label" for="ocrdob">
+                            Date of birth
+                        </label>
+                        <input class="nhsuk-input nhsuk-input--width-20" id="ocrdob" value="{{ data.idv[data.prototype.count].ocr_dob}}" name="ocrdob" type="text" maxlength="" readonly >
+                    </div>
+
+                    <h3>User submitted details</h3>
+
+                    <div class="nhsuk-form-group">
+                        <label class="nhsuk-label" for="postcode">
+                            Postcode
+                        </label>
+                        <input class="nhsuk-input nhsuk-input--width-5" id="postcode" value="{{ data.idv[data.prototype.count].postcode}}" name="postcode" type="text" maxlength="" readonly >
+                    </div>
+
+                    {% if data.idv[data.prototype.count].nhs_number !== '' %}
+
+                    <div class="nhsuk-form-group">
+                        <label class="nhsuk-label" for="nhsnum">
+                            NHS Number
+                        </label>
+                        <input class="nhsuk-input nhsuk-input--width-10" id="nhsnum" value="{{ data.idv[data.prototype.count].nhs_number}}" name="nhsnum" type="text" maxlength="10" readonly>
+                    </div>
+
+                    {% endif %}
+
+                {% else %}
+
+                <h3>User submitted details</h3>
+
+                {% if data.idv[data.prototype.count].nhs_number !== '' %}
+
+                <div class="nhsuk-form-group">
+                    <label class="nhsuk-label" for="nhsnum">
+                        NHS Number
+                    </label>
+                    <input class="nhsuk-input nhsuk-input--width-10" id="nhsnum" value="{{ data.idv[data.prototype.count].nhs_number}}" name="nhsnum" type="text" maxlength="10" readonly>
+                </div>
+
+                <div class="nhsuk-form-group">
+                    <fieldset class="nhsuk-fieldset" aria-describedby="example-hint" role="group">
+                        <legend class="nhsuk-fieldset__legend">
+                            <h3 class="nhsuk-fieldset__legend">
+                                Date of birth
+                            </h3>
+                        </legend>
+                        <div class="nhsuk-date-input" id="example">
+                            <div class="nhsuk-date-input__item">
+                                <div class="nhsuk-form-group">
+                                    <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-2" id="example-day" name="example-day" type="number" value="{{ data.idv[data.prototype.count].date_day}}" readonly>
+                                </div>
+                            </div>
+                            <div class="nhsuk-date-input__item">
+                                <div class="nhsuk-form-group">
+                                    <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-2" id="example-month" name="example-month" type="number" value="{{ data.idv[data.prototype.count].date_month}}" readonly>
+                                </div>
+                            </div>
+                            <div class="nhsuk-date-input__item">
+                                <div class="nhsuk-form-group">
+                                    <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-4" id="example-year" name="example-year" type="number" value="{{ data.idv[data.prototype.count].date_year}}" readonly>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+
+                {% else %}
+
+                <div class="nhsuk-form-group">
+                    <label class="nhsuk-label" for="firstname">
+                        First name
+                    </label>
+                    <input class="nhsuk-input nhsuk-input--width-20" id="firstname" value="{{ data.idv[data.prototype.count].name_first}}" name="firstname" type="text" maxlength="" readonly >
+                </div>
+
+                <div class="nhsuk-form-group">
+                    <label class="nhsuk-label" for="middlename">
+                        Middle names
+                    </label>
+                    <input class="nhsuk-input nhsuk-input--width-20" id="middlename" value="{{ data.idv[data.prototype.count].name_middle}}" name="middlename" type="text" maxlength="" readonly >
+                </div>
+
+                <div class="nhsuk-form-group">
+                    <label class="nhsuk-label" for="lastname">
+                        Last name
+                    </label>
+                    <input class="nhsuk-input nhsuk-input--width-20" id="lastname" value="{{ data.idv[data.prototype.count].name_last}}" name="lastname" type="text" maxlength="" readonly >
+                </div>
+
+                <div class="nhsuk-form-group">
+                    <fieldset class="nhsuk-fieldset" aria-describedby="example-hint" role="group">
+                        <legend class="nhsuk-fieldset__legend">
+                            <h3 class="nhsuk-fieldset__legend">
+                                Date of birth
+                            </h3>
+                        </legend>
+                        <div class="nhsuk-date-input" id="example">
+                            <div class="nhsuk-date-input__item">
+                                <div class="nhsuk-form-group">
+                                    <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-2" id="example-day" name="example-day" type="number" value="{{ data.idv[data.prototype.count].date_day}}" readonly>
+                                </div>
+                            </div>
+                            <div class="nhsuk-date-input__item">
+                                <div class="nhsuk-form-group">
+                                    <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-2" id="example-month" name="example-month" type="number" value="{{ data.idv[data.prototype.count].date_month}}" readonly>
+                                </div>
+                            </div>
+                            <div class="nhsuk-date-input__item">
+                                <div class="nhsuk-form-group">
+                                    <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-4" id="example-year" name="example-year" type="number" value="{{ data.idv[data.prototype.count].date_year}}" readonly>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+
+                <div class="nhsuk-form-group">
+                    <label class="nhsuk-label" for="postcode">
+                        Postcode
+                    </label>
+                    <input class="nhsuk-input nhsuk-input--width-5" id="postcode" value="{{ data.idv[data.prototype.count].postcode}}" name="postcode" type="text" maxlength="" readonly >
+                </div>
+
+                {% endif %}
+
+                {% endif %}
+
+            </div>
+
+            <div class="nhsuk-grid-column-one-half">
+                <h3>PDS trace result</h3>
+
+                <div class="bar_container" id="loader">
+                    <div id="main_container">
+                        <div id="pbar" class="progress-spinner" data-percent="0">
+                            <img src="/images/loader-spinner.svg" width="200px" height="200px" id="spinner"/>
+                            <div class="ppc-loading">
+                                <div class="pcc-percents-wrapper">
+                                    <span id="spinner-status">Tracing</span><span aria-hidden="true">...</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- PDS RESULT -->
+
+
+                <div id="trace" class="idcheck-match{% if data.idv[data.prototype.count].pds_matches === 'false' %} fail{% endif %}" style="display:none;">
+
+                    <div class="idcheck-result">
+                        {% if data.idv[data.prototype.count].pds_matches === 'true' %}
+                            Single record found
+                        {% else %}
+                            {% if data.idv[data.prototype.count].pds_failreason === 'expired' %}
+                                Match not possible
+                            {% elif data.idv[data.prototype.count].pds_failreason === 'invalid' %}
+                                System error - SMSP-0001
+                            {% elif data.idv[data.prototype.count].pds_failreason === 'validation' %}
+                                System error - SMSP-0002
+                            {% elif data.idv[data.prototype.count].pds_failreason === 'unavailable' %}
+                                System error - SMSP-0003
+                            {% else %}
+                                    No single matching record found
+                            {% endif %}
+                        {% endif %}
+                    </div>
+
+
+
+                    {% if data.idv[data.prototype.count].pds_matches === 'false' %}
+
+                        {% if data.idv[data.prototype.count].pds_failreason === 'multiple' %}
+                        <div class="idcheck-result-reason" id="failed">
+                            <p>Multiple results were returned</p>
+                        </div>
+                        {% elif data.idv[data.prototype.count].pds_failreason === 'invalid' %}
+                        <div class="idcheck-result-reason" id="failed">
+                            <!--<p>The submitted NHS number is invalid</p>-->
+                        </div>
+                        {% elif data.idv[data.prototype.count].pds_failreason === 'expired' %}
+                        <div class="idcheck-result-reason" id="failed">
+                            <p>The record for this NHS number contains a date of death.</p>
+                        </div>
+                        {% else %}
+                        <div class="idcheck-result-reason" id="failed">
+                            <!--<p>Either the NHS number is invalid or it does not match to the date of birth submitted.</p>-->
+                        </div>
+                        {% endif %}
+
+                    {% endif %}
+
+
+                    {% if data.idv[data.prototype.count].pds_matches === 'spine' %}
+
+                        {% if data.idv[data.prototype.count].pds_failreason === 'invalid' %}
+                        <div class="idcheck-result-reason" id="failed">
+                            <p>Please contact your supervisor.</p>
+                        </div>
+
+                        {% elif data.idv[data.prototype.count].pds_failreason === 'validation' %}
+                        <div class="idcheck-result-reason" id="failed">
+                            <p>Please contact your supervisor.</p>
+                        </div>
+
+                        {% elif data.idv[data.prototype.count].pds_failreason === 'unavailable' %}
+                        <div class="idcheck-result-reason" id="failed">
+                            <p>We are having technical problems.</p>
+                            <p>Please abort and try again later.</p>
+                        </div>
+
+                        {% else %}
+                        <div class="idcheck-result-reason" id="failed">
+                            <p>We are having technical problems.</p>
+                            <p>Please abort and try again later.</p>
+                        </div>
+                        {% endif %}
+
+                    {% endif %}
+
+                </div>
+
+                <div id="retrace" class="idcheck-match" style="display:none;">
+                    <div class="idcheck-result">
+                            Single record found
+                    </div>
+                </div>
+
+                {% if data.idv[data.prototype.count].pds_matches === 'false' %}
+
+                <div class="form-group nhsuk-u-margin-top-4" id="declinebtn-2" style="display: none;">
+
+                    {% if data.idv[data.prototype.count].pds_failreason === 'expired' %}
+
+                    <div id="id-decline3">
+                        <a href="dashboard" data-target="modal" id="declineBtn3" class="button button--decline">Decline</a>
+                    </div>
+
+                    {% else %}
+
+                    <div class="qa-questions-group" data-complete="false">
+                        <div class="qa-questions-question" id="trace-1" data-answered="false" data-group="decline-4a">
+
+                            <fieldset class="nhsuk-fieldset nhsuk-u-margin-top-4">
+
+                                <div class="qa-questions-question-text nhsuk-u-padding-bottom-2">
+                                    <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--m">
+                                        <br class="nhsuk-fieldset__heading">
+                                            Can you find a single matching PDS record to re-run a trace?</br>
+                                            Search using the name and date of birth on the ID
+                                        </h3>
+                                    </legend>
+                                </div>
+
+                                <div class="qa-questions-answer-group multiple-choice__container" data-answered="false">
+
+                                    <div class="nhsuk-radios nhsuk-radios--inline">
+
+                                        <div class="nhsuk-radios__item nhsuk-u-margin-bottom-3">
+                                            <input class="nhsuk-radios__input qa-questions-answer" id="6" name="a-4a" type="radio" value="yes" aria-checked="false" aria-controls="nhs-yes">
+                                            <label class="nhsuk-label nhsuk-radios__label" for="6">
+                                                Yes
+                                            </label>
+                                        </div>
+
+                                        <div class="nhsuk-radios__item nhsuk-u-margin-bottom-3" data-target="" >
+                                            <input class="nhsuk-radios__input qa-questions-answer" id="7" name="a-4a" type="radio" value="no" aria-checked="false" aria-controls="nhs-no">
+                                            <label class="nhsuk-label nhsuk-radios__label" for="7">
+                                                No
+                                            </label>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </fieldset>
+
+                        </div>
+
+                        <div id="id-canttell4">
+                            <a href="dashboard" data-target="modal" id="canttellBtn" class="button--decline--clarity disabled" style="">I cannot answer this question</a>
+                        </div>
+
+                    </div>
+
+
+                    <div aria-hidden="true" aria-expanded="false" class="js-hidden nhsuk-u-margin-top-3" id="nhs-yes" data-group="decline-4a">
+
+                        <div class="nhsuk-form-group">
+                            <label class="nhsuk-label" for="nhs_number">
+                                NHS number (from PDS)
+                            </label>
+                            <input class="nhsuk-input nhsuk-input--width-10" id="nhs_number" value="" name="nhs_number" type="text" maxlength="" >
+                        </div>
+
+                        {% if data.idv[data.prototype.count].media_video === '' %}
+
+                        <div class="nhsuk-form-group">
+                            <fieldset class="nhsuk-fieldset" aria-describedby="example-hint" role="group">
+                                <legend class="nhsuk-fieldset__legend">
+                                    <h3 class="nhsuk-fieldset__legend">
+                                        Date of birth (from ID)
+                                    </h3>
+                                </legend>
+                                <div class="nhsuk-date-input" id="example">
+                                    <div class="nhsuk-date-input__item">
+                                        <div class="nhsuk-form-group">
+                                            <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-2" id="example-day" name="example-day" type="number" value="">
+                                        </div>
+                                    </div>
+                                    <div class="nhsuk-date-input__item">
+                                        <div class="nhsuk-form-group">
+                                            <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-2" id="example-month" name="example-month" type="number" value="">
+                                        </div>
+                                    </div>
+                                    <div class="nhsuk-date-input__item">
+                                        <div class="nhsuk-form-group">
+                                            <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-4" id="example-year" name="example-year" type="number" value="">
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+
+                        {% endif %}
+
+                        <div id="id-approve2">
+                            <button id="retraceBtn" data-target="" class="nhsuk-button button--retry">Re-run trace</button>
+                        </div>
+                    </div>
+
+                    <div aria-hidden="true" aria-expanded="false" class="js-hidden nhsuk-u-margin-top-3" id="nhs-no" data-group="decline-0">
+                        <div id="id-decline2">
+                            <a href="dashboard" id="declineBtn2" data-target="modal" class="nhsuk-button button--decline">Reject</a>
+                        </div>
+                    </div>
+
+                {% endif %}
+
+                </div>
+
+                {% endif %}
+
+                {% if data.idv[data.prototype.count].pds_matches === 'spine' %}
+                <div id="retrybtn-1" style="display:none;">
+                    <div id="id-retry">
+                        <a href="id-checker-review"
+                           id="retryBtn" class="button button--retry">Retry</a>
+                    </div>
+                </div>
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="nhsuk-care-card nhsuk-care-card--non-urgent nhsuk-u-margin-top-0 nhsuk-u-margin-bottom-0">
+    <div class="nhsuk-care-card__heading-container">
+        <h3 class="nhsuk-care-card__heading"><span role="text">Compare the photo ID and the PDS record</span></h3>
+        <span class="nhsuk-care-card__arrow" aria-hidden="true"></span>
+    </div>
+    <div class="nhsuk-care-card__content">
+
+        <div class="nhsuk-grid-row">
+            <div class="nhsuk-grid-column-one-half">
+                <div class="reading-width idcheck-image-container">
+                    <div class="idcheck-image-expand"><a href="#" class="idcheck-image-expand-button">Expand image</a></div>
+
+                    <div class="idcheck-image zoomable3">
+
+                        <img src="/images/media/photos/{{ data.idv[data.prototype.count].media_photoid_front}}" class="idcheck-image-img" style="width: 100%;"
+                             alt="Picture of a identity document"/>
+
+                    </div>
+
+                </div>
+                <div id="id-canttell5">
+                    <a href="dashboard" data-target="modal" id="canttellBtn" class="button--decline--clarity" style="">I cannot answer 1 or more of these questions</a>
+                </div>
+            </div>
+            <div class="nhsuk-grid-column-one-half">
+                <h3>PDS record</h3>
+
+                <div class="idcheck-match">
+
+                    <table id="pds-result">
+                        <tr>
+                            <td>First name:</td>
+                            <td><b>{% if data.idv[data.prototype.count].pds_matches === 'true' %}{{ data.idv[data.prototype.count].pds_name_first }}{% else %}-{% endif %}</b></td>
+                        </tr>
+                        <tr>
+                            <td>Middle name:</td>
+                            <td><b>{% if data.idv[data.prototype.count].pds_matches === 'true' %}{{ data.idv[data.prototype.count].pds_name_middle }}{% else %}-{% endif %}</b></td>
+                        </tr>
+                        <tr>
+                            <td>Last name:</td>
+                            <td><b>{% if data.idv[data.prototype.count].pds_matches === 'true' %}{{ data.idv[data.prototype.count].pds_name_last }}{% else %}-{% endif %}</b></td>
+                        </tr>
+                        <tr>
+                            <td>Date of birth:</td>
+                            <td><b>{% if data.idv[data.prototype.count].pds_matches === 'true' %}{{ data.idv[data.prototype.count].pds_name_dob }}{% else %}-{% endif %}</b></td>
+                        </tr>
+<!--                        <tr>-->
+<!--                            <td>NHS Number:</td>-->
+<!--                            <td><b>{% if data.idv[data.prototype.count].pds_matches === 'true' %}{{ data.idv[data.prototype.count].pds_name_nhs_number }}{% else %}-{% endif %}</b></td>-->
+<!--                        </tr>-->
+                    </table>
+
+
+                    <table id="pds-retrace-result" style="display: none;">
+                        <tr>
+                            <td>First name:</td>
+                            <td><b>{{ data.idv[data.prototype.count].pds_name_first }}</b></td>
+                        </tr>
+                        <tr>
+                            <td>Middle name:</td>
+                            <td><b>{{ data.idv[data.prototype.count].pds_name_middle }}</b></td>
+                        </tr>
+                        <tr>
+                            <td>Last name:</td>
+                            <td><b>{{ data.idv[data.prototype.count].pds_name_last }}</b></td>
+                        </tr>
+                        <tr>
+                            <td>Date of birth:</td>
+                            <td><b>{{ data.idv[data.prototype.count].pds_name_dob }}</b></td>
+                        </tr>
+<!--                        <tr>-->
+<!--                            <td>NHS Number:</td>-->
+<!--                            <td><b>{{ data.idv[data.prototype.count].pds_name_nhs_number }}</b></td>-->
+<!--                        </tr>-->
+                    </table>
+
+                </div>
+
+                <div class="qa-questions-group" data-complete="false">
+                    <div class="qa-questions-question" id="pds-1" data-answered="false" data-group="decline-4a">
+
+                        <fieldset class="nhsuk-fieldset nhsuk-u-margin-top-6">
+
+                            <div class="qa-questions-question-text nhsuk-u-padding-bottom-2">
+                                <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--m">
+                                    <h3 class="nhsuk-fieldset__heading">
+                                        Do the dates of birth match?
+                                    </h3>
+                                </legend>
+                            </div>
+
+                            <div class="qa-questions-answer-group multiple-choice__container" data-answered="false">
+
+                                <div class="nhsuk-radios nhsuk-radios--inline">
+
+                                    <div class="nhsuk-radios__item nhsuk-u-margin-bottom-3">
+                                        <input class="nhsuk-radios__input qa-questions-answer" id="6" name="a-4" type="radio" value="yes" aria-checked="false">
+                                        <label class="nhsuk-label nhsuk-radios__label" for="6">
+                                            Yes
+                                        </label>
+                                    </div>
+
+                                    <div class="nhsuk-radios__item nhsuk-u-margin-bottom-3">
+                                        <input class="nhsuk-radios__input qa-questions-answer" id="7" name="a-4" type="radio" value="yes" aria-checked="false">
+                                        <label class="nhsuk-label nhsuk-radios__label" for="7">
+                                            No
+                                        </label>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </fieldset>
+
+                    </div>
+
+                </div>
+
+                <div class="qa-questions-group" data-complete="false">
+                    <div class="qa-questions-question" id="pds-2" data-answered="false" data-group="decline-4b">
+
+                        <fieldset class="nhsuk-fieldset nhsuk-u-margin-top-6">
+
+                            <div class="qa-questions-question-text nhsuk-u-padding-bottom-2">
+                                <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--m">
+                                    <h3 class="nhsuk-fieldset__heading">
+                                        Do the first names match?
+                                    </h3>
+                                </legend>
+                            </div>
+
+                            <div class="qa-questions-answer-group multiple-choice__container" data-answered="false">
+
+                                <div class="nhsuk-radios nhsuk-radios--inline">
+
+                                    <div class="nhsuk-radios__item nhsuk-u-margin-bottom-3">
+                                        <input class="nhsuk-radios__input qa-questions-answer" id="8" name="a-5" type="radio" value="yes" aria-checked="false">
+                                        <label class="nhsuk-label nhsuk-radios__label" for="8">
+                                            Yes
+                                        </label>
+                                    </div>
+
+                                    <div class="nhsuk-radios__item nhsuk-u-margin-bottom-3">
+                                        <input class="nhsuk-radios__input qa-questions-answer" id="9" name="a-5" type="radio" value="yes" aria-checked="false">
+                                        <label class="nhsuk-label nhsuk-radios__label" for="9">
+                                            No
+                                        </label>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </fieldset>
+
+                    </div>
+                </div>
+
+
+                <div class="qa-questions-group" data-complete="false">
+                    <div class="qa-questions-question" id="pds-3" data-answered="false" data-group="decline-4c">
+
+                        <fieldset class="nhsuk-fieldset nhsuk-u-margin-top-6">
+
+                            <div class="qa-questions-question-text nhsuk-u-padding-bottom-2">
+                                <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--m">
+                                    <h3 class="nhsuk-fieldset__heading">
+                                        Do the last names match?
+                                    </h3>
+                                </legend>
+                            </div>
+
+                            <div class="qa-questions-answer-group multiple-choice__container" data-answered="false">
+
+                                <div class="nhsuk-radios nhsuk-radios--inline">
+
+                                    <div class="nhsuk-radios__item nhsuk-u-margin-bottom-3">
+                                        <input class="nhsuk-radios__input qa-questions-answer" id="10" name="a-6" type="radio" value="yes" aria-checked="false">
+                                        <label class="nhsuk-label nhsuk-radios__label" for="10">
+                                            Yes
+                                        </label>
+                                    </div>
+
+                                    <div class="nhsuk-radios__item nhsuk-u-margin-bottom-3">
+                                        <input class="nhsuk-radios__input qa-questions-answer" id="11" name="a-6" type="radio" value="yes" aria-checked="false">
+                                        <label class="nhsuk-label nhsuk-radios__label" for="11">
+                                            No
+                                        </label>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </fieldset>
+
+                    </div>
+
+                    <div class="callout callout--info" style="display: none" id="manual-pds">
+
+                        <div class="nhsuk-form-group nhsuk-u-margin-bottom-0">
+
+                            <fieldset class="nhsuk-fieldset nhsuk-u-margin-top-0">
+
+                                <p style="">Use DSA to check the PDS record. Do any historic surnames match the last name on the photo ID?</p>
+
+                                <div class="nhsuk-radios nhsuk-radios--inline">
+                                    <div class="nhsuk-radios__item nhsuk-u-margin-bottom-3">
+                                        <input class="nhsuk-radios__input qa-questions-answer" id="radio-inline-3" name="radio-inline-group" type="radio" value="yes" aria-checked="false" aria-controls="pds-yes">
+                                        <label class="nhsuk-label nhsuk-radios__label" for="radio-inline-3">
+                                            Yes
+                                        </label>
+                                    </div>
+
+                                    <div class="nhsuk-radios__item nhsuk-u-margin-bottom-3" data-target="" data-group="decline-4c">
+                                        <input class="nhsuk-radios__input qa-questions-answer" id="radio-inline-4" name="radio-inline-group" type="radio" value="no" aria-checked="false" aria-controls="pds-no">
+                                        <label class="nhsuk-label nhsuk-radios__label" for="radio-inline-4">
+                                            No
+                                        </label>
+                                    </div>
+                                </div>
+                            </fieldset>
+
+<!--                            <div id="id-canttell6">-->
+<!--                                <a href="dashboard" data-target="modal" id="canttellBtn" class="button&#45;&#45;decline&#45;&#45;clarity" style="">There's an issue with the image and I can't answer the questions</a>-->
+<!--                            </div>-->
+
+                        </div>
+
+                        <div aria-hidden="true" aria-expanded="false" class="js-hidden nhsuk-u-margin-top-3" id="pds-no" data-group="decline-4c">
+                            <div id="id-decline2">
+                                <a href="dashboard" id="declineBtn2" data-target="modal" class="nhsuk-button button--decline nhsuk-u-margin-bottom-0">Reject</a>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+            </div>
+        </div>
+    </div>
+
+<div class="nhsuk-care-card nhsuk-care-card--non-urgent nhsuk-u-margin-top-0 nhsuk-u-margin-bottom-0">
+    <div class="nhsuk-care-card__heading-container">
+        <h3 class="nhsuk-care-card__heading"><span role="text">Compare the faces</span></h3>
+        <span class="nhsuk-care-card__arrow" aria-hidden="true"></span>
+    </div>
+    <div class="nhsuk-care-card__content">
+
+        <div class="nhsuk-grid-row">
+            <div class="nhsuk-grid-column-one-half">
+                {% if data.idv[data.prototype.count].media_video === '' %}
+                    <h3>Look at the image</h3>
+                {% else %}
+                    <h3>Watch the video</h3>
+                {% endif %}
+                <div class="idcheck-media">
+                    <div class="idcheck-video">
+
+                        <div class="idcheck-video-paired"><a href="#" class="idcheck-video-paired-button"><u>Show ID</u></a></div>
+
+                        {% if data.idv[data.prototype.count].media_video === '' %}
+                        <img src="/images/media/scans/{{ data.idv[data.prototype.count].media_scan }}" class="idcheck-image-img" style="width: 100%;"
+                             alt="Image of the user from iproov"/>
+                        {% else %}
+                        <video id="uploaded-video" controls autoplay="" name="media" style="width:100%;height:auto;">
+                            <source src="/images/media/videos/{{ data.idv[data.prototype.count].media_video }}" type="video/mp4">
+                            <p>Your browser doesn't support Apple's HEVC videos yet. Here is
+                                a <a href="hevc.mkv">link to the video</a> instead.</p>
+                        </video>
+                        {% endif %}
+                    </div>
+
+                    <div class="idcheck-image-container" style="display: none;">
+
+                        <div class="idcheck-image zoomable4" >
+
+                            <img src="/images/media/photos/{{ data.idv[data.prototype.count].media_photoid_front}}" class="idcheck-image-img" style="width: 100%;"
+                                 alt="Picture of an identity document"/>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+            <div class="nhsuk-grid-column-one-half">
+                <div class="qa-questions-group" data-complete="false">
+                    <div class="qa-questions-question" id="selfie-1" data-answered="false" data-group="decline-5">
+
+                        <fieldset class="nhsuk-fieldset nhsuk-u-margin-top-6">
+
+                            <div class="qa-questions-question-text nhsuk-u-padding-bottom-2">
+                                <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--m">
+                                    <h3 class="nhsuk-fieldset__heading">
+                                        {% if data.idv[data.prototype.count].media_video === '' %}
+                                            Can you clearly see a face in the picture?
+                                        {% else %}
+                                            Can you clearly see the face in the video?
+                                        {% endif %}
+                                    </h3>
+                                </legend>
+                            </div>
+
+                            <div class="qa-questions-answer-group multiple-choice__container" data-answered="false">
+
+                                <div class="nhsuk-radios nhsuk-radios--inline">
+
+                                    <div class="nhsuk-radios__item nhsuk-u-margin-bottom-3">
+                                        <input class="nhsuk-radios__input qa-questions-answer" id="12" name="a-7" type="radio" value="yes" aria-checked="false">
+                                        <label class="nhsuk-label nhsuk-radios__label" for="12">
+                                            Yes
+                                        </label>
+                                    </div>
+
+                                    <div class="nhsuk-radios__item nhsuk-u-margin-bottom-3">
+                                        <input class="nhsuk-radios__input qa-questions-answer" id="13" name="a-7" type="radio" value="yes" aria-checked="false">
+                                        <label class="nhsuk-label nhsuk-radios__label" for="13">
+                                            No
+                                        </label>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </fieldset>
+
+                    </div>
+                </div>
+
+                <div class="qa-questions-group" data-complete="false">
+                    <div class="qa-questions-question" id="selfie-2" data-answered="false" data-group="decline-6">
+
+                        <fieldset class="nhsuk-fieldset nhsuk-u-margin-top-6">
+
+                            <div class="qa-questions-question-text nhsuk-u-padding-bottom-2">
+                                <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--m">
+                                    <h3 class="nhsuk-fieldset__heading">
+                                        {% if data.idv[data.prototype.count].media_video === '' %}
+                                            Does the face in the photo ID match the face in the picture?
+                                        {% else %}
+                                            Does the face in the photo ID match the face in the video?
+                                        {% endif %}
+                                    </h3>
+                                </legend>
+                            </div>
+
+                            <div class="qa-questions-answer-group multiple-choice__container" data-answered="false">
+
+                                <div class="nhsuk-radios nhsuk-radios--inline">
+
+                                    <div class="nhsuk-radios__item nhsuk-u-margin-bottom-3">
+                                        <input class="nhsuk-radios__input qa-questions-answer" id="14" name="a-8" type="radio" value="yes" aria-checked="false">
+                                        <label class="nhsuk-label nhsuk-radios__label" for="14">
+                                            Yes
+                                        </label>
+                                    </div>
+
+                                    <div class="nhsuk-radios__item nhsuk-u-margin-bottom-3">
+                                        <input class="nhsuk-radios__input qa-questions-answer" id="15" name="a-8" type="radio" value="yes" aria-checked="false">
+                                        <label class="nhsuk-label nhsuk-radios__label" for="15">
+                                            No
+                                        </label>
+                                    </div>
+
+                                    <div class="nhsuk-radios__item nhsuk-u-margin-bottom-3 u-visuallyhidden">
+                                        <input class="nhsuk-radios__input qa-questions-answer" id="16" name="a-8" type="radio" value="yes" aria-checked="false">
+                                        <label class="nhsuk-label nhsuk-radios__label" for="16">
+                                            I cannot see what I need to answer this question
+                                        </label>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </fieldset>
+
+                    </div>
+
+                    <div id="id-canttell7">
+                        <a href="dashboard" data-target="modal" id="canttellBtn" class="button--decline--clarity disabled" style="">I cannot answer this question</a>
+                    </div>
+                </div>
+
+                <!-- hide this question in automation -->
+
+                <div class="qa-questions-group {% if data.idv[data.prototype.count].media_video === '' %}js-hidden" data-complete="true"{% else %}" data-complete="false"{% endif %}>
+                    <div class="qa-questions-question" id="selfie-3" {% if data.idv[data.prototype.count].media_video === '' %}data-answered="true"{% else %}data-answered="false"{% endif %} data-group="decline-7">
+
+                        <fieldset class="nhsuk-fieldset nhsuk-u-margin-top-6">
+
+                            <div class="qa-questions-question-text nhsuk-u-padding-bottom-2">
+                                <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--m">
+                                    <h3 class="nhsuk-fieldset__heading">
+                                        Can you hear or see these 4 numbers in the video: <br>{{data.idv[data.prototype.count].challenge }}
+                                    </h3>
+                                </legend>
+                            </div>
+
+                            <div class="qa-questions-answer-group multiple-choice__container" {% if data.idv[data.prototype.count].media_video === '' %} data-answered="true"{% else %} data-answered="false" {% endif %}>
+
+                                <div class="nhsuk-radios nhsuk-radios--inline">
+
+                                    <div class="nhsuk-radios__item nhsuk-u-margin-bottom-3">
+                                        <input class="nhsuk-radios__input qa-questions-answer" id="17" name="a-9" type="radio" value="yes" {% if data.idv[data.prototype.count].media_video === '' %}aria-checked="true" checked="checked"{% else %} aria-checked="false" {% endif %}>
+                                        <label class="nhsuk-label nhsuk-radios__label" for="17">
+                                            Yes
+                                        </label>
+                                    </div>
+
+                                    <div class="nhsuk-radios__item nhsuk-u-margin-bottom-3">
+                                        <input class="nhsuk-radios__input qa-questions-answer" id="18" name="a-9" type="radio" value="yes" aria-checked="false">
+                                        <label class="nhsuk-label nhsuk-radios__label" for="18">
+                                            No
+                                        </label>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </fieldset>
+
+                    </div>
+                </div>
+
+                <div id="id-buttons">
+                    <div id="id-approve">
+                        <form action="accept" method="POST" role="form">
+                            <button href="dashboard"
+                           data-target="modal" id="approveBtn" class="nhsuk-button button--approve nhsuk-u-margin-top-3" style="display: none;">Approve</button>
+                        </form>
+                    </div>
+                    <div id="id-decline">
+                        <a href="dashboard"
+                           data-target="modal" id="declineBtn" class="nhsuk-button button--decline nhsuk-u-margin-top-3" style="display: none;">Reject</a>
+                    </div>
+                    <div id="id-canttell">
+                        <a href="dashboard"
+                           data-target="modal" id="canttellBtn" class="nhsuk-button button--decline--clarity" style="display: none;">Reject</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="slideout" data-status="closed">
+    <img src="/images/problem.png" alt="Feedback" height="173" width="32" id="slideout__button"/>
+    <div id="slideout_inner" data-status="closed">
+        <form action="holding" method="POST" role="form">
+            <h3>Move to holding list</h3>
+            <label class="" for="field6">Reason for moving (required)</label>
+            <textarea class="" id="field6" name="field6" type="text" rows="3" style="margin-top: 16px;" onkeyup='checkText(this.value);'></textarea>
+            <button class="nhsuk-button nhsuk-button--reverse" id="id-holding">Move</button>
+        </form>
+    </div>
+</div>
+
+<div id="slideout-value" style="visibility: hidden">
+    <div id="slideout-value_tab">
+        <p>Comparison<br>Score</p>
+        <div id="slideout-value_tab_spinner">&nbsp</div>
+        <div id="slideout-value_tab_value" style="display: none;">98.85%</div>
+    </div>
+    <div id="slideout-value_inner">
+        <h3 class="slideout-title">Photo ID information</h3>
+        <table class="slideout-table">
+            <tr>
+                <td>Confidence score</td>
+                <td>99.2%</td>
+            </tr>
+            <tr>
+                <td>Brightness: </td>
+                <td>73.9993</td>
+            </tr>
+            <tr>
+                <td>Sharpness: </td>
+                <td>97.466</td>
+            </tr>
+            <tr>
+                <td>Glasses: </td>
+                <td>No</td>
+            </tr>
+            <tr>
+                <td>Gender: </td>
+                <td>Male (99%)</td>
+            </tr>
+        </table>
+
+        <h3 class="slideout-title">Video information</h3>
+        <table class="slideout-table">
+            <tr>
+                <td>Confidence score</td>
+                <td>99.2%</td>
+            </tr>
+            <tr>
+                <td>Brightness: </td>
+                <td>73.9993</td>
+            </tr>
+            <tr>
+                <td>Sharpness: </td>
+                <td>97.466</td>
+            </tr>
+            <tr>
+                <td>Glasses: </td>
+                <td>No</td>
+            </tr>
+            <tr>
+                <td>Gender: </td>
+                <td>Male (99%)</td>
+            </tr>
+        </table>
+
+    </div>
+</div>
+
+
+
+<div class="modal-overlay" id="modal_window" aria-hidden="true" role="dialog" aria-labelledby="modal_title">
+    <div class="modal-content" id="modal_holder" role="document">
+        <label class="nhsuk-label" for="sort">
+            <h3 id="modal-header">Select the reason we cannot accept this ID</h3>
+        </label>
+
+
+        <div class="first-item">
+            <form action="reject" method="POST" role="form">
+
+                <div class="nhsuk-form-group">
+
+                    <div id="modal-clarity" style="display:none;">
+
+                        <div class="nhsuk-grid-row">
+                            <div class="nhsuk-grid-column-two-thirds">
+<!--                                <div class="idcheck-image" style="margin-top:0;">-->
+<!--                                    <img src="/images/passport_redacted.jpg" class="idcheck-image-img" style="width: 100%;"-->
+<!--                                         alt="Image of a passport"/>-->
+<!--                                </div>-->
+
+                                <div class="idcheck-image-container panzoom-parent">
+
+                                    <div class="idcheck-image zoomable5">
+
+                                        <img src="/images/media/photos/{{ data.idv[data.prototype.count].media_photoid_front}}" class="idcheck-image-img" style="width: 100%;"
+                                             alt="Picture of an identity document"/>
+
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="nhsuk-grid-column-one-third nhsuk-u-margin-top-0">
+
+                                <div class="nhsuk-form-group">
+
+                                    <fieldset class="nhsuk-fieldset">
+
+                                        <div class="nhsuk-checkboxes nhsuk-checkboxes--small">
+
+                                            <div class="nhsuk-checkboxes__item nhsuk-u-margin-bottom-0 nhsuk-u-margin-top-0 ">
+                                                <input class="nhsuk-checkboxes__input" id="example-hint-1" name="example-hint" type="checkbox" value="blur">
+                                                <label class="nhsuk-label nhsuk-checkboxes__label" for="example-hint-1">
+                                                    It's too blurred
+                                                </label>
+                                            </div>
+
+                                            <div class="nhsuk-checkboxes__item nhsuk-u-margin-bottom-0 nhsuk-u-margin-top-0">
+                                                <input class="nhsuk-checkboxes__input" id="example-hint-2" name="example-hint" type="checkbox" value="glare">
+                                                <label class="nhsuk-label nhsuk-checkboxes__label" for="example-hint-2">
+                                                    There's too much glare
+                                                </label>
+                                            </div>
+
+                                            <div class="nhsuk-checkboxes__item nhsuk-u-margin-bottom-0 nhsuk-u-margin-top-0" id="idcheck-clarity-hologram" style="display:none;">
+                                                <input class="nhsuk-checkboxes__input" id="example-hint-holo" name="example-hint" type="checkbox" value="glare">
+                                                <label class="nhsuk-label nhsuk-checkboxes__label" for="example-hint-holo">
+                                                    The hologram is hiding some information
+                                                </label>
+                                            </div>
+
+                                            <div class="nhsuk-checkboxes__item nhsuk-u-margin-bottom-0 nhsuk-u-margin-top-0">
+                                                <input class="nhsuk-checkboxes__input" id="example-hint-3" name="example-hint" type="checkbox" value="light">
+                                                <label class="nhsuk-label nhsuk-checkboxes__label" for="example-hint-3">
+                                                    It's too light (overexposed)
+                                                </label>
+                                            </div>
+
+                                            <div class="nhsuk-checkboxes__item nhsuk-u-margin-bottom-0 nhsuk-u-margin-top-0">
+                                                <input class="nhsuk-checkboxes__input" id="example-hint-4" name="example-hint" type="checkbox" value="dark">
+                                                <label class="nhsuk-label nhsuk-checkboxes__label" for="example-hint-4">
+                                                    It's too dark
+                                                </label>
+                                            </div>
+
+                                            <div class="nhsuk-checkboxes__item nhsuk-u-margin-bottom-0 nhsuk-u-margin-top-0">
+                                                <input class="nhsuk-checkboxes__input" id="example-hint-5" name="example-hint" type="checkbox" value="cropped">
+                                                <label class="nhsuk-label nhsuk-checkboxes__label" for="example-hint-5">
+                                                    It's cropped (part of the document is not in the photo)
+                                                </label>
+                                            </div>
+
+                                            <div class="nhsuk-checkboxes__item nhsuk-u-margin-bottom-0 nhsuk-u-margin-top-0">
+                                                <input class="nhsuk-checkboxes__input" id="example-hint-6" name="example-hint" type="checkbox" value="covered">
+                                                <label class="nhsuk-label nhsuk-checkboxes__label" for="example-hint-6">
+                                                    Something is covering some or all of the document
+                                                </label>
+                                            </div>
+
+                                            <div class="nhsuk-checkboxes__item nhsuk-u-margin-bottom-0 nhsuk-u-margin-top-0">
+                                                <input class="nhsuk-checkboxes__input" id="example-hint-7" name="example-hint" type="checkbox" value="small">
+                                                <label class="nhsuk-label nhsuk-checkboxes__label" for="example-hint-7">
+                                                    It's too small
+                                                </label>
+                                            </div>
+
+                                            <div class="nhsuk-checkboxes__item nhsuk-u-margin-bottom-0 nhsuk-u-margin-top-0">
+                                                <input class="nhsuk-checkboxes__input" id="example-hint-8" name="example-hint" type="checkbox" value="dirty">
+                                                <label class="nhsuk-label nhsuk-checkboxes__label" for="example-hint-8">
+                                                    It's too dirty
+                                                </label>
+                                            </div>
+
+                                            <div class="nhsuk-checkboxes__item nhsuk-u-margin-bottom-0 nhsuk-u-margin-top-0">
+                                                <input class="nhsuk-checkboxes__input" id="example-hint-9" name="example-hint" type="checkbox" value="filtered">
+                                                <label class="nhsuk-label nhsuk-checkboxes__label" for="example-hint-9">
+                                                    A photo filter has been applied
+                                                </label>
+                                            </div>
+
+                                            <div class="nhsuk-checkboxes__item nhsuk-u-margin-bottom-0 nhsuk-u-margin-top-0">
+                                                <input class="nhsuk-checkboxes__input" id="example-hint-10" name="example-hint" type="checkbox" value="other" data-question="decline-text-16">
+                                                <label class="nhsuk-label nhsuk-checkboxes__label" for="example-hint-10">
+                                                    Other
+                                                </label>
+                                            </div>
+
+                                        </div>
+                                    </fieldset>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div id="rejection-reasons">
+
+                        <select id="decline-0" class="nhsuk-select decline-group" id="sort" name="sort" style="margin-top:16px;width:100%;display:none;">
+                            <option value="IDC-010" data-question="">--- Select 1 option ---</option>
+                            <option value="IDC-011" data-question="none">No records returned</option>
+                            <option value="IDC-012" data-question="none">More than 1 record returned</option>
+                            <option value="IDC-013" data-question="none">More than 1 date of birth on the record</option>
+                            <option value="IDC-014" data-question="none">More than 1 full name on the record</option>
+                            <option value="IDC-015" data-question="none">Current first name on the record does not match ID</option>
+                            {% if data.idv[data.prototype.count].media_video !== '' %}
+                            <option value="IDC-016" data-question="none">Date of birth user entered does not match PDS</option>
+                            {% endif %}
+                        </select>
+
+                        <select id="decline-1" class="nhsuk-select decline-group" id="sort" name="sort" style="margin-top:16px;width:100%;display:none;">
+                            <option value="IDC-020" data-question="">--- Select 1 option ---</option>
+                            <option value="IDC-021" data-question="none">User has not sent any ID at all</option>
+                            <option value="IDC-022" data-question="none">It is not a type of ID we accept</option>
+                            <option value="IDC-023" data-question="none">It is a type of ID we accept, but it is not a photo or scan of the original</option>
+                            <option value="IDC-024" data-question="none">It is a visa sticker</option>
+                            <option value="IDC-025" data-question="decline-text-1">Other reason</option>
+                        </select>
+
+                        <select id="decline-2" class="nhsuk-select decline-group" id="sort" name="sort" style="margin-top:16px;width:100%;display:none;">
+                            <option value="IDC-030" data-question="">--- Select 1 option ---</option>
+                            <option value="IDC-031" data-question="none">It has expired</option>
+                            <option value="IDC-032" data-question="decline-text-4c">It looks false</option>
+                            <option value="IDC-033" data-question="decline-text-4b">It has been cut up or is too damaged for us to accept</option>
+                        </select>
+
+                        <select id="decline-3" class="nhsuk-select decline-group" id="sort" name="sort" style="margin-top:16px;width:100%;display:none;">
+                            <option value="IDC-040" data-question="">--- Select 1 option ---</option>
+                            <option value="IDC-041" data-question="none">Driving licence - expired</option>
+                            <option value="IDC-042" data-question="decline-text-6">Driving licence - not a UK licence</option>
+                            <option value="IDC-043" data-question=none"">Passport - expired</option>
+                            <option value="IDC-044" data-question="decline-text-6">Passport - not a UK passport</option>
+                            <option value="IDC-045" data-question="decline-text-6">Unsupported UK document</option>
+                            <option value="IDC-046" data-question="decline-text-6">Unsupported non-UK document</option>
+                        </select>
+
+                        <select id="decline-4a" class="nhsuk-select decline-group" id="sort" name="sort" style="margin-top:16px;width:100%;display:none;">
+                            <option value="IDC-050" data-question="">--- Select 1 option ---</option>
+                            <option value="IDC-051" data-question="decline-text-15">Dates of birth do not match</option>
+                        </select>
+
+                        <select id="decline-4b" class="nhsuk-select decline-group" id="sort" name="sort" style="margin-top:16px;width:100%;display:none;">
+                            <option value="IDC-050" data-question="">--- Select 1 option ---</option>
+                            <option value="IDC-051" data-question="decline-text-15">First names do not match</option>
+                        </select>
+
+                        <select id="decline-4c" class="nhsuk-select decline-group" id="sort" name="sort" style="margin-top:16px;width:100%;display:none;">
+                            <option value="IDC-050" data-question="">--- Select 1 option ---</option>
+                            <option value="IDC-051" data-question="decline-text-15">Last names do not match</option>
+                        </select>
+
+                        <select id="decline-5" class="nhsuk-select decline-group" id="sort" name="sort" style="margin-top:16px;width:100%;display:none;">
+                            <option value="IDC-080" data-question="">--- Select 1 option ---</option>
+                            <option value="IDC-081" data-question="none">There is a face, but it's not clear</option>
+                            <option value="IDC-082" data-question="none">There is no face in the picture</option>
+                            <option value="IDC-083" data-question="decline-text-9">The face is covered</option>
+                        </select>
+
+                        <select id="decline-6" class="nhsuk-select decline-group" id="sort" name="sort" style="margin-top:16px;width:100%;display:none;">
+                            <option value="IDC-090" data-question="">--- Select 1 option ---</option>
+                            <option value="IDC-091" data-question="decline-text-10">Faces do not match</option>
+                        </select>
+
+                        <select id="decline-7" class="nhsuk-select decline-group" id="sort" name="sort" style="margin-top:16px;width:100%;display:none;">
+                            <option value="IDC-100" data-question="">--- Select 1 option ---</option>
+                            <option value="IDC-101" data-question="none">Mouth moves but there is no sound at all</option>
+                            <option value="IDC-102" data-question="decline-text-11">Cannot hear or see numbers clearly</option>
+                            <option value="IDC-103" data-question="decline-text-12">Missing first or last number</option>
+                            <option value="IDC-104" data-question="decline-text-13">Numbers are completely wrong</option>
+                            <option value="IDC-105" data-question="decline-text-14">Does not say or show numbers at all</option>
+                        </select>
+                    </div>
+                </div>
+
+
+                <div class="nhsuk-form-group" id="rejection-text" style="display:none;">
+
+                    <div id="decline-text-1" style="display:none;">
+                        <label class="nhsuk-label" for="field3">Explain why you made this decision. <br>This information will not be sent to the user</label>
+                    </div>
+                    <div id="decline-text-2" style="display:none;">
+                        <label class="nhsuk-label" for="field3">Why could you not find the person's NHS Number? (required)</label>
+                    </div>
+
+                    <div id="decline-text-3" style="display:none;">
+                        <label class="nhsuk-label" for="field3">"Which dates do not match? (required)</label>
+                            <span class="nhsuk-hint">Look at the date of birth:<br>
+                                &#9679; in the submitted details<br>
+                                &#9679; in PDS<br>
+                                &#9679; in the photo ID<br>
+                            </span>
+                    </div>
+
+                    <div id="decline-text-4a" style="display:none;">
+                        <label class="nhsuk-label" for="field3">Why is this document invalid? (required)</label>
+                    </div>
+
+                    <div id="decline-text-4b" style="display:none;">
+                        <label class="nhsuk-label" for="field3">Explain how the document is damaged</label>
+                    </div>
+
+                    <div id="decline-text-4c" style="display:none;">
+                        <label class="nhsuk-label" for="field3">Explain why the document looks false</label>
+                    </div>
+
+                    <div id="decline-text-6" style="display:none;">
+                        <label class="nhsuk-label" for="field3">What kind of ID is it? (required)</label>
+                    </div>
+
+                    <div id="decline-text-7" style="display:none;">
+                        <label class="nhsuk-label" for="field3">Which details do not match, and why? (required)</label>
+                    </div>
+
+                    <div id="decline-text-8" style="display:none;">
+                        <label class="nhsuk-label" for="field3">Why not?</label>
+                        <span class="nhsuk-hint">Tell us if:<br>
+                            &#9679; anything is covered up, and how<br>
+                            &#9679; anything is cut off<br>
+                            &#9679; there is glare<br>
+                            &#9679; there is blur<br>
+                            &#9679; it's too light<br>
+                            &#9679; it's too dark<br>
+                            &#9679; anything else is making it difficult for you to see the information clearly<br>
+                        </span>
+                    </div>
+
+                    <div id="decline-text-9" style="display:none;">
+                        <label class="nhsuk-label" for="field3">Explain how the face is covered</label>
+                    </div>
+
+                    <div id="decline-text-10" style="display:none;">
+                        <label class="nhsuk-label" for="field3">More information about why you think they do not match (optional)</label>
+                    </div>
+
+                    <div id="decline-text-11" style="display:none;">
+                        <label class="nhsuk-label" for="field3">Why can't you hear the numbers clearly? (required)</label>
+                    </div>
+
+                    <div id="decline-text-12" style="display:none;">
+                        <label class="nhsuk-label" for="field3">Which numbers do they miss? (required)</label>
+                    </div>
+
+                    <div id="decline-text-13" style="display:none;">
+                        <label class="nhsuk-label" for="field3">More information about why they were wrong (optional)</label>
+                    </div>
+
+                    <div id="decline-text-14" style="display:none;">
+                        <label class="nhsuk-label" for="field3">What do they say? (required)</label>
+                    </div>
+
+                    <div id="decline-text-15" style="display:none;">
+                        <label class="nhsuk-label" for="field3" style="display:none;"></label>
+                    </div>
+
+                    <div id="decline-text-16" style="display:none;">
+                        <label class="nhsuk-label" for="field3" style="display:block;">What is the 'other' reason?</label>
+                    </div>
+
+                    <textarea class="nhsuk-textarea" id="field3" name="field3" type="text" rows="3"
+                              style="margin-top: 16px;" onkeyup='checkText(this.value);'></textarea>
+                </div>
+
+                <div class="form-group nhsuk-u-margin-bottom-0 nhsuk-u-margin-top-0">
+                    <button class="nhsuk-button nhsuk-u-margin-bottom-3 nhsuk-u-margin-top-0" id="modal-link"
+                       href="supervisor-dashboard" disabled="disabled">Submit</button>
+                    <p class="nhsuk-u-margin-bottom-0 nhsuk-u-margin-top-3 nhsuk-u-margin-left-3" style="display:inline-block;"><a href="#" id="modal_close">Cancel</a></p>
+                </div>
+            </form>
+        </div>
+    </div> <!-- end .modal-content -->
+</div> <!-- end .modal-overlay -->
+
+<p class="u-visuallyhidden" style="visibility: hidden;"><a id="modal_create" class="smartcard" href="#">.</a><a id="holding" href="dashboard">.</a></p>
+
+<script type="text/javascript">
+    /* eslint-disable indent */
+
+    // hide or show the buttons based on selections
+    // localStorage.removeItem("idchecker")
+    addEventListeners()
+    addButtonListeners()
+    addClarityButtonListeners()
+    addRejectionListeners()
+    resetAllSections()
+    addRetraceListener()
+    addOtherListener()
+    addSlideoutListener()
+    questionsComplete = false
+
+    function getParameterByName(name, url) {
+        if (!url) url = window.location.href
+        name = name.replace(/[\[\]]/g, "\\$&")
+        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+            results = regex.exec(url)
+        if (!results) return null
+        if (!results[2]) return ''
+        return decodeURIComponent(results[2].replace(/\+/g, " "))
+    }
+
+    var state = getParameterByName('state')
+
+    setTimeout(function () {
+        document.getElementById('trace').style.display = 'block'
+        // document.getElementById('retrybtn-1').style.display = 'block'
+        if (state === 'noresult') {
+            $('label[for="1"]').click()
+        }
+    }, 2000)
+    setTimeout(function () {
+        document.getElementById('loader').style.display = 'none'
+    }, 2000)
+
+    setTimeout(function () {
+        document.getElementById('declinebtn-2').style.display = 'block'
+        var errors = document.getElementsByClassName('idcheck-edit')
+        for (i = 0; i < errors.length; i++) {
+            errors[i].style.display = 'inline-block'
+        }
+        if (state === 'noresult') {
+            $('label[for="1"]').click()
+        }
+    }, 2000)
+
+    setTimeout(function () {
+        document.getElementById('slideout-value_tab_spinner').style.display = 'none'
+    }, 4000)
+
+    setTimeout(function () {
+        document.getElementById('slideout-value_tab_value').style.display = 'block'
+    }, 4000)
+
+    // when any radio button is clicked
+    var processClick = function (e) {
+        // update local storage straight away
+        updateStorageFromElements()
+
+        // first unset all the aria-checked attributes in an answer group
+        var labels = e.parentNode.getElementsByClassName('qa-questions-answer')
+
+        for (i = 0; i < labels.length; i++) {
+            labels[i].setAttribute('aria-checked', false)
+        }
+        // then check only the selected one
+        e.setAttribute('aria-checked', true)
+
+        // a click will trigger the showing and hiding of question groups
+
+        // get the section the click was in and pass it into a function
+        var section = e.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode
+        checkSectionComplete(section)
+    }
+
+    // when an approve or decline button is clicked
+    var buttonClick = function (object, event) {
+        event.preventDefault()
+
+        var target = object.parentElement.parentElement.getAttribute('data-group')
+
+        var link = object.href
+        var heading = document.getElementById('modal-header')
+
+        var content = document.getElementById('modal_holder')
+        content.classList.remove('modal-content--clarity')
+
+        document.getElementById('modal-clarity').style.display = 'none'
+
+        heading.innerText = 'Information about this declined verification'
+        var a = document.getElementById('modal-link')
+        a.href = link
+        document.getElementById('modal_create').click()
+
+        var buttonType = object.text
+
+        if (buttonType === 'Reject') {
+            console.log(target)
+            if (target === 'decline-5') {
+                heading.innerText = 'Select the reason you cannot see a face'
+            } else if (target === 'decline-0') {
+                heading.innerText = 'Select the reason you cannot find a single matching PDS record to re-run a trace'
+            } else if (target === 'decline-7') {
+                heading.innerText = 'Select why you cannot hear or see the 4 numbers'
+            } else {
+                heading.innerText = 'Select the reason we cannot accept this ID'
+            }
+            setSubReasons('')
+            setReasons(target)
+            document.getElementById('modal_create').click()
+        } else {
+            heading.innerText = 'Information about this approved verification'
+            document.getElementById('rejection-reasons').style.display = 'none'
+        }
+    }
+
+    // when a don't know button is clicked
+    var clarityClick = function (object, event) {
+        event.preventDefault()
+
+        var link = object.href
+        var heading = document.getElementById('modal-header')
+
+        var clarityQuestion = object.parentNode.getAttribute('id')
+
+        console.log(clarityQuestion)
+
+        if (clarityQuestion === 'id-canttell2') {
+            heading.innerText = 'Select all the reasons you cannot answer this question'
+        } else if (clarityQuestion === 'id-canttell3') {
+            heading.innerText = 'Select the reason you cannot confirm whether it\'s a valid document (select all that apply)'
+          document.getElementById('idcheck-clarity-hologram').style.display = 'block'
+        } else if (clarityQuestion === 'selfie-2') {
+            heading.innerText = 'Information about this declined verification (Faces do not match)'
+        }
+
+        var content = document.getElementById('modal_holder')
+        content.classList.add('modal-content--clarity')
+
+        document.getElementById('modal-link').removeAttribute('disabled')
+
+        document.getElementById('modal-clarity').style.display = 'block'
+
+        var rejections = document.getElementById('rejection-reasons')
+        rejections.style.display = 'none'
+
+        var a = document.getElementById('modal-link')
+        a.href = link
+        document.getElementById('modal_create').click()
+
+        var buttonType = object.text
+    }
+
+    function setReasons(target) {
+        // first do a reset
+        console.log("set reasons")
+        // get all the dropdowns into an array;
+        document.getElementById('rejection-reasons').style.display = 'block'
+        var reasons = document.getElementsByClassName('decline-group')
+        for (i = 0; i < reasons.length; i++) {
+            reasons[i].style.display = 'none'
+            reasons[i].selectedIndex = "0";
+        }
+        if (target){
+            document.getElementById(target).style.display = 'block'
+        }
+    }
+
+    var selectChange = function (object, event) {
+        var target = object.options[object.selectedIndex].getAttribute('data-question')
+        setSubReasons(target)
+    }
+
+    function setSubReasons(target) {
+
+
+        // reset everything before showing the picked one
+        var subReasons = document.getElementById('rejection-text').getElementsByTagName('div')
+        resetText()
+        for (i = 0; i < subReasons.length; i++) {
+            subReasons[i].style.display = 'none'
+        }
+        if (target){
+
+          console.log(target)
+
+            if (target === "decline-text-15" || target === "none" ) {
+                document.getElementById('modal-link').removeAttribute("disabled")
+              document.getElementById('rejection-text').style.display = 'none'
+            } else {
+                document.getElementById('rejection-text').style.display = 'block'
+
+                if (target === "decline-text-16") {
+                    console.log('hello')
+                }
+            }
+
+            document.getElementById(target).style.display = 'block'
+            // show the text area
+            // document.getElementById('rejection-text').style.display = 'block'
+        } else {
+            document.getElementById('rejection-text').style.display = 'none'
+        }
+    }
+
+    function checkText(text) {
+        if(text.length >= 1) {
+            document.getElementById('modal-link').removeAttribute("disabled")
+        } else if(text.length == 0) {
+            document.getElementById('modal-link').setAttribute("disabled", '')
+        }
+    }
+
+    function resetText() {
+        var textarea = document.getElementById('field3')
+        textarea.value = ''
+        document.getElementById('modal-link').setAttribute("disabled", '')
+    }
+
+    function retrace() {
+        document.getElementById('trace').style.display = 'none'
+        document.getElementById('declinebtn-2').style.display = 'none'
+        document.getElementById('loader').style.display = 'block'
+        setTimeout(function () {
+            document.getElementById('retrace').style.display = 'block'
+            document.getElementById('pds-retrace-result').style.display = 'block'
+        }, 2000)
+        setTimeout(function () {
+            document.getElementById('loader').style.display = 'none'
+            document.getElementById('pds-result').style.display = 'none'
+        }, 2000)
+    }
+
+    // run through all sections checking for completeness
+    function resetAllSections() {
+        // get an array of all the question groups
+        var questionGroups = document.getElementsByClassName('qa-questions-group')
+        // lets hold the completion state of each section in an array
+        for (i = 0; i < questionGroups.length; i++) {
+            // reset attributes
+            questionGroups[i].setAttribute('data-complete', false)
+            // get array of all the answer groups
+            var questions = questionGroups[i].getElementsByClassName('qa-questions-question')
+            // loop through all the question groups
+            for (j = 0; j < questions.length; j++) {
+                // get array of the labels
+                var answers = questionGroups[i].getElementsByClassName('qa-questions-answer')
+                // loop through answers
+                for (k = 0; k < answers.length; k++) {
+                    answers[k].setAttribute('aria-checked', false)
+                    // get the individual inputs
+                    var inputs = answers[k].getElementsByTagName('input')
+                    // loop through all the inputs and uncheck them
+                    for (l = 0; l < answers.length; l++) {
+                      // answers[l].checked = false
+                      answers[l].disabled = true
+                    }
+                }
+            }
+        }
+        unlockFirstQuestion()
+    }
+
+    function unlockFirstQuestion() {
+        // console.log("unlock")
+        //
+        // // get an array of all the question groups
+        var questionGroup = document.getElementById('document-1')
+        //
+        var inputs = questionGroup.getElementsByTagName('input')
+        // // loop through all the inputs and uncheck them
+        for (l = 0; l < inputs.length; l++) {
+            inputs[l].checked = false
+            inputs[l].disabled = false
+        }
+    }
+
+    function addEventListeners() {
+        var inputs = document.getElementsByTagName('input')
+        for (i = 0; i < inputs.length; i++) {
+            inputs[i].addEventListener('click', function () {
+                processClick(this)
+            })
+        }
+    }
+
+    function addButtonListeners() {
+        var inputs = document.querySelectorAll('.button--decline')
+        for (i = 0; i < inputs.length; i++) {
+            inputs[i].addEventListener('click', function (event) {
+                buttonClick(this, event)
+            })
+        }
+    }
+
+    function addClarityButtonListeners() {
+        var inputs = document.querySelectorAll('.button--decline--clarity')
+        for (i = 0; i < inputs.length; i++) {
+            inputs[i].addEventListener('click', function (event) {
+                clarityClick(this, event)
+            })
+        }
+    }
+
+    function addRejectionListeners() {
+        var selects = document.querySelectorAll('.decline-group')
+        for (i = 0; i < selects.length; i++) {
+            selects[i].addEventListener('change', function (event) {
+                selectChange(this, event)
+            })
+        }
+    }
+
+    function addOtherListener() {
+        if (document.getElementById('example-hint-10')) {
+            var selects = document.getElementById('example-hint-10')
+            selects.addEventListener('change', function () {
+                if(this.checked) {
+                    // selectChange(this, event)
+                    var target = this.getAttribute('data-question')
+                    setSubReasons(target)
+                } else {
+                    var target = this.getAttribute('data-question')
+                    setSubReasons(target)
+                }
+            })
+        }
+    }
+
+    function addRetraceListener() {
+        if (document.getElementById('retraceBtn')) {
+            var selects = document.getElementById('retraceBtn')
+            selects.addEventListener('click', function (event) {
+                retrace(this, event)
+            })
+        }
+    }
+
+    function addSlideoutListener() {
+        if (document.getElementById('slideout__button')) {
+            var selects = document.getElementById('slideout__button')
+            selects.addEventListener('click', function (event) {
+                if (document.getElementById('slideout').getAttribute('data-status') === 'closed') {
+                    console.log('slideout')
+                    document.getElementById('slideout').setAttribute('data-status', 'open')
+                    document.getElementById('slideout_inner').setAttribute('data-status', 'open')
+                } else {
+                    document.getElementById('slideout').setAttribute('data-status', 'closed')
+                    document.getElementById('slideout_inner').setAttribute('data-status', 'closed')
+                }
+            })
+        }
+    }
+
+    function updateStorageFromElements() {
+        var idCheck = []
+        var inputs = document.getElementsByTagName('input')
+        for (i = 0; i < inputs.length; i++) {
+            var inputId = inputs[i].getAttribute('id')
+            idCheck[inputId] = inputs[i].checked
+        }
+        localStorage.setItem('idchecker', JSON.stringify(idCheck))
+    }
+
+    function checkSectionComplete(section) {
+        // get an array of all the question subgroups
+        var questions = section.getElementsByClassName('qa-questions-question')
+        var sectionComplete = true
+        for (i = 0; i < questions.length; i++) {
+            var inputs = questions[i].getElementsByTagName('input')
+            var questionComplete = false
+            for (j = 0; j < inputs.length; j++) {
+                if (inputs[j].checked) {
+                    questionComplete = true
+                }
+            }
+            if (false === questionComplete) {
+                sectionComplete = false
+            }
+        }
+        if (sectionComplete) {
+            section.setAttribute('data-complete', true)
+            unlockNextSection(section)
+            return true
+        }
+    }
+
+    function unlockNextSection(section) {
+        var id = section.getElementsByClassName('qa-questions-question')[0].getAttribute('id')
+        var sections = []
+        var groups = document.getElementsByClassName('qa-questions-group')
+        for (i = 0; i < groups.length; i++) {
+            sections[i] = groups[i].getElementsByClassName('qa-questions-question')[0].getAttribute('id')
+        }
+        // work out what the next section is
+        var currentSectionPosition = sections.indexOf(id)
+        var nextSectionPosition = currentSectionPosition + 1
+        var lastSection = sections[groups.length-1]
+
+       console.log("unlock " + nextSectionPosition)
+        // console.log(lastSection)
+
+        if (currentSectionPosition < groups.length-1 ){
+            var nextSection = sections[nextSectionPosition]
+            // get the next section object
+            nextSection = document.getElementById(nextSection)
+
+            // enable radio buttons
+            var nextRadios = nextSection.getElementsByTagName('input')
+
+            // enable next clarity link
+          if (document.getElementById(sections[nextSectionPosition]).parentNode.getElementsByClassName('button--decline--clarity')[0]) {
+            console.log("clarity question exists in next section")
+            document.getElementById(sections[nextSectionPosition]).parentNode.getElementsByClassName('button--decline--clarity')[0].classList.remove('disabled')
+          }
+
+            for (j = 0; j < nextRadios.length; j++) {
+                nextRadios[j].disabled = false
+            }
+        }
+        updateSolutions()
+    }
+
+    function updateSolutions() {
+        // pull in the answer array
+        var idCheck = JSON.parse(localStorage['idchecker'])
+
+        if (idCheck[11] === true ) {
+            document.getElementById('manual-pds').style.display = 'block'
+            document.getElementById('radio-inline-3').disabled = false
+            document.getElementById('radio-inline-4').disabled = false
+
+        } else if (idCheck[10] === true ) {
+            document.getElementById('manual-pds').style.display = 'none'
+        }
+
+        if (idCheck[1] === true || idCheck[4] === true || idCheck[7] === true || idCheck[9] === true || idCheck[13] === true || idCheck[15] === true || idCheck[18] === true  ) {
+
+            if (document.getElementById('radio-inline-3') !== true ) {
+
+                document.getElementById('approveBtn').style.display = 'none'
+                document.getElementById('declineBtn').style.display = 'inline-block'
+                // document.getElementById('canttellBtn').style.display = 'none'
+
+                if (idCheck[1] === true) {
+                    $("#id-decline").appendTo('#document-1')
+                } else if (idCheck[4] === true) {
+                    $("#id-decline").appendTo('#document-2')
+                } else if (idCheck[5] === true) {
+                    $("#id-decline").appendTo('#document-3')
+                } else if (idCheck[7] === true) {
+                    $("#id-decline").appendTo('#pds-1')
+                } else if (idCheck[9] === true) {
+                    $("#id-decline").appendTo('#pds-2')
+                } else if (idCheck[11] === true) {
+                    $("#id-decline").appendTo('#pds-2')
+                } else if (idCheck[13] === true) {
+                    $("#id-decline").appendTo('#selfie-1')
+                } else if (idCheck[15] === true) {
+                    $("#id-decline").appendTo('#selfie-2')
+                } else if (idCheck[18] === true) {
+                    $("#id-decline").appendTo('#selfie-3')
+                } else {
+                    $("#id-decline").appendTo('#id-buttons')
+                }
+            }
+        }
+
+        else if (idCheck[2] === true || idCheck[5] === true || idCheck[16] === true ) {
+
+            document.getElementById('approveBtn').style.display = 'none'
+            document.getElementById('declineBtn').style.display = 'none'
+            document.getElementById('canttellBtn').style.display = 'inline-block'
+
+            console.log('sausages')
+            if (idCheck[2] === true) {
+                $("#id-canttell").appendTo('#document-1')
+            } else if (idCheck[5] === true) {
+                $("#id-canttell").appendTo('#document-2')
+            } else if (idCheck[16] === true) {
+                $("#id-canttell").appendTo('#selfie-2')
+            } else {
+                $("#id-decline").appendTo('#id-buttons')
+            }
+        }
+
+        else if (idCheck[0] === true && idCheck[3] === true && idCheck[6] === true && idCheck[8] === true && idCheck[10] === true && idCheck[12] === true && idCheck[14] === true && idCheck[17] === true) {
+            document.getElementById('approveBtn').style.display = 'inline-block'
+            document.getElementById('declineBtn').style.display = 'none'
+            // document.getElementById('canttellBtn').style.display = 'none'
+        }
+
+        else {
+            document.getElementById('approveBtn').style.display = 'none'
+            document.getElementById('declineBtn').style.display = 'none'
+            // document.getElementById('canttellBtn').style.display = 'none'
+        }
+
+    }
+
+</script>
+
+{% endblock %}
+
+{% block pageScripts %}
+<script>
+    const photo1 = document.querySelector('.zoomable1')
+    const photo2 = document.querySelector('.zoomable2')
+    const photo3 = document.querySelector('.zoomable3')
+    const photo4 = document.querySelector('.zoomable4')
+    const photo5 = document.querySelector('.zoomable5')
+
+    // photos.forEach(panzoom, { contain: 'outside', startScale: 1.5 })
+
+
+    let area1 = panzoom(photo1, {
+        smoothScroll: false,
+        bounds: true,
+        boundsPadding: 0.75,
+        minZoom: 1,
+        maxZoom: 3,
+        beforeWheel: function(e) {
+            // allow wheel-zoom only if altKey is down. Otherwise - ignore
+            var shouldIgnore = !e.altKey
+            return shouldIgnore
+        }
+    })
+
+    // NEED IF STATEMENT HERE IF BACK IMAGE EXISTS
+
+    // let area2 = panzoom(photo2, {
+    //     smoothScroll: false,
+    //     beforeWheel: function(e) {
+    //         // allow wheel-zoom only if altKey is down. Otherwise - ignore
+    //         var shouldIgnore = !e.altKey
+    //         return shouldIgnore
+    //     }
+    // })
+    let area3 = panzoom(photo3, {
+        smoothScroll: false,
+        beforeWheel: function(e) {
+            // allow wheel-zoom only if altKey is down. Otherwise - ignore
+            var shouldIgnore = !e.altKey
+            return shouldIgnore
+        },
+        bounds: true,
+        boundsPadding: 0.75,
+        minZoom: 1,
+        maxZoom: 3
+    })
+    let area4 = panzoom(photo4, {
+        smoothScroll: false,
+        beforeWheel: function(e) {
+            // allow wheel-zoom only if altKey is down. Otherwise - ignore
+            var shouldIgnore = !e.altKey
+            return shouldIgnore
+        },
+        bounds: true,
+        boundsPadding: 0.75,
+        minZoom: 1,
+        maxZoom: 3
+    })
+    let area5 = panzoom(photo5, {
+        smoothScroll: false,
+        bounds: true,
+        boundsPadding: 0.75,
+        beforeWheel: function(e) {
+            // allow wheel-zoom only if altKey is down. Otherwise - ignore
+            var shouldIgnore = !e.altKey
+            return shouldIgnore
+        },
+        minZoom: 1,
+        maxZoom: 3
+    })
+
+    // var reset = document.getElementById('reset')
+    // reset.addEventListener('click', function (event) {
+    //     console.log('clicked')
+    //     panzoom.moveTo(0, 0)
+    // })
+
+</script>
+{% endblock %}
