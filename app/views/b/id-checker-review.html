@@ -12,6 +12,20 @@
 
 {% block content %}
 
+
+<!--
+
+$$$$$$$\  $$\   $$\  $$$$$$\ $$$$$$$$\  $$$$$$\         $$$$$$\  $$\   $$\ $$$$$$$$\  $$$$$$\  $$\   $$\
+$$  __$$\ $$ |  $$ |$$  __$$\\__$$  __|$$  __$$\       $$  __$$\ $$ |  $$ |$$  _____|$$  __$$\ $$ | $$  |
+$$ |  $$ |$$ |  $$ |$$ /  $$ |  $$ |   $$ /  $$ |      $$ /  \__|$$ |  $$ |$$ |      $$ /  \__|$$ |$$  /
+$$$$$$$  |$$$$$$$$ |$$ |  $$ |  $$ |   $$ |  $$ |      $$ |      $$$$$$$$ |$$$$$\    $$ |      $$$$$  /
+$$  ____/ $$  __$$ |$$ |  $$ |  $$ |   $$ |  $$ |      $$ |      $$  __$$ |$$  __|   $$ |      $$  $$<
+$$ |      $$ |  $$ |$$ |  $$ |  $$ |   $$ |  $$ |      $$ |  $$\ $$ |  $$ |$$ |      $$ |  $$\ $$ |\$$\
+$$ |      $$ |  $$ | $$$$$$  |  $$ |    $$$$$$  |      \$$$$$$  |$$ |  $$ |$$$$$$$$\ \$$$$$$  |$$ | \$$\
+\__|      \__|  \__| \______/   \__|    \______/        \______/ \__|  \__|\________| \______/ \__|  \__|
+
+-->
+
 <div class="nhsuk-care-card nhsuk-care-card--non-urgent nhsuk-u-margin-bottom-0">
     <div class="nhsuk-care-card__heading-container">
         <h2 class="nhsuk-care-card__heading"><span role="text">Check if we can accept this ID</span></h2>
@@ -21,7 +35,7 @@
 
         <div class="nhsuk-grid-row">
             <div class="nhsuk-grid-column-one-half">
-                <p class="nhsuk-body-s idcheck-help">To zoom in and out: double-click on the picture, or hold down the 'ALT' key and use your mouse wheel to scroll.</p>
+                <p class="nhsuk-body-s idcheck-help">To zoom in and out: double-click on the picture, or hold down the 'ALT' key and use your mouse wheel to scroll. <a href="#" id="reset">Reset</a></p>
                 <div class="reading-width panzoom-parent idcheck-image-container">
 
                     <div class="idcheck-image-expand"><a href="#" class="idcheck-image-expand-button">Expand image</a></div>
@@ -155,6 +169,21 @@
     </div>
 </div>
 
+
+<!--
+
+$$$$$$$\  $$$$$$$\   $$$$$$\        $$$$$$$$\ $$$$$$$\   $$$$$$\   $$$$$$\  $$$$$$$$\
+$$  __$$\ $$  __$$\ $$  __$$\       \__$$  __|$$  __$$\ $$  __$$\ $$  __$$\ $$  _____|
+$$ |  $$ |$$ |  $$ |$$ /  \__|         $$ |   $$ |  $$ |$$ /  $$ |$$ /  \__|$$ |
+$$$$$$$  |$$ |  $$ |\$$$$$$\           $$ |   $$$$$$$  |$$$$$$$$ |$$ |      $$$$$\
+$$  ____/ $$ |  $$ | \____$$\          $$ |   $$  __$$< $$  __$$ |$$ |      $$  __|
+$$ |      $$ |  $$ |$$\   $$ |         $$ |   $$ |  $$ |$$ |  $$ |$$ |  $$\ $$ |
+$$ |      $$$$$$$  |\$$$$$$  |         $$ |   $$ |  $$ |$$ |  $$ |\$$$$$$  |$$$$$$$$\
+\__|      \_______/  \______/          \__|   \__|  \__|\__|  \__| \______/ \________|
+
+-->
+
+
 <div class="nhsuk-care-card nhsuk-care-card--non-urgent nhsuk-u-margin-top-0 nhsuk-u-margin-bottom-0">
     <div class="nhsuk-care-card__heading-container">
         <h2 class="nhsuk-care-card__heading"><span role="text">PDS record</span></h2>
@@ -165,158 +194,173 @@
         <div class="nhsuk-grid-row">
             <div class="nhsuk-grid-column-one-half">
 
-                {% if data.idv[data.prototype.count].media_video === '' %}
 
-                    <h3>OCR results</h3>
+                <details class="nhsuk-details nhsuk-expander nhsuk-u-margin-bottom-7">
+                    <summary class="nhsuk-details__summary">
+                      <span class="nhsuk-details__summary-text">
+                      Show user submitted details
+                      </span>
+                    </summary>
+                    <div class="nhsuk-details__text">
 
-                    <div class="nhsuk-form-group">
-                        <label class="nhsuk-label" for="ocrfirstname">
-                            First name
-                        </label>
-                        <input class="nhsuk-input nhsuk-input--width-20" id="ocrfirstname" value="{{ data.idv[data.prototype.count].ocr_name_first}}" name="ocrfirstname" type="text" maxlength="" readonly >
-                    </div>
+                        {% if data.idv[data.prototype.count].media_video === '' %}
 
-                    <div class="nhsuk-form-group">
-                        <label class="nhsuk-label" for="ocrmiddlename">
-                            Middle names
-                        </label>
-                        <input class="nhsuk-input nhsuk-input--width-20" id="ocrmiddlename" value="{{ data.idv[data.prototype.count].ocr_name_middle}}" name="ocrmiddlename" type="text" maxlength="" readonly >
-                    </div>
+                        <h3>OCR results</h3>
 
-                    <div class="nhsuk-form-group">
-                        <label class="nhsuk-label" for="ocrlastname">
-                            Last name
-                        </label>
-                        <input class="nhsuk-input nhsuk-input--width-20" id="ocrlastname" value="{{ data.idv[data.prototype.count].ocr_name_last}}" name="ocrlastname" type="text" maxlength="" readonly >
-                    </div>
-
-                    <div class="nhsuk-form-group">
-                        <label class="nhsuk-label" for="ocrdob">
-                            Date of birth
-                        </label>
-                        <input class="nhsuk-input nhsuk-input--width-20" id="ocrdob" value="{{ data.idv[data.prototype.count].ocr_dob}}" name="ocrdob" type="text" maxlength="" readonly >
-                    </div>
-
-                    <h3>User submitted details</h3>
-
-                    <div class="nhsuk-form-group">
-                        <label class="nhsuk-label" for="postcode">
-                            Postcode
-                        </label>
-                        <input class="nhsuk-input nhsuk-input--width-5" id="postcode" value="{{ data.idv[data.prototype.count].postcode}}" name="postcode" type="text" maxlength="" readonly >
-                    </div>
-
-                    {% if data.idv[data.prototype.count].nhs_number !== '' %}
-
-                    <div class="nhsuk-form-group">
-                        <label class="nhsuk-label" for="nhsnum">
-                            NHS Number
-                        </label>
-                        <input class="nhsuk-input nhsuk-input--width-10" id="nhsnum" value="{{ data.idv[data.prototype.count].nhs_number}}" name="nhsnum" type="text" maxlength="10" readonly>
-                    </div>
-
-                    {% endif %}
-
-                {% else %}
-
-                <h3>User submitted details</h3>
-
-                {% if data.idv[data.prototype.count].nhs_number !== '' %}
-
-                <div class="nhsuk-form-group">
-                    <label class="nhsuk-label" for="nhsnum">
-                        NHS Number
-                    </label>
-                    <input class="nhsuk-input nhsuk-input--width-10" id="nhsnum" value="{{ data.idv[data.prototype.count].nhs_number}}" name="nhsnum" type="text" maxlength="10" readonly>
-                </div>
-
-                <div class="nhsuk-form-group">
-                    <fieldset class="nhsuk-fieldset" aria-describedby="example-hint" role="group">
-                        <legend class="nhsuk-fieldset__legend">
-                            <h3 class="nhsuk-fieldset__legend">
-                                Date of birth
-                            </h3>
-                        </legend>
-                        <div class="nhsuk-date-input" id="example">
-                            <div class="nhsuk-date-input__item">
-                                <div class="nhsuk-form-group">
-                                    <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-2" id="example-day" name="example-day" type="number" value="{{ data.idv[data.prototype.count].date_day}}" readonly>
-                                </div>
-                            </div>
-                            <div class="nhsuk-date-input__item">
-                                <div class="nhsuk-form-group">
-                                    <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-2" id="example-month" name="example-month" type="number" value="{{ data.idv[data.prototype.count].date_month}}" readonly>
-                                </div>
-                            </div>
-                            <div class="nhsuk-date-input__item">
-                                <div class="nhsuk-form-group">
-                                    <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-4" id="example-year" name="example-year" type="number" value="{{ data.idv[data.prototype.count].date_year}}" readonly>
-                                </div>
-                            </div>
+                        <div class="nhsuk-form-group">
+                            <label class="nhsuk-label" for="ocrfirstname">
+                                First name
+                            </label>
+                            <input class="nhsuk-input nhsuk-input--width-20" id="ocrfirstname" value="{{ data.idv[data.prototype.count].ocr_name_first}}" name="ocrfirstname" type="text" maxlength="" readonly >
                         </div>
-                    </fieldset>
-                </div>
 
-                {% else %}
-
-                <div class="nhsuk-form-group">
-                    <label class="nhsuk-label" for="firstname">
-                        First name
-                    </label>
-                    <input class="nhsuk-input nhsuk-input--width-20" id="firstname" value="{{ data.idv[data.prototype.count].name_first}}" name="firstname" type="text" maxlength="" readonly >
-                </div>
-
-                <div class="nhsuk-form-group">
-                    <label class="nhsuk-label" for="middlename">
-                        Middle names
-                    </label>
-                    <input class="nhsuk-input nhsuk-input--width-20" id="middlename" value="{{ data.idv[data.prototype.count].name_middle}}" name="middlename" type="text" maxlength="" readonly >
-                </div>
-
-                <div class="nhsuk-form-group">
-                    <label class="nhsuk-label" for="lastname">
-                        Last name
-                    </label>
-                    <input class="nhsuk-input nhsuk-input--width-20" id="lastname" value="{{ data.idv[data.prototype.count].name_last}}" name="lastname" type="text" maxlength="" readonly >
-                </div>
-
-                <div class="nhsuk-form-group">
-                    <fieldset class="nhsuk-fieldset" aria-describedby="example-hint" role="group">
-                        <legend class="nhsuk-fieldset__legend">
-                            <h3 class="nhsuk-fieldset__legend">
-                                Date of birth
-                            </h3>
-                        </legend>
-                        <div class="nhsuk-date-input" id="example">
-                            <div class="nhsuk-date-input__item">
-                                <div class="nhsuk-form-group">
-                                    <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-2" id="example-day" name="example-day" type="number" value="{{ data.idv[data.prototype.count].date_day}}" readonly>
-                                </div>
-                            </div>
-                            <div class="nhsuk-date-input__item">
-                                <div class="nhsuk-form-group">
-                                    <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-2" id="example-month" name="example-month" type="number" value="{{ data.idv[data.prototype.count].date_month}}" readonly>
-                                </div>
-                            </div>
-                            <div class="nhsuk-date-input__item">
-                                <div class="nhsuk-form-group">
-                                    <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-4" id="example-year" name="example-year" type="number" value="{{ data.idv[data.prototype.count].date_year}}" readonly>
-                                </div>
-                            </div>
+                        <div class="nhsuk-form-group">
+                            <label class="nhsuk-label" for="ocrmiddlename">
+                                Middle names
+                            </label>
+                            <input class="nhsuk-input nhsuk-input--width-20" id="ocrmiddlename" value="{{ data.idv[data.prototype.count].ocr_name_middle}}" name="ocrmiddlename" type="text" maxlength="" readonly >
                         </div>
-                    </fieldset>
-                </div>
 
-                <div class="nhsuk-form-group">
-                    <label class="nhsuk-label" for="postcode">
-                        Postcode
-                    </label>
-                    <input class="nhsuk-input nhsuk-input--width-5" id="postcode" value="{{ data.idv[data.prototype.count].postcode}}" name="postcode" type="text" maxlength="" readonly >
-                </div>
+                        <div class="nhsuk-form-group">
+                            <label class="nhsuk-label" for="ocrlastname">
+                                Last name
+                            </label>
+                            <input class="nhsuk-input nhsuk-input--width-20" id="ocrlastname" value="{{ data.idv[data.prototype.count].ocr_name_last}}" name="ocrlastname" type="text" maxlength="" readonly >
+                        </div>
 
-                {% endif %}
+                        <div class="nhsuk-form-group">
+                            <label class="nhsuk-label" for="ocrdob">
+                                Date of birth
+                            </label>
+                            <input class="nhsuk-input nhsuk-input--width-20" id="ocrdob" value="{{ data.idv[data.prototype.count].ocr_dob}}" name="ocrdob" type="text" maxlength="" readonly >
+                        </div>
 
-                {% endif %}
+                        <h3>User submitted details</h3>
+
+                        <div class="nhsuk-form-group">
+                            <label class="nhsuk-label" for="postcode">
+                                Postcode
+                            </label>
+                            <input class="nhsuk-input nhsuk-input--width-5" id="postcode" value="{{ data.idv[data.prototype.count].postcode}}" name="postcode" type="text" maxlength="" readonly >
+                        </div>
+
+                        {% if data.idv[data.prototype.count].nhs_number !== '' %}
+
+                        <div class="nhsuk-form-group">
+                            <label class="nhsuk-label" for="nhsnum">
+                                NHS Number
+                            </label>
+                            <input class="nhsuk-input nhsuk-input--width-10" id="nhsnum" value="{{ data.idv[data.prototype.count].nhs_number}}" name="nhsnum" type="text" maxlength="10" readonly>
+                        </div>
+
+                        {% endif %}
+
+                        {% else %}
+
+                        <h3>User submitted details</h3>
+
+                        {% if data.idv[data.prototype.count].nhs_number !== '' %}
+
+                        <div class="nhsuk-form-group">
+                            <label class="nhsuk-label" for="nhsnum">
+                                NHS Number
+                            </label>
+                            <input class="nhsuk-input nhsuk-input--width-10" id="nhsnum" value="{{ data.idv[data.prototype.count].nhs_number}}" name="nhsnum" type="text" maxlength="10" readonly>
+                        </div>
+
+                        <div class="nhsuk-form-group">
+                            <fieldset class="nhsuk-fieldset" aria-describedby="example-hint" role="group">
+                                <legend class="nhsuk-fieldset__legend">
+                                    <h3 class="nhsuk-fieldset__legend">
+                                        Date of birth
+                                    </h3>
+                                </legend>
+                                <div class="nhsuk-date-input" id="example">
+                                    <div class="nhsuk-date-input__item">
+                                        <div class="nhsuk-form-group">
+                                            <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-2" id="example-day" name="example-day" type="number" value="{{ data.idv[data.prototype.count].date_day}}" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="nhsuk-date-input__item">
+                                        <div class="nhsuk-form-group">
+                                            <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-2" id="example-month" name="example-month" type="number" value="{{ data.idv[data.prototype.count].date_month}}" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="nhsuk-date-input__item">
+                                        <div class="nhsuk-form-group">
+                                            <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-4" id="example-year" name="example-year" type="number" value="{{ data.idv[data.prototype.count].date_year}}" readonly>
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+
+                        {% else %}
+
+                        <div class="nhsuk-form-group">
+                            <label class="nhsuk-label" for="firstname">
+                                First name
+                            </label>
+                            <input class="nhsuk-input nhsuk-input--width-20" id="firstname" value="{{ data.idv[data.prototype.count].name_first}}" name="firstname" type="text" maxlength="" readonly >
+                        </div>
+
+                        <div class="nhsuk-form-group">
+                            <label class="nhsuk-label" for="middlename">
+                                Middle names
+                            </label>
+                            <input class="nhsuk-input nhsuk-input--width-20" id="middlename" value="{{ data.idv[data.prototype.count].name_middle}}" name="middlename" type="text" maxlength="" readonly >
+                        </div>
+
+                        <div class="nhsuk-form-group">
+                            <label class="nhsuk-label" for="lastname">
+                                Last name
+                            </label>
+                            <input class="nhsuk-input nhsuk-input--width-20" id="lastname" value="{{ data.idv[data.prototype.count].name_last}}" name="lastname" type="text" maxlength="" readonly >
+                        </div>
+
+                        <div class="nhsuk-form-group">
+                            <fieldset class="nhsuk-fieldset" aria-describedby="example-hint" role="group">
+                                <legend class="nhsuk-fieldset__legend">
+                                    <h3 class="nhsuk-fieldset__legend">
+                                        Date of birth
+                                    </h3>
+                                </legend>
+                                <div class="nhsuk-date-input" id="example">
+                                    <div class="nhsuk-date-input__item">
+                                        <div class="nhsuk-form-group">
+                                            <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-2" id="example-day" name="example-day" type="number" value="{{ data.idv[data.prototype.count].date_day}}" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="nhsuk-date-input__item">
+                                        <div class="nhsuk-form-group">
+                                            <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-2" id="example-month" name="example-month" type="number" value="{{ data.idv[data.prototype.count].date_month}}" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="nhsuk-date-input__item">
+                                        <div class="nhsuk-form-group">
+                                            <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-4" id="example-year" name="example-year" type="number" value="{{ data.idv[data.prototype.count].date_year}}" readonly>
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+
+                        <div class="nhsuk-form-group">
+                            <label class="nhsuk-label" for="postcode">
+                                Postcode
+                            </label>
+                            <input class="nhsuk-input nhsuk-input--width-5" id="postcode" value="{{ data.idv[data.prototype.count].postcode}}" name="postcode" type="text" maxlength="" readonly >
+                        </div>
+
+                        {% endif %}
+
+                        {% endif %}
+
+                    </div>
+                </details>
+
+
+
 
             </div>
 
@@ -550,6 +594,21 @@
     </div>
 </div>
 
+
+<!--
+
+$$$$$$$\  $$$$$$$\   $$$$$$\         $$$$$$\  $$\   $$\ $$$$$$$$\  $$$$$$\  $$\   $$\
+$$  __$$\ $$  __$$\ $$  __$$\       $$  __$$\ $$ |  $$ |$$  _____|$$  __$$\ $$ | $$  |
+$$ |  $$ |$$ |  $$ |$$ /  \__|      $$ /  \__|$$ |  $$ |$$ |      $$ /  \__|$$ |$$  /
+$$$$$$$  |$$ |  $$ |\$$$$$$\        $$ |      $$$$$$$$ |$$$$$\    $$ |      $$$$$  /
+$$  ____/ $$ |  $$ | \____$$\       $$ |      $$  __$$ |$$  __|   $$ |      $$  $$<
+$$ |      $$ |  $$ |$$\   $$ |      $$ |  $$\ $$ |  $$ |$$ |      $$ |  $$\ $$ |\$$\
+$$ |      $$$$$$$  |\$$$$$$  |      \$$$$$$  |$$ |  $$ |$$$$$$$$\ \$$$$$$  |$$ | \$$\
+\__|      \_______/  \______/        \______/ \__|  \__|\________| \______/ \__|  \__|
+
+-->
+
+
 <div class="nhsuk-care-card nhsuk-care-card--non-urgent nhsuk-u-margin-top-0 nhsuk-u-margin-bottom-0">
     <div class="nhsuk-care-card__heading-container">
         <h3 class="nhsuk-care-card__heading"><span role="text">Compare the photo ID and the PDS record</span></h3>
@@ -560,7 +619,7 @@
         <div class="nhsuk-grid-row">
             <div class="nhsuk-grid-column-one-half">
                 <div class="reading-width idcheck-image-container">
-                    <div class="idcheck-image-expand"><a href="#" class="idcheck-image-expand-button">Expand image</a></div>
+<!--                    <div class="idcheck-image-expand"><a href="#" class="idcheck-image-expand-button">Expand image</a></div>-->
 
                     <div class="idcheck-image zoomable3">
 
@@ -791,9 +850,22 @@
                 </div>
 
             </div>
-            </div>
         </div>
     </div>
+</div>
+
+<!--
+
+$$\       $$$$$$\ $$\   $$\ $$$$$$$$\ $$\   $$\ $$$$$$$$\  $$$$$$\   $$$$$$\              $$\       $$\       $$$$$$\ $$\    $$\ $$$$$$$$\ $$\   $$\ $$$$$$$$\  $$$$$$\   $$$$$$\
+$$ |      \_$$  _|$$ | $$  |$$  _____|$$$\  $$ |$$  _____|$$  __$$\ $$  __$$\            $$  |      $$ |      \_$$  _|$$ |   $$ |$$  _____|$$$\  $$ |$$  _____|$$  __$$\ $$  __$$\
+$$ |        $$ |  $$ |$$  / $$ |      $$$$\ $$ |$$ |      $$ /  \__|$$ /  \__|          $$  /       $$ |        $$ |  $$ |   $$ |$$ |      $$$$\ $$ |$$ |      $$ /  \__|$$ /  \__|
+$$ |        $$ |  $$$$$  /  $$$$$\    $$ $$\$$ |$$$$$\    \$$$$$$\  \$$$$$$\           $$  /        $$ |        $$ |  \$$\  $$  |$$$$$\    $$ $$\$$ |$$$$$\    \$$$$$$\  \$$$$$$\
+$$ |        $$ |  $$  $$<   $$  __|   $$ \$$$$ |$$  __|    \____$$\  \____$$\         $$  /         $$ |        $$ |   \$$\$$  / $$  __|   $$ \$$$$ |$$  __|    \____$$\  \____$$\
+$$ |        $$ |  $$ |\$$\  $$ |      $$ |\$$$ |$$ |      $$\   $$ |$$\   $$ |       $$  /          $$ |        $$ |    \$$$  /  $$ |      $$ |\$$$ |$$ |      $$\   $$ |$$\   $$ |
+$$$$$$$$\ $$$$$$\ $$ | \$$\ $$$$$$$$\ $$ | \$$ |$$$$$$$$\ \$$$$$$  |\$$$$$$  |      $$  /           $$$$$$$$\ $$$$$$\    \$  /   $$$$$$$$\ $$ | \$$ |$$$$$$$$\ \$$$$$$  |\$$$$$$  |
+\________|\______|\__|  \__|\________|\__|  \__|\________| \______/  \______/       \__/            \________|\______|    \_/    \________|\__|  \__|\________| \______/  \______/
+
+-->
 
 <div class="nhsuk-care-card nhsuk-care-card--non-urgent nhsuk-u-margin-top-0 nhsuk-u-margin-bottom-0">
     <div class="nhsuk-care-card__heading-container">
@@ -814,6 +886,8 @@
 
                         <div class="idcheck-video-paired"><a href="#" class="idcheck-video-paired-button"><u>Show ID</u></a></div>
 
+                        <div class="idcheck-video-number">{{data.idv[data.prototype.count].challenge }}</div>
+
                         {% if data.idv[data.prototype.count].media_video === '' %}
                         <img src="/images/media/scans/{{ data.idv[data.prototype.count].media_scan }}" class="idcheck-image-img" style="width: 100%;"
                              alt="Image of the user from iproov"/>
@@ -826,7 +900,9 @@
                         {% endif %}
                     </div>
 
-                    <div class="idcheck-image-container" style="display: none;">
+                    <div class="idcheck-divider">&nbsp;</div>
+
+                    <div class="idcheck-image-container idcheck-photoid;" style="display: none;">
 
                         <div class="idcheck-image zoomable4" >
 
@@ -1896,15 +1972,12 @@
     const photo4 = document.querySelector('.zoomable4')
     const photo5 = document.querySelector('.zoomable5')
 
-    // photos.forEach(panzoom, { contain: 'outside', startScale: 1.5 })
-
-
     let area1 = panzoom(photo1, {
         smoothScroll: false,
         bounds: true,
         boundsPadding: 0.75,
         minZoom: 1,
-        maxZoom: 3,
+        maxZoom: 5,
         beforeWheel: function(e) {
             // allow wheel-zoom only if altKey is down. Otherwise - ignore
             var shouldIgnore = !e.altKey
@@ -1932,7 +2005,7 @@
         bounds: true,
         boundsPadding: 0.75,
         minZoom: 1,
-        maxZoom: 3
+        maxZoom: 5
     })
     let area4 = panzoom(photo4, {
         smoothScroll: false,
@@ -1944,7 +2017,8 @@
         bounds: true,
         boundsPadding: 0.75,
         minZoom: 1,
-        maxZoom: 3
+        maxZoom: 5,
+        transformOrigin: {x: 0.5, y: 0.5}
     })
     let area5 = panzoom(photo5, {
         smoothScroll: false,
@@ -1956,14 +2030,18 @@
             return shouldIgnore
         },
         minZoom: 1,
-        maxZoom: 3
+        maxZoom: 5
     })
 
-    // var reset = document.getElementById('reset')
-    // reset.addEventListener('click', function (event) {
-    //     console.log('clicked')
-    //     panzoom.moveTo(0, 0)
-    // })
+    var reset = document.getElementById('reset')
+    reset.addEventListener('click', function (event) {
+        console.log('clicked')
+        area1.zoomTo(1, 1, 0)
+        area1.moveTo(0, 0)
+
+        // document.getElementsByClassName('zoomable1')[0].style.transform = 'matrix(1, 0, 0, 1, 0, 0)'
+        console.log(document.getElementsByClassName('zoomable1')[0])
+    })
 
 </script>
 {% endblock %}

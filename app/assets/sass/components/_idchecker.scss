@@ -18,7 +18,7 @@
 }
 
 .nhsuk-grid-column-one-half {
-  transition: all 0.3s;
+  //transition: all 0.3s;
   &.expanded {
     width: 100% !important;
 
@@ -34,19 +34,48 @@
   margin: 0;
 }
 
+.idcheck-divider {
+  background-color: #fff;
+  flex-grow: 2;
+}
+
 .idcheck-video {
   position: relative;
+  display: flex;
+  flex-direction: row;
+  background-color: #000;
+  color: #fff;
+
+  /* This is for resizing */
+  overflow: scroll;
+  resize: horizontal;
+
+  //max-width: 30%;
+
   #uploaded-video {
     margin: 0;
   }
   .expanded & {
-    max-width: 30%;
+    max-width: 100%;
   }
+}
+
+.idcheck-video-number {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 101;
+  color: #fff;
+  background-color: #000;
+}
+
+.idcheck-photoid {
+  background-color: #FC5185;
 }
 
 .idcheck-media {
   position: relative;
-  display: table;
+  display: flex;
 
 }
 
