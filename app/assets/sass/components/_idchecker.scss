@@ -37,6 +37,7 @@
 .idcheck-divider {
   background-color: #fff;
   flex-grow: 2;
+  display: flex;
 }
 
 .idcheck-video {
@@ -70,13 +71,12 @@
 }
 
 .idcheck-photoid {
-  background-color: #FC5185;
+  background-color: #000;
 }
 
 .idcheck-media {
   position: relative;
   display: flex;
-
 }
 
 .expanded .idcheck-media .idcheck-video,
@@ -84,6 +84,8 @@
   display: table-cell !important;
   vertical-align: top;
   width: 50%;
+  padding-bottom: 15px;
+  position: relative;
 }
 .expanded .idcheck-media .idcheck-image {
   padding-left: 1em;
@@ -783,4 +785,16 @@ textarea {
 
 .nhsuk-header__navigation-list {
   border-top: none;
+}
+
+::-webkit-resizer {
+  background-color: #fff;
+  background-image: url('/images/icon-drag-handle.svg');
+  background-size: 30px;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;;
+  outline: 2px solid yellow;
+  z-index: 2000;
+  position: absolute;
+  cursor: pointer;
 }
