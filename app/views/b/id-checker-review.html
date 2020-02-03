@@ -35,7 +35,7 @@ $$ |      $$ |  $$ | $$$$$$  |  $$ |    $$$$$$  |      \$$$$$$  |$$ |  $$ |$$$$$
 
         <div class="nhsuk-grid-row">
             <div class="nhsuk-grid-column-one-half">
-                <p class="nhsuk-body-s idcheck-help">To zoom in and out: double-click on the picture, or hold down the 'ALT' key and use your mouse wheel to scroll. <a href="#" id="reset">Reset</a></p>
+                <p class="nhsuk-body-s idcheck-help">To zoom in either double click on the picture, or position your cursor on the image, then hold 'ALT' + scroll with your mouse wheel. <a href="#" id="reset">Reset</a></p>
                 <div class="reading-width panzoom-parent idcheck-image-container">
 
                     <div class="idcheck-image-expand"><a href="#" class="idcheck-image-expand-button">Expand image</a></div>
@@ -1281,25 +1281,41 @@ $$$$$$$$\ $$$$$$\ $$ | \$$\ $$$$$$$$\ $$ | \$$ |$$$$$$$$\ \$$$$$$  |\$$$$$$  |  
 
                     <div id="rejection-reasons">
 
-                        <select id="decline-0" class="nhsuk-select decline-group" id="sort" name="sort" style="margin-top:16px;width:100%;display:none;">
+                        <select id="decline-0" class="govuk-select decline-group" id="sort" name="sort" style="margin-top:16px;width:100%;display:none;">
                             <option value="IDC-010" data-question="">--- Select 1 option ---</option>
-                            <option value="IDC-011" data-question="none">No records returned</option>
-                            <option value="IDC-012" data-question="none">More than 1 record returned</option>
-                            <option value="IDC-013" data-question="none">More than 1 date of birth on the record</option>
-                            <option value="IDC-014" data-question="none">More than 1 full name on the record</option>
-                            <option value="IDC-015" data-question="none">Current first name on the record does not match ID</option>
+
+                            <option value="IDC-011" data-question="decline-text-2">Driving licence - Manual PDS search does not return a record</option>
                             {% if data.idv[data.prototype.count].media_video !== '' %}
-                            <option value="IDC-016" data-question="none">Date of birth user entered does not match PDS</option>
+                            <option value="IDC-012" data-question="decline-text-2">Driving licence - Date of birth user entered does not match PDS (re-trace failed)</option>
                             {% endif %}
+                            <option value="IDC-013" data-question="decline-text-2">Driving licence - Multiple matches or PDS confusion</option>
+                            <option value="IDC-014" data-question="decline-text-2">Driving licence - Cannot match postcodes</option>
+
+
+                            <option value="IDC-015" data-question="decline-text-2">Passport - Manual PDS search does not return a record</option>
+                            {% if data.idv[data.prototype.count].media_video !== '' %}
+                            <option value="IDC-016" data-question="decline-text-2">Passport - Date of birth user entered does not match PDS (re-trace failed)</option>
+                            {% endif %}
+                            <option value="IDC-017" data-question="decline-text-2">Passport - Multiple matches or PDS confusion</option>
+                            <option value="IDC-018" data-question="decline-text-2">Passport - Cannot match postcodes</option>
+
+                            <option value="IDC-019" data-question="decline-text-2">National identity card - Manual PDS search does not return a record</option>
+                            {% if data.idv[data.prototype.count].media_video !== '' %}
+                            <option value="IDC-020" data-question="decline-text-2">National identity card - Date of birth user entered does not match PDS (re-trace failed)</option>
+                            {% endif %}
+                            <option value="IDC-021" data-question="decline-text-2">National identity card - Multiple matches or PDS confusion</option>
+                            <option value="IDC-022" data-question="decline-text-2">National identity card - Cannot match postcodes</option>
+
                         </select>
 
+
                         <select id="decline-1" class="nhsuk-select decline-group" id="sort" name="sort" style="margin-top:16px;width:100%;display:none;">
-                            <option value="IDC-020" data-question="">--- Select 1 option ---</option>
-                            <option value="IDC-021" data-question="none">User has not sent any ID at all</option>
-                            <option value="IDC-022" data-question="none">It is not a type of ID we accept</option>
-                            <option value="IDC-023" data-question="none">It is a type of ID we accept, but it is not a photo or scan of the original</option>
-                            <option value="IDC-024" data-question="none">It is a visa sticker</option>
-                            <option value="IDC-025" data-question="decline-text-1">Other reason</option>
+                            <option value="IDC-023" data-question="">--- Select 1 option ---</option>
+                            <option value="IDC-024" data-question="none">User has not sent any ID at all</option>
+                            <option value="IDC-025" data-question="none">It is not a type of ID we accept</option>
+                            <option value="IDC-026" data-question="none">It is a type of ID we accept, but it is not a photo or scan of the original</option>
+                            <option value="IDC-027" data-question="none">It is a visa sticker</option>
+                            <option value="IDC-028" data-question="decline-text-1">Other reason</option>
                         </select>
 
                         <select id="decline-2" class="nhsuk-select decline-group" id="sort" name="sort" style="margin-top:16px;width:100%;display:none;">
