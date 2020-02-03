@@ -11,6 +11,7 @@
   position: relative;
   overflow: hidden;
   margin: 0;
+  cursor: zoom-in;
 
   .expanded & {
     width: 100% !important;
@@ -59,7 +60,39 @@
   .expanded & {
     max-width: 100%;
   }
+
+  &::-webkit-resizer {
+    background-color: transparent;
+    background-image: none;
+    background-size: 30px;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;;
+    //outline: 2px solid yellow;
+    z-index: 2000;
+    position: absolute;
+  }
 }
+
+.nhsuk-grid-column-one-half.expanded .idcheck-video {
+  &::before {
+    background-color: #fff;
+    background-image: url('/images/icon-drag-handle.svg');
+    background-size: 25px;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;;
+    z-index: 2000;
+    position: absolute;
+    cursor: move;
+    pointer-events: auto;
+    content: " ";
+    height: 25px;
+    width: 25px;
+    bottom: 0;
+    right: 0;
+  }
+}
+
+// for resizing
 
 .idcheck-video-number {
   position: absolute;
@@ -787,14 +820,3 @@ textarea {
   border-top: none;
 }
 
-::-webkit-resizer {
-  background-color: #fff;
-  background-image: url('/images/icon-drag-handle.svg');
-  background-size: 30px;
-  background-repeat: no-repeat;
-  background-position: 50% 50%;;
-  outline: 2px solid yellow;
-  z-index: 2000;
-  position: absolute;
-  cursor: pointer;
-}
