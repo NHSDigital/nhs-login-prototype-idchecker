@@ -399,7 +399,7 @@
 
 // hide gradient shadow
 #uploaded-video::-webkit-media-controls-panel {
-  background-image: linear-gradient(transparent, transparent) !important; //Transparent for your case
+  background-image: linear-gradient(transparent, transparent) !important;
 }
 #uploaded-video::-webkit-media-controls-volume-slider-container,
 #uploaded-video::-webkit-media-controls-mute-button,
