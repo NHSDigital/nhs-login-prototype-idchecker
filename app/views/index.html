@@ -45,14 +45,17 @@
 
       <form action="{{ thisPage }}" method="POST" role="form">
 
-      <dl class="release-desc">
-        <dt class="design"><button type="submit" class="button-as-link" name="version" value="a">Version A</button> <strong class="govuk-tag latest-release">research completed</strong> - <small>27,28 Nov 2019</small></dt>
-<!--        <dd class="design">New ordering of questions.</dd>-->
+        <h3 class="nhsuk-heading-xs">Redesigned questions and rejection reasons</h3>
+        <dl class="release-desc">
+          <dt class="design"><button type="submit" class="button-as-link" name="version" value="a"><strong>Version A</strong></button> <strong class="govuk-tag latest-release">research completed</strong> - <small>27,28 Nov 2019</small></dt>
+          <dt class="design"><button type="submit" class="button-as-link" name="version" value="b"><strong>Version B</strong></button> <strong class="govuk-tag in-progress">in progress</strong></dt>
+        </dl>
 
-        <dt class="design"><button type="submit" class="button-as-link" name="version" value="b">Version B</button> <strong class="govuk-tag in-progress">in progress</strong></dt>
-        <!--        <dd class="design">New ordering of questions.</dd>-->
-
-      </dl>
+        <h3 class="nhsuk-heading-xs nhsuk-u-margin-top-6">Existing questions</h3>
+        <dl class="release-desc">
+          <dt class="design"><button type="submit" class="button-as-link" name="version" value="c"><strong>Version C</strong></button> <strong class="govuk-tag in-progress">in progress</strong></dt>
+          <dd class="nhsuk-u-margin-0"><ul class="nhsuk-list nhsuk-list--bullet" ><li>ID checker doesn't need to check ID if Paycasso has verified it.</li><li>Redesigned PDS retrace UI.</li><li>Resigned PDS comparison section.</li></dd>
+        </dl>
 
       </form>
 
