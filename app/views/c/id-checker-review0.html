@@ -105,7 +105,9 @@ $$ |      $$ |  $$ | $$$$$$  |  $$ |    $$$$$$  |      \$$$$$$  |$$ |  $$ |$$$$$
                         </fieldset>
                     </div>
 
-
+<!--                    <div id="id-canttell2">-->
+<!--                        <a href="dashboard" data-target="modal" id="canttellBtn" class="button&#45;&#45;decline&#45;&#45;clarity" style="">I cannot answer this question</a>-->
+<!--                    </div>-->
 
                 </div>
 
@@ -235,8 +237,8 @@ $$ |      $$$$$$$  |\$$$$$$  |         $$ |   $$ |  $$ |$$ |  $$ |\$$$$$$  |$$$$
             <div class="nhsuk-grid-column-one-half">
 
 
-                {# {% if data.idv[data.prototype.count].pds_match === 'true' %} #}
-                {# hide this in the old styles #}
+{#                 {% if data.idv[data.prototype.count].pds_match === 'true' %}
+ #}                {# hide this in the old styles #}
                 <details class="nhsuk-details nhsuk-expander nhsuk-u-margin-bottom-7">
                     <summary class="nhsuk-details__summary">
                       <span class="nhsuk-details__summary-text">
@@ -245,21 +247,19 @@ $$ |      $$$$$$$  |\$$$$$$  |         $$ |   $$ |  $$ |$$ |  $$ |\$$$$$$  |$$$$
                     </summary>
 
                     <div class="nhsuk-details__text">
-                {# {% endif %} #}
-
+{#                 {% endif %}
+ #}
 
                         <h3>User entered</h3>
 
                         {# if the user knew their NHS number then show it #}
                         {% if data.idv[data.prototype.count].nhs_number !== '' %}
-
                         <div class="nhsuk-form-group">
                             <label class="nhsuk-label" for="nhsnum">
                                 NHS Number
                             </label>
                             <input class="nhsuk-input nhsuk-input--width-10" id="nhsnum" value="{{ data.idv[data.prototype.count].nhs_number}}" name="nhsnum" type="text" maxlength="10" readonly>
                         </div>
-
                         {% endif %}
 
                         {# if the user entered a first name then show it #}
@@ -273,7 +273,7 @@ $$ |      $$$$$$$  |\$$$$$$  |         $$ |   $$ |  $$ |$$ |  $$ |\$$$$$$  |$$$$
                         {% endif %}
 
                         {# if the user entered a middle name then show it #}
-                        {% if data.idv[data.prototype.count].name_middle !== '' %}                        
+                        {% if data.idv[data.prototype.count].name_middle !== '' %}
                         <div class="nhsuk-form-group">
                             <label class="nhsuk-label" for="middlename">
                                 Middle names
@@ -296,7 +296,6 @@ $$ |      $$$$$$$  |\$$$$$$  |         $$ |   $$ |  $$ |$$ |  $$ |\$$$$$$  |$$$$
                         {% if data.idv[data.prototype.count].date_day !== '' %}
                         {% if data.idv[data.prototype.count].date_month !== '' %}
                         {% if data.idv[data.prototype.count].date_year !== '' %}
-
                         <div class="nhsuk-form-group">
                             <fieldset class="nhsuk-fieldset" aria-describedby="example-hint" role="group">
                                 <legend class="nhsuk-fieldset__legend">
@@ -338,8 +337,6 @@ $$ |      $$$$$$$  |\$$$$$$  |         $$ |   $$ |  $$ |$$ |  $$ |\$$$$$$  |$$$$
                         {% endif %}
 
 
-
-
                         {# is this automated? check for an absence of video file #}
                         {% if data.idv[data.prototype.count].media_video === '' %}
 
@@ -379,7 +376,7 @@ $$ |      $$$$$$$  |\$$$$$$  |         $$ |   $$ |  $$ |$$ |  $$ |\$$$$$$  |$$$$
 
 
 
-            {# {% if data.idv[data.prototype.count].pds_match === 'true' %} #}
+{#             {% if data.idv[data.prototype.count].pds_match === 'true' %} #}                    
                     </div>
                 </details>
             {# {% endif %} #}
@@ -685,48 +682,47 @@ $$ |      $$$$$$$  |\$$$$$$  |      \$$$$$$  |$$ |  $$ |$$$$$$$$\ \$$$$$$  |$$ |
 
                 <div class="qa-questions-group" data-complete="false">
 
-                    <div class="qa-questions-question" id="pds-1" data-answered="false" data-group="decline-4a">
+                    <div class="qa-questions-group" data-complete="false">
 
-                        <fieldset class="nhsuk-fieldset nhsuk-u-margin-top-6">
+                        <div class="qa-questions-question" id="pds-1" data-answered="false" data-group="decline-4a">
 
-                            <div class="qa-questions-question-text nhsuk-u-padding-bottom-2">
-                                <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--m">
-                                    <h3 class="nhsuk-fieldset__heading">
-                                        Do the dates of birth match?
-                                    </h3>
-                                </legend>
-                            </div>
+                            <fieldset class="nhsuk-fieldset nhsuk-u-margin-top-6">
 
-                            <div class="qa-questions-answer-group multiple-choice__container" data-answered="false">
+                                <div class="qa-questions-question-text nhsuk-u-padding-bottom-2">
+                                    <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--m">
+                                        <h3 class="nhsuk-fieldset__heading">
+                                            Do the dates of birth match?
+                                        </h3>
+                                    </legend>
+                                </div>
 
-                                <div class="nhsuk-radios nhsuk-radios--inline">
+                                <div class="qa-questions-answer-group multiple-choice__container" data-answered="false">
 
-                                    <div class="nhsuk-radios__item nhsuk-u-margin-bottom-3">
-                                        <input class="nhsuk-radios__input qa-questions-answer" id="8" name="a-4" type="radio" value="yes" aria-checked="false">
-                                        <label class="nhsuk-label nhsuk-radios__label" for="8">
-                                            Yes
-                                        </label>
-                                    </div>
+                                    <div class="nhsuk-radios nhsuk-radios--inline">
 
-                                    <div class="nhsuk-radios__item nhsuk-u-margin-bottom-3">
-                                        <input class="nhsuk-radios__input qa-questions-answer" id="9" name="a-4" type="radio" value="yes" aria-checked="false">
-                                        <label class="nhsuk-label nhsuk-radios__label" for="9">
-                                            No
-                                        </label>
+                                        <div class="nhsuk-radios__item nhsuk-u-margin-bottom-3">
+                                            <input class="nhsuk-radios__input qa-questions-answer" id="8" name="a-4" type="radio" value="yes" aria-checked="false">
+                                            <label class="nhsuk-label nhsuk-radios__label" for="8">
+                                                Yes
+                                            </label>
+                                        </div>
+
+                                        <div class="nhsuk-radios__item nhsuk-u-margin-bottom-3">
+                                            <input class="nhsuk-radios__input qa-questions-answer" id="9" name="a-4" type="radio" value="yes" aria-checked="false">
+                                            <label class="nhsuk-label nhsuk-radios__label" for="9">
+                                                No
+                                            </label>
+                                        </div>
+
                                     </div>
 
                                 </div>
 
-                            </div>
+                            </fieldset>
 
-                        </fieldset>
+                        </div>
 
                     </div>
-
-                </div>
-
-
-                <div class="qa-questions-group" data-complete="false">
 
                     <div class="qa-questions-question" id="pds-2" data-answered="false" data-group="decline-4b">
 
@@ -791,6 +787,10 @@ $$ |      $$$$$$$  |\$$$$$$  |      \$$$$$$  |$$ |  $$ |$$$$$$$$\ \$$$$$$  |$$ |
                                     </div>
                                 </div>
                             </fieldset>
+
+<!--                            <div id="id-canttell6">-->
+<!--                                <a href="dashboard" data-target="modal" id="canttellBtn" class="button&#45;&#45;decline&#45;&#45;clarity" style="">There's an issue with the image and I can't answer the questions</a>-->
+<!--                            </div>-->
 
                         </div>
 
@@ -956,6 +956,13 @@ $$$$$$$$\ $$$$$$\ $$ | \$$\ $$$$$$$$\ $$ | \$$ |$$$$$$$$\ \$$$$$$  |\$$$$$$  |  
                                         </label>
                                     </div>
 
+                                    <div class="nhsuk-radios__item nhsuk-u-margin-bottom-3 u-visuallyhidden">
+                                        <input class="nhsuk-radios__input qa-questions-answer" id="16" name="a-8" type="radio" value="yes" aria-checked="false">
+                                        <label class="nhsuk-label nhsuk-radios__label" for="16">
+                                            I cannot see what I need to answer this question
+                                        </label>
+                                    </div>
+
                                 </div>
 
                             </div>
@@ -964,11 +971,14 @@ $$$$$$$$\ $$$$$$\ $$ | \$$\ $$$$$$$$\ $$ | \$$ |$$$$$$$$\ \$$$$$$  |\$$$$$$  |  
 
                     </div>
 
+                    <div id="id-canttell7">
+                        <a href="dashboard" data-target="modal" id="canttellBtn" class="button--decline--clarity disabled" style="">I cannot answer this question</a>
+                    </div>
                 </div>
 
                 <!-- hide this question in automation -->
 
-                <div class="qa-questions-group {% if data.idv[data.prototype.count].media_video === '' %}js-hidden" data-complete="true"{% else %}" data-complete="true"{% endif %}>
+                <div class="qa-questions-group {% if data.idv[data.prototype.count].media_video === '' %}js-hidden" data-complete="true"{% else %}" data-complete="false"{% endif %}>
                     <div class="qa-questions-question" id="selfie-3" {% if data.idv[data.prototype.count].media_video === '' %}data-answered="true"{% else %}data-answered="false"{% endif %} data-group="decline-7">
 
                         <fieldset class="nhsuk-fieldset nhsuk-u-margin-top-6">
@@ -1019,10 +1029,10 @@ $$$$$$$$\ $$$$$$\ $$ | \$$\ $$$$$$$$\ $$ | \$$ |$$$$$$$$\ \$$$$$$  |\$$$$$$  |  
                         <a href="dashboard"
                            data-target="modal" id="declineBtn" class="nhsuk-button button--decline nhsuk-u-margin-top-3" style="display: none;">Reject</a>
                     </div>
-<!--                    <div id="id-canttell">-->
-<!--                        <a href="dashboard"-->
-<!--                           data-target="modal" id="canttellBtn" class="nhsuk-button button&#45;&#45;decline&#45;&#45;clarity" style="display: none;">Reject</a>-->
-<!--                    </div>-->
+                    <div id="id-canttell">
+                        <a href="dashboard"
+                           data-target="modal" id="canttellBtn" class="nhsuk-button button--decline--clarity" style="display: none;">Reject</a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1236,24 +1246,24 @@ $$$$$$$$\ $$$$$$\ $$ | \$$\ $$$$$$$$\ $$ | \$$ |$$$$$$$$\ \$$$$$$  |\$$$$$$  |  
                             <option value="IDC-010" data-question="">--- Select 1 option ---</option>
 
                             <option value="IDC-011" data-question="decline-text-2">Driving licence - Manual PDS search does not return a record</option>
-                            {% if data.idv[data.prototype.count].media_video !== '' %}
+                            {# {% if data.idv[data.prototype.count].media_video !== '' %} #}
                             <option value="IDC-012" data-question="decline-text-2">Driving licence - Date of birth user entered does not match PDS (re-trace failed)</option>
-                            {% endif %}
+                            {# {% endif %} #}
                             <option value="IDC-013" data-question="decline-text-2">Driving licence - Multiple matches or PDS confusion</option>
                             <option value="IDC-014" data-question="decline-text-2">Driving licence - Cannot match postcodes</option>
 
 
                             <option value="IDC-015" data-question="decline-text-2">Passport - Manual PDS search does not return a record</option>
-                            {% if data.idv[data.prototype.count].media_video !== '' %}
+                            {# {% if data.idv[data.prototype.count].media_video !== '' %} #}
                             <option value="IDC-016" data-question="decline-text-2">Passport - Date of birth user entered does not match PDS (re-trace failed)</option>
-                            {% endif %}
+                            {# {% endif %} #}
                             <option value="IDC-017" data-question="decline-text-2">Passport - Multiple matches or PDS confusion</option>
                             <option value="IDC-018" data-question="decline-text-2">Passport - Cannot match postcodes</option>
 
                             <option value="IDC-019" data-question="decline-text-2">National identity card - Manual PDS search does not return a record</option>
-                            {% if data.idv[data.prototype.count].media_video !== '' %}
+                            {# {% if data.idv[data.prototype.count].media_video !== '' %} #}
                             <option value="IDC-020" data-question="decline-text-2">National identity card - Date of birth user entered does not match PDS (re-trace failed)</option>
-                            {% endif %}
+                            {# {% endif %} #}
                             <option value="IDC-021" data-question="decline-text-2">National identity card - Multiple matches or PDS confusion</option>
                             <option value="IDC-022" data-question="decline-text-2">National identity card - Cannot match postcodes</option>
 
@@ -1464,8 +1474,7 @@ $$$$$$$$\ $$$$$$\ $$ | \$$\ $$$$$$$$\ $$ | \$$ |$$$$$$$$\ \$$$$$$  |\$$$$$$  |  
         document.getElementById('trace').style.display = 'block'
         // document.getElementById('retrybtn-1').style.display = 'block'
         if (state === 'noresult') {
-            // $('label[for="1"]').click()
-                    document.getElementById('label[for="1"]').click()
+            $('label[for="1"]').click()
         }
     }, 2000)
     setTimeout(function () {
@@ -1479,8 +1488,7 @@ $$$$$$$$\ $$$$$$\ $$ | \$$\ $$$$$$$$\ $$ | \$$ |$$$$$$$$\ \$$$$$$  |\$$$$$$  |  
             errors[i].style.display = 'inline-block'
         }
         if (state === 'noresult') {
-            // $('label[for="1"]').click()
-                        document.getElementById('label[for="1"]').click()
+            $('label[for="1"]').click()
         }
     }, 2000)
 
@@ -1720,7 +1728,7 @@ $$$$$$$$\ $$$$$$\ $$ | \$$\ $$$$$$$$\ $$ | \$$ |$$$$$$$$\ \$$$$$$  |\$$$$$$  |  
         // If yes, then disable all the radios for the doc check section and select the
 
         if ({{ data.idv[data.prototype.count].doc_check_passes }}) {
-
+            console.log("lockdown first question")
             var inputs1 = questionGroup1.getElementsByTagName('input')
             var inputs2 = questionGroup2.getElementsByTagName('input')
             var inputs3 = questionGroup3.getElementsByTagName('input')
@@ -1733,32 +1741,14 @@ $$$$$$$$\ $$$$$$\ $$ | \$$\ $$$$$$$$\ $$ | \$$ |$$$$$$$$\ \$$$$$$  |\$$$$$$  |  
                 inputs3[m].disabled = true;
             }
 
-            if ({{ data.idv[data.prototype.count].pds_matches }} === 'true') {
-                console.log("unlock date of birth question")
-                var questionGroup4 = document.getElementById('pds-1')
-                var inputs4 = questionGroup4.getElementsByTagName('input')
-                // // loop through all the inputs and uncheck them
-                for (n = 0; n < inputs4.length; n++) {
-                    inputs4[n].checked = false
-                    inputs4[n].disabled = false
-                }
-
-            } else {
-                console.log("unlock: can you find record question")
-                var questionGroup5 = document.getElementById('trace-1')
-                var inputs5 = questionGroup5.getElementsByTagName('input')
-                // // loop through all the inputs and uncheck them
-                for (n = 0; n < inputs5.length; n++) {
-                    inputs5[n].checked = false
-                    inputs5[n].disabled = false
-                }
-
+            var questionGroup2 = document.getElementById('pds-1')
+            var inputs2 = questionGroup2.getElementsByTagName('input')
+            // // loop through all the inputs and uncheck them
+            for (n = 0; n < inputs.length; n++) {
+                inputs2[n].checked = false
+                inputs2[n].disabled = false
             }
-
-
         }
-
-        updateSolutions()
     }
 
     function addEventListeners() {
@@ -1915,14 +1905,13 @@ $$$$$$$$\ $$$$$$\ $$ | \$$\ $$$$$$$$\ $$ | \$$ |$$$$$$$$\ \$$$$$$  |\$$$$$$  |  
             document.getElementById('manual-pds').style.display = 'block'
             document.getElementById('radio-inline-3').disabled = false
             document.getElementById('radio-inline-4').disabled = false
-        }
-        else if (idCheck[10] === true ) {
+
+        } else if (idCheck[12] === true ) {
             document.getElementById('manual-pds').style.display = 'none'
         }
 
-        if (idCheck[1] === true || idCheck[3] === true || idCheck[5] === true || idCheck[9] === true || idCheck[11] === true || idCheck[13] === true || idCheck[15] === true || idCheck[18] === true ) {
+        if (idCheck[1] === true || idCheck[4] === true || idCheck[7] === true || idCheck[9] === true || idCheck[13] === true || idCheck[15] === true || idCheck[18] === true  ) {
 
-            console.log('something is off')
             if (document.getElementById('radio-inline-3') !== true ) {
 
                 document.getElementById('approveBtn').style.display = 'none'
@@ -1930,63 +1919,48 @@ $$$$$$$$\ $$$$$$\ $$ | \$$\ $$$$$$$$\ $$ | \$$ |$$$$$$$$\ \$$$$$$  |\$$$$$$  |  
                 // document.getElementById('canttellBtn').style.display = 'none'
 
                 if (idCheck[1] === true) {
-                    // $("#id-decline").appendTo('#document-1')
-                            var declineBtn = document.getElementById('id-decline')
-                            document.getElementById('#document-1').appendChild(declineBtn)
-                } else if (idCheck[3] === true) {
-                    // $("#id-decline").appendTo('#document-2')
-                            var declineBtn = document.getElementById('id-decline')
-                            document.getElementById('#document-2').appendChild(declineBtn)
+                    $("#id-decline").appendTo('#document-1')
+                } else if (idCheck[4] === true) {
+                    $("#id-decline").appendTo('#document-2')
                 } else if (idCheck[5] === true) {
-                    // $("#id-decline").appendTo('#document-3')
-                            var declineBtn = document.getElementById('id-decline')
-                            document.getElementById('#document-3').appendChild(declineBtn)
+                    $("#id-decline").appendTo('#document-3')
+                } else if (idCheck[7] === true) {
+                    $("#id-decline").appendTo('#pds-1')
                 } else if (idCheck[9] === true) {
-                    // $("#id-decline").appendTo('#pds-1')
-                            var declineBtn = document.getElementById('id-decline')
-                            document.getElementById('#pds-1').appendChild(declineBtn)
-
+                    $("#id-decline").appendTo('#pds-2')
+                } else if (idCheck[11] === true) {
+                    $("#id-decline").appendTo('#pds-2')
                 } else if (idCheck[13] === true) {
-                    // $("#id-decline").appendTo('#selfie-1')
-                            var declineBtn = document.getElementById('id-decline')
-                            document.getElementById('#selfie-1').appendChild(declineBtn)
+                    $("#id-decline").appendTo('#selfie-1')
                 } else if (idCheck[15] === true) {
-                    // $("#id-decline").appendTo('#selfie-2')
-                            var declineBtn = document.getElementById('id-decline')
-                            document.getElementById('#selfie-2').appendChild(declineBtn)
+                    $("#id-decline").appendTo('#selfie-2')
                 } else if (idCheck[18] === true) {
-                    // $("#id-decline").appendTo('#selfie-3')
-                            var declineBtn = document.getElementById('id-decline')
-                            document.getElementById('#selfie-3').appendChild(declineBtn)
+                    $("#id-decline").appendTo('#selfie-3')
                 } else {
-                    // $("#id-decline").appendTo('#id-buttons')
-                            var declineBtn = document.getElementById('id-decline')
-                            document.getElementById('#id-buttons').appendChild(declineBtn)
+                    $("#id-decline").appendTo('#id-buttons')
                 }
             }
         }
 
-        // else if (idCheck[2] === true || idCheck[5] === true || idCheck[16] === true ) {
-        //
-        //     document.getElementById('approveBtn').style.display = 'none'
-        //     document.getElementById('declineBtn').style.display = 'none'
-        //     document.getElementById('canttellBtn').style.display = 'inline-block'
-        //
-        //     console.log('sausages')
-        //     if (idCheck[2] === true) {
-        //         $("#id-canttell").appendTo('#document-1')
-        //     } else if (idCheck[5] === true) {
-        //         $("#id-canttell").appendTo('#document-2')
-        //     } else if (idCheck[16] === true) {
-        //         $("#id-canttell").appendTo('#selfie-2')
-        //     } else {
-        //         $("#id-decline").appendTo('#id-buttons')
-        //     }
-        // }
+        else if (idCheck[2] === true || idCheck[5] === true || idCheck[16] === true ) {
+
+            document.getElementById('approveBtn').style.display = 'none'
+            document.getElementById('declineBtn').style.display = 'none'
+            document.getElementById('canttellBtn').style.display = 'inline-block'
+
+            console.log('sausages')
+            if (idCheck[2] === true) {
+                $("#id-canttell").appendTo('#document-1')
+            } else if (idCheck[5] === true) {
+                $("#id-canttell").appendTo('#document-2')
+            } else if (idCheck[16] === true) {
+                $("#id-canttell").appendTo('#selfie-2')
+            } else {
+                $("#id-decline").appendTo('#id-buttons')
+            }
+        }
 
         else if (idCheck[0] === true && idCheck[2] === true && idCheck[4] === true && idCheck[8] === true && idCheck[10] === true && idCheck[12] === true && idCheck[14] === true && idCheck[17] === true) {
-
-            console.log('yay all yes')
             document.getElementById('approveBtn').style.display = 'inline-block'
             document.getElementById('declineBtn').style.display = 'none'
             // document.getElementById('canttellBtn').style.display = 'none'
